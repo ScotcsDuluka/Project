@@ -33,9 +33,8 @@ jobs:
         run: bun install --frozen-lockfile || bun install
 
       - name: Build static site
-        # เปลี่ยน /duluka-studio เป็นชื่อ repo จริงของคุณ
-        # ถ้าสร้าง repo ชื่อ duluka-studio ก็ใช้ /duluka-studio
-        # ถ้าอยากให้เป็นหน้าหลักของ username.github.io ให้ลบ NEXT_PUBLIC_BASE_PATH ออก
+        # basePath ต้องเป็นตัวพิมพ์เล็กทั้งหมดตาม URL GitHub Pages
+        # repo: Duluka-Studio → URL: scotcsduluka.github.io/duluka-studio → basePath: /duluka-studio
         env:
           BUILD_STATIC: "true"
           NEXT_PUBLIC_BASE_PATH: /duluka-studio
