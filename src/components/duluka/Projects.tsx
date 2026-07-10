@@ -12,6 +12,7 @@ import {
   X,
   Star,
   GitFork,
+  ArrowUpRight,
 } from "lucide-react";
 import { PROJECTS, type ProjectRepo, type ProjectCategory } from "@/data/projects";
 
@@ -60,9 +61,6 @@ export default function Projects() {
     return PROJECTS.filter((p) => p.category === filter);
   }, [filter]);
 
-  // Make first project in filtered list span 2 cols (bento style)
-  const isFeatured = (i: number) => i === 0;
-
   return (
     <section id="projects" className="relative overflow-hidden bg-[#faf6f0] py-20 lg:py-28">
       <div className="pointer-events-none absolute right-0 top-1/4 h-72 w-72 rounded-full bg-pink-200/30 blur-[120px]" />
@@ -92,7 +90,7 @@ export default function Projects() {
               <span className="duluka-wiggle inline-block">📂</span>
             </h2>
             <p className="mt-5 max-w-2xl text-base text-[#6b5d68] sm:text-lg">
-              10 repositories — คลิกการ์ดเพื่อดูรายละเอียด หรือเข้า GitHub โดยตรงได้เลย
+              {filtered.length} repositories — คลิกการ์ดเพื่อดูรายละเอียดเต็ม หรือเข้า GitHub โดยตรง
             </p>
           </div>
         </motion.div>
@@ -103,7 +101,7 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="lg:ml-[25%] mb-8 flex flex-wrap items-center gap-2"
+          className="lg:ml-[25%] mb-10 flex flex-wrap items-center gap-2"
         >
           <span className="mr-1 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.16em] text-[#6b5d68]/50">
             <Filter className="h-3 w-3" /> Filter
@@ -135,107 +133,172 @@ export default function Projects() {
           })}
         </motion.div>
 
-        {/* Bento grid */}
-        <motion.div
-          layout
-          className="lg:ml-[25%] grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        {/* Big horizontal project cards */}
+        <motion.div layout className="lg:ml-[25%] space-y-6">
           <AnimatePresence mode="popLayout">
             {filtered.map((p, i) => {
-              const featured = isFeatured(i) && filter !== "All" ? false : isFeatured(i) && filtered.length > 4;
               const status = STATUS_STYLE[p.status];
+              const reverse = i % 2 === 1; // alternate layout
               return (
                 <motion.article
                   key={p.slug}
                   layout
-                  initial={{ opacity: 0, y: 30, scale: 0.96 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.5, delay: i * 0.05 }}
-                  whileHover={{ y: -6, rotate: -0.5 }}
+                  whileHover={{ y: -4 }}
                   onClick={() => setSelected(p)}
-                  className={`group relative flex cursor-pointer flex-col overflow-hidden rounded-3xl border-2 border-pink-200/60 bg-white/80 p-5 backdrop-blur-sm transition-all duration-300 hover:border-pink-300 hover:duluka-shadow-hover sm:p-6 ${
-                    featured ? "sm:col-span-2 lg:col-span-2" : ""
-                  }`}
+                  className="group relative grid grid-cols-1 overflow-hidden rounded-3xl border-2 border-pink-200/60 bg-white/80 backdrop-blur-sm transition-all duration-300 hover:border-pink-300 hover:duluka-shadow-hover md:grid-cols-12"
                 >
-                  {/* Top row */}
-                  <div className="mb-4 flex items-start justify-between">
-                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-100 to-purple-100 text-pink-600 ring-1 ring-pink-200 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
-                      <LucideIcon name={p.icon} className="h-6 w-6" />
+                  {/* LEFT: Visual block (large icon + status) */}
+                  <div
+                    className={`relative flex flex-col justify-between p-6 sm:p-8 md:col-span-4 ${
+                      reverse ? "md:order-2" : "md:order-1"
+                    } bg-gradient-to-br from-pink-100/80 via-fuchsia-50/60 to-purple-100/60`}
+                  >
+                    {/* decorative dots */}
+                    <div className="pointer-events-none absolute inset-0 duluka-dots-bg opacity-30" />
+
+                    {/* Top: status + index */}
+                    <div className="relative flex items-start justify-between">
+                      <span
+                        className={`inline-flex items-center gap-1 rounded-full ${status.bg} ${status.text} px-2.5 py-1 text-[10px] font-bold`}
+                      >
+                        {status.label}
+                      </span>
+                      <span className="editorial-number text-2xl opacity-50">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
                     </div>
-                    <span
-                      className={`inline-flex items-center gap-1 rounded-full ${status.bg} ${status.text} px-2.5 py-0.5 text-[10px] font-bold`}
-                    >
-                      {status.label}
-                    </span>
-                  </div>
 
-                  {/* Title + category */}
-                  <div className="mb-1 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-[#6b5d68]/50">
-                    <span className="h-1.5 w-1.5 rounded-full bg-pink-400" />
-                    {p.category}
-                  </div>
-                  <h3 className="font-serif-display text-lg font-bold leading-tight text-[#4a3b47] sm:text-xl">
-                    {p.name}
-                  </h3>
+                    {/* Center: big icon */}
+                    <div className="relative my-6 flex items-center justify-center">
+                      <motion.div
+                        whileHover={{ rotate: 5, scale: 1.05 }}
+                        className="inline-flex h-24 w-24 items-center justify-center rounded-3xl bg-white/80 text-pink-600 shadow-md ring-2 ring-pink-200 sm:h-28 sm:w-28"
+                      >
+                        <LucideIcon name={p.icon} className="h-12 w-12 sm:h-14 sm:w-14" />
+                      </motion.div>
+                    </div>
 
-                  {/* Short description */}
-                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-[#6b5d68]">
-                    {p.short}
-                  </p>
-
-                  {/* Tags */}
-                  {p.tags.length > 0 && (
-                    <div className="mt-4 flex flex-wrap gap-1.5">
-                      {p.tags.slice(0, featured ? 5 : 3).map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-md border border-pink-200/70 bg-pink-50/70 px-2 py-0.5 text-[10px] font-medium text-[#6b5d68]"
+                    {/* Bottom: category + homepage link */}
+                    <div className="relative flex items-end justify-between">
+                      <div>
+                        <div className="text-[10px] uppercase tracking-[0.18em] text-[#6b5d68]/60">
+                          Category
+                        </div>
+                        <div className="font-serif-display text-sm font-bold text-[#4a3b47]">
+                          {p.category}
+                        </div>
+                      </div>
+                      {p.homepage && (
+                        <a
+                          href={p.homepage}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          aria-label="Open live page"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-pink-200 bg-white/80 text-pink-600 transition-all hover:scale-110 hover:border-pink-400"
                         >
-                          {t}
-                        </span>
-                      ))}
-                      {p.tags.length > (featured ? 5 : 3) && (
-                        <span className="rounded-md border border-pink-200/70 bg-pink-50/70 px-2 py-0.5 text-[10px] font-medium text-pink-500">
-                          +{p.tags.length - (featured ? 5 : 3)}
-                        </span>
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
                       )}
                     </div>
-                  )}
-
-                  {/* Footer */}
-                  <div className="mt-auto flex items-center justify-between pt-5">
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-pink-600 transition-colors">
-                      {p.hasReadme ? "ดูรายละเอียด" : "ดู repo"}
-                      <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                    </span>
-                    <a
-                      href={p.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      aria-label="Open GitHub repo"
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-pink-200 bg-white/70 text-[#6b5d68] transition-all hover:scale-110 hover:border-pink-400 hover:text-pink-600"
-                    >
-                      <Github className="h-4 w-4" />
-                    </a>
                   </div>
 
-                  {/* Featured corner sticker */}
-                  {featured && (
-                    <motion.div
-                      animate={{ rotate: [-8, -3, -8] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute -right-2 -top-2 rounded-full bg-amber-300 px-2.5 py-1 text-[10px] font-black text-white shadow-md"
-                    >
-                      ⭐ FEATURED
-                    </motion.div>
-                  )}
+                  {/* RIGHT: Content block */}
+                  <div
+                    className={`relative flex flex-col p-6 sm:p-8 md:col-span-8 ${
+                      reverse ? "md:order-1" : "md:order-2"
+                    }`}
+                  >
+                    {/* Repo name + GitHub button */}
+                    <div className="mb-2 flex items-start justify-between gap-3">
+                      <div className="min-w-0 flex-1">
+                        <div className="font-mono text-xs text-[#6b5d68]/60">{p.repo}</div>
+                        <h3 className="mt-1 font-serif-display text-2xl font-black leading-tight text-[#4a3b47] sm:text-3xl">
+                          {p.name}
+                        </h3>
+                      </div>
+                      <a
+                        href={p.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        aria-label="Open GitHub repo"
+                        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-pink-200 bg-white/70 text-[#6b5d68] transition-all hover:scale-110 hover:border-pink-400 hover:text-pink-600"
+                      >
+                        <Github className="h-4 w-4" />
+                      </a>
+                    </div>
+
+                    {/* Description */}
+                    <p className="mt-2 text-sm leading-relaxed text-[#6b5d68] sm:text-base line-clamp-2">
+                      {p.short}
+                    </p>
+
+                    {/* Feature preview (only if has readme) */}
+                    {p.hasReadme && p.bullets.length > 0 && (
+                      <ul className="mt-4 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+                        {p.bullets.slice(0, 4).map((b, bi) => (
+                          <li
+                            key={bi}
+                            className="flex items-start gap-2 text-xs text-[#6b5d68]"
+                          >
+                            <span className="mt-1 h-1 w-1 shrink-0 rounded-full bg-pink-400" />
+                            <span className="line-clamp-1">{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    {/* No README notice inline */}
+                    {!p.hasReadme && (
+                      <div className="mt-4 inline-flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50/70 px-3 py-1.5 text-xs text-amber-700">
+                        <AlertCircle className="h-3 w-3 shrink-0" />
+                        ยังไม่มี README — ดูที่ GitHub โดยตรง
+                      </div>
+                    )}
+
+                    {/* Tags + CTA */}
+                    <div className="mt-auto pt-5 flex flex-wrap items-end justify-between gap-3">
+                      <div className="flex flex-wrap gap-1.5">
+                        {p.tags.slice(0, 4).map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-md border border-pink-200/70 bg-pink-50/70 px-2 py-0.5 text-[10px] font-medium text-[#6b5d68]"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                        {p.tags.length > 4 && (
+                          <span className="rounded-md border border-pink-200/70 bg-pink-50/70 px-2 py-0.5 text-[10px] font-medium text-pink-500">
+                            +{p.tags.length - 4}
+                          </span>
+                        )}
+                      </div>
+                      <span className="inline-flex items-center gap-1 text-sm font-bold text-pink-600 transition-colors group-hover:text-pink-700">
+                        {p.hasReadme ? "ดูรายละเอียด" : "ดู repo"}
+                        <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </div>
+                  </div>
                 </motion.article>
               );
             })}
           </AnimatePresence>
         </motion.div>
+
+        {/* Empty state */}
+        {filtered.length === 0 && (
+          <div className="lg:ml-[25%] py-16 text-center">
+            <div className="text-4xl mb-3">🔍</div>
+            <div className="font-serif-display text-lg text-[#4a3b47]">
+              ไม่มีโปรเจกต์ในหมวดนี้
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Detail modal */}
