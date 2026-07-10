@@ -391,8 +391,96 @@ body {
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .duluka-float, .duluka-float-slow, .duluka-pulse, .duluka-aurora-border::before,
-  .duluka-marquee-track, .duluka-wiggle, .duluka-bounce-soft {
+  .duluka-marquee-track, .duluka-wiggle, .duluka-bounce-soft,
+  .duluka-shimmer-text, .duluka-grain {
     animation: none !important;
   }
   html { scroll-behavior: auto; }
+}
+
+/* ===== Cool animations ===== */
+
+/* Shimmer text effect (animated gradient moving across text) */
+@keyframes duluka-shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+.duluka-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #ff8fab 0%,
+    #b8a4d4 25%,
+    #ffd6a5 50%,
+    #b8a4d4 75%,
+    #ff8fab 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: duluka-shimmer 6s linear infinite;
+}
+
+/* Subtle grain texture overlay (optional, very light) */
+@keyframes duluka-grain-shift {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -1%); }
+  20% { transform: translate(1%, 2%); }
+  30% { transform: translate(-1%, 1%); }
+  40% { transform: translate(2%, -2%); }
+  50% { transform: translate(-2%, 2%); }
+  60% { transform: translate(1%, -1%); }
+  70% { transform: translate(-1%, -2%); }
+  80% { transform: translate(2%, 1%); }
+  90% { transform: translate(-2%, -1%); }
+}
+.duluka-grain {
+  animation: duluka-grain-shift 8s steps(10) infinite;
+}
+
+/* Slow rotation */
+@keyframes duluka-rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.duluka-rotate-slow {
+  animation: duluka-rotate-slow 20s linear infinite;
+}
+
+/* Reveal underline (for nav links) */
+.duluka-underline-reveal {
+  position: relative;
+}
+.duluka-underline-reveal::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1.5px;
+  width: 100%;
+  background: linear-gradient(90deg, #ff8fab, #b8a4d4);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.duluka-underline-reveal:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Glow pulse for badges */
+@keyframes duluka-glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 143, 171, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(255, 143, 171, 0); }
+}
+.duluka-glow-pulse {
+  animation: duluka-glow-pulse 2s ease-in-out infinite;
+}
+
+/* Smooth focus ring */
+*:focus-visible {
+  outline: 2px solid #ff8fab;
+  outline-offset: 2px;
+  border-radius: 4px;
 }

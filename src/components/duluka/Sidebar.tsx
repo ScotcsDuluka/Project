@@ -60,20 +60,10 @@ export default function Sidebar() {
       <div className="lg:hidden sticky top-0 z-50 flex items-center justify-between bg-[#faf6f0]/90 backdrop-blur-xl border-b border-pink-200/40 px-4 py-3">
         <button
           onClick={() => handleClick("top")}
-          className="flex items-center gap-2"
-          aria-label="Duluka Studio home"
+          className="font-serif-display text-base font-bold text-[#4a3b47] tracking-tight"
+          aria-label="Scroll to top"
         >
-          <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-300 to-purple-300 text-white font-black text-lg shadow-md duluka-wiggle-hover">
-            D
-          </span>
-          <div className="flex flex-col leading-tight">
-            <span className="font-serif-display text-base font-bold text-[#4a3b47]">
-              Duluka Studio
-            </span>
-            <span className="text-[10px] uppercase tracking-[0.16em] text-pink-500/70">
-              by ScotcsDuluka
-            </span>
-          </div>
+          Duluka Studio
         </button>
         <button
           aria-label="Toggle menu"
@@ -136,28 +126,8 @@ export default function Sidebar() {
 
       {/* ===== Desktop sidebar ===== */}
       <aside className="hidden lg:flex fixed inset-y-0 left-0 z-40 w-64 flex-col border-r border-pink-200/40 bg-[#faf6f0]/80 backdrop-blur-xl">
-        {/* Logo */}
-        <div className="p-6">
-          <button
-            onClick={() => handleClick("top")}
-            className="group flex items-center gap-3"
-            aria-label="Duluka Studio home"
-          >
-            <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-300 via-fuchsia-300 to-purple-300 text-white font-black text-xl shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
-              D
-              <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-amber-300 shadow-md duluka-bounce-soft" />
-            </span>
-            <div className="flex flex-col leading-tight">
-              <span className="font-serif-display text-lg font-bold text-[#4a3b47]">
-                Duluka Studio
-              </span>
-              <span className="font-hand text-sm text-pink-500/80">by ScotcsDuluka</span>
-            </div>
-          </button>
-        </div>
-
-        {/* Nav */}
-        <nav className="flex-1 px-4 py-2">
+        {/* Nav — starts at top, no logo block */}
+        <nav className="flex-1 px-4 pt-8 pb-4">
           <div className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#6b5d68]/50">
             Navigate
           </div>

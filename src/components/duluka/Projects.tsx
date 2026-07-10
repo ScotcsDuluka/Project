@@ -15,6 +15,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { PROJECTS, type ProjectRepo, type ProjectCategory } from "@/data/projects";
+import TiltCard from "./TiltCard";
 
 const CATEGORIES: ("All" | ProjectCategory)[] = [
   "All",
@@ -140,16 +141,18 @@ export default function Projects() {
               const status = STATUS_STYLE[p.status];
               const reverse = i % 2 === 1; // alternate layout
               return (
-                <motion.article
+                <motion.div
                   key={p.slug}
                   layout
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.97 }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
-                  whileHover={{ y: -4 }}
+                  initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                >
+                <TiltCard max={3} scale={1.01}>
+                <motion.article
                   onClick={() => setSelected(p)}
-                  className="group relative grid grid-cols-1 overflow-hidden rounded-3xl border-2 border-pink-200/60 bg-white/80 backdrop-blur-sm transition-all duration-300 hover:border-pink-300 hover:duluka-shadow-hover md:grid-cols-12"
+                  className="group relative grid grid-cols-1 overflow-hidden rounded-3xl border-2 border-pink-200/60 bg-white/80 backdrop-blur-sm transition-colors duration-300 hover:border-pink-300 hover:duluka-shadow-hover md:grid-cols-12"
                 >
                   {/* LEFT: Visual block (large icon + status) */}
                   <div
@@ -175,8 +178,8 @@ export default function Projects() {
                     {/* Center: big icon */}
                     <div className="relative my-6 flex items-center justify-center">
                       <motion.div
-                        whileHover={{ rotate: 5, scale: 1.05 }}
-                        className="inline-flex h-24 w-24 items-center justify-center rounded-3xl bg-white/80 text-pink-600 shadow-md ring-2 ring-pink-200 sm:h-28 sm:w-28"
+                        whileHover={{ rotate: 8, scale: 1.1 }}
+                        className="inline-flex h-24 w-24 items-center justify-center rounded-3xl bg-white/80 text-pink-600 shadow-md ring-2 ring-pink-200 sm:h-28 sm:w-28 group-hover:duluka-glow-pulse"
                       >
                         <LucideIcon name={p.icon} className="h-12 w-12 sm:h-14 sm:w-14" />
                       </motion.div>
@@ -285,6 +288,8 @@ export default function Projects() {
                     </div>
                   </div>
                 </motion.article>
+                </TiltCard>
+                </motion.div>
               );
             })}
           </AnimatePresence>
@@ -318,7 +323,7 @@ export default function Projects() {
               exit={{ y: 40, scale: 0.97, opacity: 0 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-h-[92svh] w-full max-w-3xl overflow-y-auto rounded-t-3xl border-2 border-pink-200 bg-[#faf6f0]/98 backdrop-blur-2xl sm:rounded-3xl"
+              className="relative max-h-[94svh] w-full max-w-5xl overflow-y-auto rounded-t-3xl border-2 border-pink-200 bg-[#faf6f0]/98 backdrop-blur-2xl sm:rounded-3xl sm:my-4"
             >
               {/* Top stripe */}
               <div className="h-1.5 w-full bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-400" />

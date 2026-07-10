@@ -36,18 +36,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2.5">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-300 via-fuchsia-300 to-purple-300 text-lg font-black text-white shadow-md">
-                D
-              </span>
-              <div className="flex flex-col leading-tight">
-                <span className="font-serif-display text-base font-bold text-[#4a3b47]">
-                  Duluka Studio
-                </span>
-                <span className="font-hand text-sm text-pink-500/80">by ScotcsDuluka</span>
-              </div>
-            </div>
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-[#6b5d68]">
+            <h3 className="font-serif-display text-2xl font-black text-[#4a3b47]">
+              Duluka Studio
+            </h3>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-[#6b5d68]">
               สตูดิโอส่วนตัวของ ScotcsDuluka — โปรเจกต์เปิดซอร์สหลากหลาย
               ทั้ง screen capture, Magisk mods, เว็บทดลอง, Minecraft server และ TTML lyrics.
             </p>
