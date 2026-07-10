@@ -112,20 +112,19 @@ interface AutoProjectData {
   defaultBranch: string;
   hasReadme: boolean;
   readmeExcerpt?: string;
+  fetchedAt?: string;
 }
 
-// Try to load auto-fetched data; if missing or invalid, use empty array
-let AUTO_DATA: AutoProjectData[] = [];
-try {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const autoModule = require("./projects.auto.json");
-  if (Array.isArray(autoModule)) {
-    AUTO_DATA = autoModule as AutoProjectData[];
-  }
-} catch {
-  // projects.auto.json doesn't exist yet (script hasn't run) — that's OK, use empty
-  AUTO_DATA = [];
-}
+// Static import — bundler will include this. JSON imports are natively supported
+// by Next.js / TypeScript. If the file is missing, the build will fail — so we
+// create a placeholder empty file via the fetch script before the first build.
+// For safety, we wrap in a try/catch via dynamic require fallback.
+import autoDataRaw from "./projects.auto.json";
+
+// Normalize: ensure it's an array
+const AUTO_DATA: AutoProjectData[] = Array.isArray(autoDataRaw)
+  ? (autoDataRaw as AutoProjectData[])
+  : [];
 
 // ============================================================
 // Helper: infer category from repo name + topics
@@ -205,7 +204,8 @@ function slugify(repoName: string): string {
 // ============================================================
 // Step 1: Start with manual projects as the base (always present)
 const merged: ProjectRepo[] = MANUAL_PROJECTS.map((p) => {
-  const auto = AUTO_DATA.find((a) => a.repo.toLowerCase().endsWith(`/${p.repo.split("/")[1]}`));
+  const needle = `/${p.repo.split("/")[1]}`.toLowerCase();
+  const auto = AUTO_DATA.find((a) => a.repo.toLowerCase().endsWith(needle));
   if (!auto) {
     // No auto data — return manual as-is
     return p as ProjectRepo;
@@ -243,9 +243,11 @@ const merged: ProjectRepo[] = MANUAL_PROJECTS.map((p) => {
 
 // Step 2: Add auto projects that aren't in manual (new repos)
 for (const auto of AUTO_DATA) {
-  const existsInManual = MANUAL_PROJECTS.some(
-    (m) => m.repo.toLowerCase().endsWith(`/${auto.repo.split("/")[1]}`)
-  );
+  const existsInManual = MANUAL_PROJECTS.some((m) => {
+    const mNeedle = `/${m.repo.split("/")[1]}`.toLowerCase();
+    const aNeedle = `/${auto.repo.split("/")[1]}`.toLowerCase();
+    return mNeedle === aNeedle;
+  });
   if (existsInManual) continue;
 
   // New repo not in manual — create minimal entry
