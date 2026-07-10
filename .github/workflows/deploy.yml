@@ -33,11 +33,11 @@ jobs:
         run: bun install --frozen-lockfile || bun install
 
       - name: Build static site
-        # basePath ต้องเป็นตัวพิมพ์เล็กทั้งหมดตาม URL GitHub Pages
-        # repo: Duluka-Studio → URL: scotcsduluka.github.io/duluka-studio → basePath: /duluka-studio
+        # basePath ต้องตรงกับ URL GitHub Pages ทุกตัวอักษร
+        # repo: Duluka-Studio → URL: scotcsduluka.github.io/Duluka-Studio → basePath: /Duluka-Studio
         env:
           BUILD_STATIC: "true"
-          NEXT_PUBLIC_BASE_PATH: /duluka-studio
+          NEXT_PUBLIC_BASE_PATH: /Duluka-Studio
         run: bun run next build
 
       - name: Upload artifact
