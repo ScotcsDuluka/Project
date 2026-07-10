@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Playfair_Display, Caveat } from "next/font/google";
+import { Geist_Mono, Playfair_Display, Caveat } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+// MiSans Thai — primary sans-serif font (uploaded by user, replaces Geist Sans)
+const miSansThai = localFont({
+  src: "./fonts/MiSansThai.ttf",
+  variable: "--font-mi-sans-thai",
+  display: "swap",
+  weight: "400",
 });
 
 const geistMono = Geist_Mono({
@@ -63,7 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${caveat.variable} antialiased`}
+        className={`${miSansThai.variable} ${geistMono.variable} ${playfair.variable} ${caveat.variable} antialiased`}
       >
         {children}
         <Toaster />
