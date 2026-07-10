@@ -1,7 +1,24 @@
-// Project data sourced directly from each GitHub repo README at
-// https://github.com/ScotcsDuluka/<repo>
-// Detailed fields (techStack, dependencies, installSteps, license, usageExamples)
-// are pulled verbatim from the README when available.
+// ============================================================
+// Duluka Studio — Project Data with Auto-Fetch + Fallback
+// ============================================================
+//
+// Data flow:
+//   1. projects.manual.ts    — hand-curated data (techStack, installSteps,
+//                              license, warnings, etc.) — committed to git
+//   2. projects.auto.json    — auto-fetched from GitHub API by
+//                              `scripts/fetch-projects.ts` (run by GitHub Actions
+//                              daily + on push). Contains: name, description,
+//                              stars, forks, updatedAt, homepage, topics, hasReadme
+//   3. projects.ts (this file) — merges manual + auto, with fallback:
+//                              - If auto.json exists and has entry → use auto data
+//                              - If auto.json missing or entry missing → fall back to manual
+//                              - Manual detailed fields (techStack, etc.) always preserved
+//
+// Behavior when GitHub API is down / fetch script hasn't run:
+//   - projects.auto.json may not exist or be stale
+//   - The merge function handles missing/empty auto data gracefully
+//   - The website always renders with at least the manual data
+// ============================================================
 
 export type ProjectCategory =
   | "Capture"
@@ -10,7 +27,8 @@ export type ProjectCategory =
   | "Media"
   | "Minecraft"
   | "Data"
-  | "Profile";
+  | "Profile"
+  | "Other";
 
 export interface ProjectRepo {
   slug: string;
@@ -19,11 +37,11 @@ export interface ProjectRepo {
   url: string;
   homepage?: string;
   category: ProjectCategory;
-  status: "Released" | "Active Dev" | "No README";
+  status: "Released" | "Active Dev" | "No README" | "Archived";
   icon: string;
   short: string;
   bullets: string[];
-  // Detailed fields (only populated when README had the info)
+  // Detailed fields (manual — pulled from README by hand)
   techStack?: { label: string; items: string[] }[];
   dependencies?: { name: string; license: string; author: string; source: string }[];
   installSteps?: string[];
@@ -37,517 +55,230 @@ export interface ProjectRepo {
   encoderStatus?: { name: string; ready: boolean }[];
   tags: string[];
   hasReadme: boolean;
+  // Auto-fetched fields (from GitHub API)
+  stars?: number;
+  forks?: number;
+  watchers?: number;
+  openIssues?: number;
+  language?: string;
+  topics?: string[];
+  pushedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  archived?: boolean;
+  defaultBranch?: string;
 }
 
-export const PROJECTS: ProjectRepo[] = [
-  {
-    slug: "nvidia-shadowplay",
-    name: "NVIDIA ShadowPlay",
-    repo: "ScotcsDuluka/NVIDIA-Shadowplay",
-    url: "https://github.com/ScotcsDuluka/NVIDIA-Shadowplay",
-    homepage: "https://scotcsduluka.github.io/NVIDIA-Shadowplay/",
-    category: "Capture",
-    status: "Active Dev",
-    icon: "Video",
-    short:
-      "Screen capture utility inspired by NVIDIA ShadowPlay with overlay UI, built in VB.NET — No Hook. Record engine powered by FFmpeg.",
-    bullets: [
-      "UI NVIDIA Shadowplay",
-      "Real-time screen recording",
-      "Instant Replay (save last moments)",
-      "Screenshot capture",
-      "In-game overlay UI [Borderless Windowed]",
-      "Built over 3 years focusing on animation system, overlay UX, and performance",
-    ],
-    techStack: [
-      { label: "Language", items: ["VB.NET", ".NET 8.0", ".NET 4.8"] },
-      { label: "Engine", items: ["FFmpeg (encoding pipeline)"] },
-      { label: "Capture APIs", items: ["Windows.Graphics.Capture", "Desktop Duplication API", "GDI screen grabber"] },
-      { label: "Encoders", items: ["NVIDIA NVENC (Ready)", "Intel Next (Pending)", "AMD-Q (Pending)"] },
-    ],
-    apiCapture: [
-      "Windows.Graphics.Capture",
-      "Desktop Duplication API",
-      "GDI screen grabber",
-    ],
-    encoderStatus: [
-      { name: "NVIDIA-READY", ready: true },
-      { name: "INTEL-NEXT", ready: false },
-      { name: "AMD-Q", ready: false },
-    ],
-    requirements: [
-      ".NET 8.0 Desktop Runtime installed",
-      ".NET 4.8 installed",
-      "Windows 8 / Server 2012 or newer (will NOT work on Windows 7)",
-      "Recommended resolution: 1920 × 1080",
-    ],
-    warnings: [
-      "Exclusive Fullscreen Limitation: Due to the no-hook design, capturing 'Exclusive Fullscreen' applications is not supported on older Windows builds. Use 'Borderless Windowed' mode in games for reliable recording.",
-      "Some apps (Netflix / DRM content) cannot be recorded.",
-      "Still under active development — stability varies.",
-    ],
-    dependencies: [
-      { name: "NAudio", license: "MIT", author: "Mark Heath", source: "NAudio.Core.dll, NAudio.Wasapi.dll" },
-      { name: "Newtonsoft.Json", license: "MIT", author: "James Newton-King", source: "Newtonsoft.Json.dll" },
-      { name: "libmp3lame", license: "LGPL-2.0", author: "The LAME Project", source: "libmp3lame.32.dll, libmp3lame.64.dll" },
-      { name: "FFmpeg", license: "LGPL/GPL", author: "FFmpeg Developers", source: "Encoding Pipeline" },
-      { name: ".NET 8 Runtime", license: "MIT", author: "Microsoft", source: "Microsoft.Windows.SDK.NET.dll" },
-      { name: "Windows SDK.NET", license: "MIT", author: "Microsoft", source: "WinRT.Runtime.dll" },
-    ],
-    installSteps: [
-      "Install .NET 8.0 Desktop Runtime from https://dotnet.microsoft.com/",
-      "Install .NET 4.8 (required for legacy components)",
-      "Ensure Windows 8 / Server 2012 or newer",
-      "For best performance, use NVIDIA hardware with NVENC support",
-      "Set game to 'Borderless Windowed' mode for reliable overlay capture",
-      "Launch the application — overlay UI appears in-game",
-    ],
-    usageExamples: [
-      "Real-time recording: Start/stop recording with one keystroke via the overlay",
-      "Instant Replay: Save the last N seconds of gameplay on demand",
-      "Screenshot capture: Capture framed screenshots with overlay UI visible",
-      "Recommended encoder: h264_nvenc via FFmpeg for best NVIDIA performance",
-    ],
-    license: {
-      name: "MIT",
-      url: "LICENSE",
-      notice:
-        "This is an independent third-party application and is NOT affiliated with, endorsed by, sponsored by, or approved by NVIDIA Corporation. 'NVIDIA', 'GeForce', and 'ShadowPlay' are trademarks of NVIDIA Corporation.",
-    },
-    thirdPartyAttribution: true,
-    tags: ["VB.NET", "FFmpeg", "NVENC", ".NET 8", "WinRT", "Overlay UI", "Screen Capture", "MIT"],
-    hasReadme: true,
-  },
-  {
-    slug: "always-on-display-mods",
-    name: "Always-On-Display Mods",
-    repo: "ScotcsDuluka/Always-On-Display-Mods",
-    url: "https://github.com/ScotcsDuluka/Always-On-Display-Mods",
-    homepage: "https://github.com/ScotcsDuluka/HyperOS-Mods/releases",
-    category: "Mobile Mod",
-    status: "Released",
-    icon: "Smartphone",
-    short:
-      "Magisk module to customize Always On Display on HyperOS — adds new language pack and an awesome photo category.",
-    bullets: [
-      "Always On Display NewLang For NEXTGEN",
-      "Awesome Photo Category",
-      "Languages: th-TH, en-US",
-      "Stability and visual customization focus",
-    ],
-    techStack: [
-      { label: "Type", items: ["Magisk Module"] },
-      { label: "Target OS", items: ["HyperOS 1.0", "HyperOS 2.0", "HyperOS 3.0"] },
-      { label: "Languages Added", items: ["th-TH", "en-US"] },
-      { label: "Feature", items: ["NewLang For NEXTGEN", "Awesome Photo Category"] },
-    ],
-    supportedDevices: [
-      "HyperOS 1.0 ✓",
-      "HyperOS 2.0 ✓",
-      "HyperOS 3.0 ✓",
-      "Older MIUI versions — Not Supported",
-    ],
-    requirements: [
-      "Rooted device via Magisk",
-      "HyperOS 1.0, 2.0, or 3.0 (NOT older MIUI)",
-    ],
-    warnings: [
-      "Brick Risk: Back up your original AOD.apk before installing. If something goes wrong, you'll need this file to restore your system.",
-      "Reboot TWICE after installing the module via Magisk Manager to ensure the overlay applies correctly.",
-    ],
-    installSteps: [
-      "Back up your original AOD.apk before doing anything (safety net for brick risk)",
-      "Open Magisk Manager on your rooted HyperOS device",
-      "Install the AOD Mods module (.zip) via Magisk Modules section",
-      "Reboot the device once",
-      "Reboot the device a SECOND time — this is critical for the overlay to apply correctly",
-      "Verify the new AOD language pack (th-TH / en-US) and Awesome Photo Category appear in AOD settings",
-    ],
-    usageExamples: [
-      "Open Settings → Always-On Display to see new language options",
-      "Switch language to th-TH or en-US from NewLang For NEXTGEN",
-      "Browse the new Awesome Photo Category for AOD backgrounds",
-    ],
-    license: {
-      name: "MIT",
-      notice: "Made with ❤️ by ScotcsDuluka",
-    },
-    tags: ["Magisk", "HyperOS", "AOD", "Root", "th-TH", "en-US", "Xiaomi", "Mobile Mod"],
-    hasReadme: true,
-  },
-  {
-    slug: "lyrics-ttml",
-    name: "Lyrics-TTML",
-    repo: "ScotcsDuluka/Lyrics-TTML",
-    url: "https://github.com/ScotcsDuluka/Lyrics-TTML",
-    category: "Media",
-    status: "Released",
-    icon: "Music2",
-    short: "TTML lyrics created by ScotcsDuluka.",
-    bullets: [
-      "TTML Made by ScotcsDuluka",
-      "Hand-timed lyric files for music players",
-    ],
-    techStack: [
-      { label: "Format", items: ["TTML (Timed Text Markup Language)"] },
-      { label: "Author", items: ["ScotcsDuluka"] },
-    ],
-    usageExamples: [
-      "Import TTML files into compatible music players (e.g., Apple Music)",
-      "Synced lyrics display word-by-word or syllable-by-syllable",
-    ],
-    license: {
-      name: "MIT (assumed)",
-      notice: "TTML Made by ScotcsDuluka",
-    },
-    tags: ["TTML", "Lyrics", "Synced Lyrics", "Karaoke", "Music"],
-    hasReadme: true,
-  },
-  {
-    slug: "extreme-update",
-    name: "Extreme-Update",
-    repo: "ScotcsDuluka/Extreme-Update",
-    url: "https://github.com/ScotcsDuluka/Extreme-Update",
-    category: "Media",
-    status: "Released",
-    icon: "Zap",
-    short: "App to check which month your MIDI songs are in.",
-    bullets: [
-      "Check which month your MIDI songs are in",
-      "Catalog MIDI library by date",
-    ],
-    techStack: [
-      { label: "Purpose", items: ["MIDI file metadata inspector"] },
-      { label: "Output", items: ["Songs grouped by month"] },
-    ],
-    usageExamples: [
-      "Drop a folder of MIDI files into the app",
-      "Get a sorted list grouped by month",
-      "Copy the organized list for your library",
-    ],
-    license: {
-      name: "MIT (assumed)",
-    },
-    tags: ["MIDI", "Utility", "Metadata", "Cataloging", "Music"],
-    hasReadme: true,
-  },
-  {
-    slug: "mcdmods-project-plus",
-    name: "MCDMods-Project-Plus",
-    repo: "ScotcsDuluka/MCDMods-Project-Plus",
-    url: "https://github.com/ScotcsDuluka/MCDMods-Project-Plus",
-    category: "Minecraft",
-    status: "No README",
-    icon: "Blocks",
-    short: "Minecraft mods project — see repository for details.",
-    bullets: ["Built-in news channel: mcd-news"],
-    techStack: [
-      { label: "Platform", items: ["Minecraft"] },
-      { label: "Editions", items: ["Java 1.21.11", "Bedrock Latest"] },
-      { label: "Built-in", items: ["mcd-news (news channel)"] },
-    ],
-    usageExamples: [
-      "Pairs with the live Duluka Studio Minecraft server",
-      "Server-side news broadcast via mcd-news channel",
-    ],
-    requirements: [
-      "Minecraft Java 1.21.11 or Bedrock Latest",
-      "Connect to scotcsduluka.totddns.com:15241 to test",
-    ],
-    tags: ["Minecraft", "Mods", "Java 1.21", "Bedrock", "Server-side"],
-    hasReadme: false,
-  },
-  {
-    slug: "scotcsduluka-profile",
-    name: "ScotcsDuluka",
-    repo: "ScotcsDuluka/ScotcsDuluka",
-    url: "https://github.com/ScotcsDuluka/ScotcsDuluka",
-    category: "Profile",
-    status: "Released",
-    icon: "User",
-    short: "The ScotcsDuluka GitHub profile README — featured projects, tech stack, and links.",
-    bullets: [
-      "Featured: NVIDIA ShadowPlay",
-      "Featured: HyperOS Mods (Magisk Module) — coming soon",
-      "GitHub streak-stats widget (radical theme)",
-      "Connect: GitHub + Discord",
-    ],
-    techStack: [
-      { label: "Web", items: ["HTML5", "CSS3", "JavaScript", "Markdown"] },
-      { label: "Desktop", items: ["C#", "VB.NET", "FFmpeg", "JSON"] },
-      { label: "Mobile", items: ["Magisk Module"] },
-      { label: "OS", items: ["Windows 10/11"] },
-    ],
-    usageExamples: [
-      "Visit https://github.com/ScotcsDuluka to see the full profile",
-      "Featured projects link to live demos and repositories",
-      "GitHub streak-stats widget shows contribution activity",
-    ],
-    license: {
-      name: "Profile README",
-      notice: "Mythic Founder · 3+ Years Legacy · Origin Core",
-    },
-    tags: ["Profile", "README", "Featured", "Badges", "Streak Stats"],
-    hasReadme: true,
-  },
-  {
-    slug: "web-hyperos-launcher",
-    name: "Web-HyperOS-Launcher",
-    repo: "ScotcsDuluka/Web-HyperOS-Launcher",
-    url: "https://github.com/ScotcsDuluka/Web-HyperOS-Launcher",
-    category: "Web",
-    status: "No README",
-    icon: "Rocket",
-    short: "Web-based HyperOS launcher — see repository for details.",
-    bullets: [],
-    techStack: [
-      { label: "Type", items: ["Web Project"] },
-      { label: "Inspiration", items: ["Xiaomi HyperOS Launcher"] },
-    ],
-    requirements: [
-      "Modern web browser (Chrome / Firefox / Safari / Edge)",
-    ],
-    tags: ["Web", "HyperOS", "Launcher", "HTML/CSS/JS"],
-    hasReadme: false,
-  },
-  {
-    slug: "web-custom",
-    name: "Web-Custom",
-    repo: "ScotcsDuluka/Web-Custom",
-    url: "https://github.com/ScotcsDuluka/Web-Custom",
-    category: "Web",
-    status: "No README",
-    icon: "Code2",
-    short: "Custom web project — see repository for details.",
-    bullets: [],
-    techStack: [
-      { label: "Type", items: ["Web Project"] },
-      { label: "Use", items: ["Experimental components & CSS effects"] },
-    ],
-    tags: ["Web", "Experimental", "Components"],
-    hasReadme: false,
-  },
-  {
-    slug: "duluspect-experience",
-    name: "DuluSpect-Experience",
-    repo: "ScotcsDuluka/DuluSpect-Experience",
-    url: "https://github.com/ScotcsDuluka/DuluSpect-Experience",
-    category: "Web",
-    status: "No README",
-    icon: "Sparkles",
-    short: "DuluSpect experience project — see repository for details.",
-    bullets: [],
-    techStack: [
-      { label: "Type", items: ["Experience Project"] },
-    ],
-    tags: ["Web", "Experience", "Interactive"],
-    hasReadme: false,
-  },
-  {
-    slug: "student-statistics",
-    name: "Student-Statistics",
-    repo: "ScotcsDuluka/Student-Statistics",
-    url: "https://github.com/ScotcsDuluka/Student-Statistics",
-    category: "Data",
-    status: "No README",
-    icon: "BarChart3",
-    short: "Student statistics project — see repository for details.",
-    bullets: [],
-    techStack: [
-      { label: "Domain", items: ["Education / Data"] },
-      { label: "Purpose", items: ["Student performance tracking"] },
-    ],
-    tags: ["Data", "Statistics", "Education"],
-    hasReadme: false,
-  },
-];
+// ============================================================
+// Manual data — hand-curated (DO NOT auto-overwrite)
+// ============================================================
+import {
+  PROJECTS as MANUAL_PROJECTS,
+  SERVER,
+  DISCORD_INVITE,
+  GITHUB_PROFILE,
+  RULE_GROUPS,
+  PENALTIES,
+} from "./projects.manual";
+import type {
+  ProjectRepo as ManualProjectRepo,
+  RuleGroup,
+  Penalty,
+} from "./projects.manual";
 
-// Server info — exactly as provided by user
-export const SERVER = {
-  ip: "scotcsduluka.totddns.com",
-  port: "15241",
-  java: "Java 1.21.11",
-  bedrock: "Bedrock Latest",
-  fullAddress: "scotcsduluka.totddns.com:15241",
-};
+// Re-export everything that hasn't changed
+export { SERVER, DISCORD_INVITE, GITHUB_PROFILE, RULE_GROUPS, PENALTIES };
+export type { RuleGroup, Penalty };
 
-export const DISCORD_INVITE = "https://discord.gg/t9yfWVFFaS";
-export const GITHUB_PROFILE = "https://github.com/ScotcsDuluka";
-
-// ===== Bilingual server rules — text is the user's, kept verbatim =====
-export interface RuleItem {
-  icon: string;
-  titleTh: string;
-  titleEn: string;
-  detailTh: string;
-  detailEn: string;
+// ============================================================
+// Auto data — fetched from GitHub API (may be missing/stale)
+// ============================================================
+interface AutoProjectData {
+  slug: string;
+  repo: string;
+  name: string;
+  description: string | null;
+  homepage: string | null;
+  stars: number;
+  forks: number;
+  watchers: number;
+  openIssues: number;
+  language: string | null;
+  topics: string[];
+  pushedAt: string;
+  createdAt: string;
+  updatedAt: string;
+  archived: boolean;
+  defaultBranch: string;
+  hasReadme: boolean;
+  readmeExcerpt?: string;
 }
 
-export interface RuleGroup {
-  id: string;
-  icon: string;
-  emoji: string;
-  titleTh: string;
-  titleEn: string;
-  rules: RuleItem[];
+// Try to load auto-fetched data; if missing or invalid, use empty array
+let AUTO_DATA: AutoProjectData[] = [];
+try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const autoModule = require("./projects.auto.json");
+  if (Array.isArray(autoModule)) {
+    AUTO_DATA = autoModule as AutoProjectData[];
+  }
+} catch {
+  // projects.auto.json doesn't exist yet (script hasn't run) — that's OK, use empty
+  AUTO_DATA = [];
 }
 
-export const RULE_GROUPS: RuleGroup[] = [
-  {
-    id: "basic",
-    icon: "Flame",
-    emoji: "🔥",
-    titleTh: "พื้นฐานการอยู่ร่วมกัน",
-    titleEn: "Basic Conduct",
-    rules: [
-      {
-        icon: "Heart",
-        titleTh: "ให้เกียรติผู้อื่น",
-        titleEn: "Respect others",
-        detailTh: "พูดจาสุภาพ ไม่เหยียด ไม่บูลลี่",
-        detailEn: "Be polite, no hate speech, no bullying",
-      },
-      {
-        icon: "Ban",
-        titleTh: "ห้าม Spam / ป่วนแชท",
-        titleEn: "No spamming / disturbing the chat",
-        detailTh: "ฟลัดข้อความ, ใช้บอทมั่ว, ส่งอีโมจิเยอะเกิน",
-        detailEn: "Flooding messages, using bots recklessly, sending too many emojis",
-      },
-      {
-        icon: "ShieldX",
-        titleTh: "ห้าม NSFW",
-        titleEn: "No NSFW content",
-        detailTh: "รูปโป๊, คลิป 18+, เนื้อหาที่ไม่เหมาะสม - ยกเว้น r34",
-        detailEn: "Pornographic images, 18+ videos, or inappropriate content — except r34",
-      },
-      {
-        icon: "Megaphone",
-        titleTh: "ห้ามโฆษณาโดยไม่ได้รับอนุญาต",
-        titleEn: "No advertising without permission",
-        detailTh: "จะโปรโมทอะไรต้องขอแอดมินก่อน",
-        detailEn: "If you want to promote something, ask the admins first",
-      },
-      {
-        icon: "Lock",
-        titleTh: "ห้าม Leak ข้อมูล / งานของคนอื่น",
-        titleEn: "No leaking others' information / work",
-        detailTh: "งานใครงานมัน เคารพสิทธิ์",
-        detailEn: "Respect others' work, everyone has their own rights",
-      },
-    ],
-  },
-  {
-    id: "creative",
-    icon: "Palette",
-    emoji: "🎨",
-    titleTh: "งานสร้างสรรค์ & Studio",
-    titleEn: "Creative Work & Studio",
-    rules: [
-      {
-        icon: "CopyX",
-        titleTh: "ห้าม Copy / ขโมยงานคนอื่น",
-        titleEn: "No copying / stealing others' work",
-        detailTh: "เคารพเจ้าของผลงาน",
-        detailEn: "Respect the creator's rights",
-      },
-      {
-        icon: "BadgeCheck",
-        titleTh: "ให้เครดิตเจ้าของงาน",
-        titleEn: "Give credit to the original creator",
-        detailTh: "",
-        detailEn: "",
-      },
-    ],
-  },
-  {
-    id: "games",
-    icon: "Gamepad2",
-    emoji: "🎮",
-    titleTh: "เกม & กิจกรรม",
-    titleEn: "Games & Activities",
-    rules: [
-      {
-        icon: "Trophy",
-        titleTh: "เล่นเกมให้สนุก ไม่หัวร้อน",
-        titleEn: "Play games for fun, don't rage",
-        detailTh: "แพ้ชนะเป็นเรื่องปกติ",
-        detailEn: "Losing and winning are part of the game",
-      },
-    ],
-  },
-  {
-    id: "vc",
-    icon: "Mic",
-    emoji: "🎤",
-    titleTh: "แชทเสียง & VC",
-    titleEn: "Voice Chat & VC",
-    rules: [
-      {
-        icon: "MessageCircle",
-        titleTh: "พูดคุยกันแบบสุภาพ",
-        titleEn: "Be polite in conversations",
-        detailTh: "",
-        detailEn: "",
-      },
-      {
-        icon: "VolumeX",
-        titleTh: "อย่าตะโกน อย่าก่อกวน",
-        titleEn: "Don't shout, don't disturb",
-        detailTh: "ห้ามเปิดไมค์มั่ว / เปิดเพลงรบกวน — ถ้าจะเปิดเพลงให้ใช้บอทที่กำหนด",
-        detailEn: "No random mic opening / playing disruptive music — use the designated bot",
-      },
-      {
-        icon: "Users",
-        titleTh: "ให้เกียรติคนในห้อง VC",
-        titleEn: "Respect others in the VC room",
-        detailTh: "อย่าพูดแทรกกันมั่ว",
-        detailEn: "Don't interrupt or talk over others",
-      },
-    ],
-  },
-];
-
-export interface Penalty {
-  level: "warn" | "mute" | "ban";
-  emoji: string;
-  titleTh: string;
-  titleEn: string;
-  detailTh: string;
-  detailEn: string;
-  color: string;
-  bg: string;
+// ============================================================
+// Helper: infer category from repo name + topics
+// ============================================================
+function inferCategory(
+  repoName: string,
+  topics: string[] = [],
+  description: string | null = null
+): ProjectCategory {
+  const text = `${repoName} ${topics.join(" ")} ${description || ""}`.toLowerCase();
+  if (text.includes("shadowplay") || text.includes("capture") || text.includes("recording")) {
+    return "Capture";
+  }
+  if (text.includes("magisk") || text.includes("hyperos") || text.includes("aod") || text.includes("mod")) {
+    return "Mobile Mod";
+  }
+  if (text.includes("minecraft") || text.includes("mcdmods") || text.includes("mcd-")) {
+    return "Minecraft";
+  }
+  if (text.includes("lyrics") || text.includes("ttml") || text.includes("midi")) {
+    return "Media";
+  }
+  if (text.includes("student") || text.includes("statistic") || text.includes("data")) {
+    return "Data";
+  }
+  if (text.includes("web") || text.includes("launcher") || text.includes("custom")) {
+    return "Web";
+  }
+  return "Other";
 }
 
-export const PENALTIES: Penalty[] = [
-  {
-    level: "warn",
-    emoji: "🟡",
-    titleTh: "เตือน 1 ครั้ง",
-    titleEn: "Warning 1st",
-    detailTh: "ถ้ายังทำผิดซ้ำ จะถูกลงโทษ",
-    detailEn: "If the behavior continues, further action will be taken",
-    color: "text-amber-300",
-    bg: "from-amber-500/15 to-amber-500/5 border-amber-500/30",
-  },
-  {
-    level: "mute",
-    emoji: "🟠",
-    titleTh: "Mute / Kick",
-    titleEn: "Mute / Kick",
-    detailTh: "ถ้าป่วนเซิร์ฟ, ใช้คำพูดไม่เหมาะสม",
-    detailEn: "If causing disturbances, using inappropriate language",
-    color: "text-orange-300",
-    bg: "from-orange-500/15 to-orange-500/5 border-orange-500/30",
-  },
-  {
-    level: "ban",
-    emoji: "🔴",
-    titleTh: "Ban ทันที",
-    titleEn: "Ban immediately",
-    detailTh: "ทำผิดร้ายแรง เช่น NSFW, Leak งาน",
-    detailEn: "For serious offenses like NSFW, leaking work",
-    color: "text-rose-300",
-    bg: "from-rose-500/15 to-rose-500/5 border-rose-500/30",
-  },
-];
+// ============================================================
+// Helper: infer icon from category / repo name
+// ============================================================
+function inferIcon(category: ProjectCategory, repoName: string): string {
+  const name = repoName.toLowerCase();
+  if (name.includes("shadowplay")) return "Video";
+  if (name.includes("hyperos") || name.includes("launcher")) return "Rocket";
+  if (name.includes("aod") || name.includes("display")) return "Smartphone";
+  if (name.includes("mcdmods") || name.includes("minecraft")) return "Blocks";
+  if (name.includes("lyrics") || name.includes("ttml")) return "Music2";
+  if (name.includes("extreme")) return "Zap";
+  if (name.includes("student") || name.includes("statistic")) return "BarChart3";
+  if (name.includes("duluspect")) return "Sparkles";
+  if (name.includes("web-custom")) return "Code2";
+  if (category === "Profile") return "User";
+  return "FolderGit2";
+}
+
+// ============================================================
+// Helper: infer status from repo metadata
+// ============================================================
+function inferStatus(
+  archived: boolean,
+  pushedAt: string,
+  hasReadme: boolean
+): ProjectRepo["status"] {
+  if (archived) return "Archived";
+  // If pushed within last 6 months → Active Dev
+  const sixMonthsAgo = Date.now() - 6 * 30 * 24 * 60 * 60 * 1000;
+  if (new Date(pushedAt).getTime() > sixMonthsAgo) {
+    return "Active Dev";
+  }
+  if (!hasReadme) return "No README";
+  return "Released";
+}
+
+// ============================================================
+// Build slug from repo name
+// ============================================================
+function slugify(repoName: string): string {
+  return repoName.toLowerCase().replace(/[^a-z0-9-]/g, "-");
+}
+
+// ============================================================
+// Merge manual + auto data
+// ============================================================
+// Step 1: Start with manual projects as the base (always present)
+const merged: ProjectRepo[] = MANUAL_PROJECTS.map((p) => {
+  const auto = AUTO_DATA.find((a) => a.repo.toLowerCase().endsWith(`/${p.repo.split("/")[1]}`));
+  if (!auto) {
+    // No auto data — return manual as-is
+    return p as ProjectRepo;
+  }
+  // Merge: auto provides fresh metadata, manual keeps detailed fields
+  return {
+    ...p,
+    // Auto overrides these (fresher)
+    name: auto.name || p.name,
+    short: auto.description || p.short,
+    homepage: auto.homepage || p.homepage,
+    // Auto provides these new fields
+    stars: auto.stars,
+    forks: auto.forks,
+    watchers: auto.watchers,
+    openIssues: auto.openIssues,
+    language: auto.language || undefined,
+    topics: auto.topics,
+    pushedAt: auto.pushedAt,
+    createdAt: auto.createdAt,
+    updatedAt: auto.updatedAt,
+    archived: auto.archived,
+    defaultBranch: auto.defaultBranch,
+    // Status: use auto-inferred if manual says No README but README now exists
+    status:
+      p.status === "No README" && auto.hasReadme
+        ? inferStatus(auto.archived, auto.pushedAt, true)
+        : p.status,
+    // Tags: merge manual + auto topics (dedupe)
+    tags: Array.from(new Set([...p.tags, ...(auto.topics || [])])),
+    // hasReadme from auto is more reliable
+    hasReadme: auto.hasReadme || p.hasReadme,
+  } as ProjectRepo;
+});
+
+// Step 2: Add auto projects that aren't in manual (new repos)
+for (const auto of AUTO_DATA) {
+  const existsInManual = MANUAL_PROJECTS.some(
+    (m) => m.repo.toLowerCase().endsWith(`/${auto.repo.split("/")[1]}`)
+  );
+  if (existsInManual) continue;
+
+  // New repo not in manual — create minimal entry
+  const slug = slugify(auto.name);
+  const category = inferCategory(auto.name, auto.topics, auto.description);
+  merged.push({
+    slug,
+    name: auto.name,
+    repo: auto.repo,
+    url: `https://github.com/${auto.repo}`,
+    homepage: auto.homepage || undefined,
+    category,
+    status: inferStatus(auto.archived, auto.pushedAt, auto.hasReadme),
+    icon: inferIcon(category, auto.name),
+    short: auto.description || `${auto.name} — see repository for details.`,
+    bullets: auto.readmeExcerpt ? [auto.readmeExcerpt] : [],
+    tags: auto.topics || [],
+    hasReadme: auto.hasReadme,
+    stars: auto.stars,
+    forks: auto.forks,
+    watchers: auto.watchers,
+    openIssues: auto.openIssues,
+    language: auto.language || undefined,
+    topics: auto.topics,
+    pushedAt: auto.pushedAt,
+    createdAt: auto.createdAt,
+    updatedAt: auto.updatedAt,
+    archived: auto.archived,
+    defaultBranch: auto.defaultBranch,
+  });
+}
+
+export const PROJECTS: ProjectRepo[] = merged;
+
+// Also re-export the ProjectRepo type for downstream imports
+export type { ProjectRepo };
