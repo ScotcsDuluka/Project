@@ -15,7 +15,7 @@ export default function About() {
   return (
     <section id="about" className="relative overflow-hidden bg-[#faf6f0] py-20 lg:py-28">
       {/* Soft backdrop */}
-      <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 rounded-full bg-purple-200/30 blur-[120px]" />
+      <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 rounded-full bg-purple-200/30 blur-[60px]" />
 
       <div className="relative mx-auto max-w-5xl px-6 lg:px-12">
         {/* Section header — editorial style */}

@@ -18,7 +18,7 @@ export default function Connect() {
       {/* Big aurora */}
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-pink-300/30 via-purple-300/20 to-amber-200/20 blur-[160px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-pink-300/30 via-purple-300/20 to-amber-200/20 blur-[80px]"
         animate={{ scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />

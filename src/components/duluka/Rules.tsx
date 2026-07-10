@@ -23,7 +23,7 @@ export default function Rules() {
 
   return (
     <section id="rules" className="relative overflow-hidden bg-[#fde2e4]/20 py-20 lg:py-28">
-      <div className="pointer-events-none absolute left-0 top-1/3 h-72 w-72 rounded-full bg-purple-200/30 blur-[120px]" />
+      <div className="pointer-events-none absolute left-0 top-1/3 h-72 w-72 rounded-full bg-purple-200/30 blur-[60px]" />
 
       <div className="relative mx-auto max-w-5xl px-6 lg:px-12">
         {/* Header */}

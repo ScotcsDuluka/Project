@@ -28,7 +28,7 @@ export default function ServerInfo() {
   return (
     <section id="server" className="relative overflow-hidden bg-gradient-to-b from-[#faf6f0] to-[#fde2e4]/30 py-20 lg:py-28">
       {/* Backdrop */}
-      <div className="pointer-events-none absolute left-1/4 top-0 h-72 w-72 rounded-full bg-pink-200/30 blur-[120px]" />
+      <div className="pointer-events-none absolute left-1/4 top-0 h-72 w-72 rounded-full bg-pink-200/30 blur-[60px]" />
       <div className="absolute inset-0 duluka-dots-bg opacity-40" aria-hidden />
 
       <div className="relative mx-auto max-w-5xl px-6 lg:px-12">

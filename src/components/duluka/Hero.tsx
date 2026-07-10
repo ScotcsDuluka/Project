@@ -14,26 +14,20 @@ export default function Hero() {
     >
       {/* Background */}
       <div className="absolute inset-0 duluka-dots-bg opacity-60" aria-hidden />
-      <StarField density={70} />
+      <StarField density={25} />
 
-      {/* Floating soft blobs */}
+      {/* Floating soft blobs — reduced to 2 with smaller blur for GPU */}
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full bg-pink-300/30 blur-[100px]"
-        animate={reduce ? undefined : { x: [0, 50, 0], y: [0, 30, 0], scale: [1, 1.1, 1] }}
+        className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-pink-300/25 blur-[60px]"
+        animate={reduce ? undefined : { x: [0, 30, 0], y: [0, 20, 0] }}
         transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute -bottom-32 -right-32 h-[28rem] w-[28rem] rounded-full bg-purple-300/25 blur-[110px]"
-        animate={reduce ? undefined : { x: [0, -40, 0], y: [0, -20, 0], scale: [1, 1.15, 1] }}
+        className="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-purple-300/20 blur-[70px]"
+        animate={reduce ? undefined : { x: [0, -25, 0], y: [0, -15, 0] }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute top-1/3 right-1/4 h-48 w-48 rounded-full bg-amber-200/30 blur-[80px]"
-        animate={reduce ? undefined : { scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
       <div className="relative z-10 mx-auto w-full max-w-5xl px-6 py-20 lg:px-12 lg:py-24">

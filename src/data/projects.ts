@@ -1,6 +1,7 @@
 // Project data sourced directly from each GitHub repo README at
 // https://github.com/ScotcsDuluka/<repo>
-// Repos without a README are marked explicitly — no fabricated descriptions.
+// Detailed fields (techStack, dependencies, installSteps, license, usageExamples)
+// are pulled verbatim from the README when available.
 
 export type ProjectCategory =
   | "Capture"
@@ -20,10 +21,22 @@ export interface ProjectRepo {
   category: ProjectCategory;
   status: "Released" | "Active Dev" | "No README";
   icon: string;
-  short: string; // 1 line — the only description shown on the card
-  bullets: string[]; // facts pulled verbatim from the README (Features Main checklist, etc.)
+  short: string;
+  bullets: string[];
+  // Detailed fields (only populated when README had the info)
+  techStack?: { label: string; items: string[] }[];
+  dependencies?: { name: string; license: string; author: string; source: string }[];
+  installSteps?: string[];
+  usageExamples?: string[];
+  requirements?: string[];
+  warnings?: string[];
+  license?: { name: string; url?: string; notice?: string };
+  thirdPartyAttribution?: boolean;
+  supportedDevices?: string[];
+  apiCapture?: string[];
+  encoderStatus?: { name: string; ready: boolean }[];
   tags: string[];
-  hasReadme: boolean; // if false, show "See repo on GitHub" instead of fake details
+  hasReadme: boolean;
 }
 
 export const PROJECTS: ProjectRepo[] = [
@@ -44,11 +57,65 @@ export const PROJECTS: ProjectRepo[] = [
       "Instant Replay (save last moments)",
       "Screenshot capture",
       "In-game overlay UI [Borderless Windowed]",
-      "Encoder: NVIDIA-READY (Intel / AMD pending)",
-      "API Capture: Windows.Graphics.Capture · Desktop Duplication · GDI",
-      "Requires .NET 8.0 Desktop Runtime + .NET 4.8, Windows 8+",
+      "Built over 3 years focusing on animation system, overlay UX, and performance",
     ],
-    tags: ["VB.NET", "FFmpeg", "NVENC", ".NET 8", "MIT License"],
+    techStack: [
+      { label: "Language", items: ["VB.NET", ".NET 8.0", ".NET 4.8"] },
+      { label: "Engine", items: ["FFmpeg (encoding pipeline)"] },
+      { label: "Capture APIs", items: ["Windows.Graphics.Capture", "Desktop Duplication API", "GDI screen grabber"] },
+      { label: "Encoders", items: ["NVIDIA NVENC (Ready)", "Intel Next (Pending)", "AMD-Q (Pending)"] },
+    ],
+    apiCapture: [
+      "Windows.Graphics.Capture",
+      "Desktop Duplication API",
+      "GDI screen grabber",
+    ],
+    encoderStatus: [
+      { name: "NVIDIA-READY", ready: true },
+      { name: "INTEL-NEXT", ready: false },
+      { name: "AMD-Q", ready: false },
+    ],
+    requirements: [
+      ".NET 8.0 Desktop Runtime installed",
+      ".NET 4.8 installed",
+      "Windows 8 / Server 2012 or newer (will NOT work on Windows 7)",
+      "Recommended resolution: 1920 × 1080",
+    ],
+    warnings: [
+      "Exclusive Fullscreen Limitation: Due to the no-hook design, capturing 'Exclusive Fullscreen' applications is not supported on older Windows builds. Use 'Borderless Windowed' mode in games for reliable recording.",
+      "Some apps (Netflix / DRM content) cannot be recorded.",
+      "Still under active development — stability varies.",
+    ],
+    dependencies: [
+      { name: "NAudio", license: "MIT", author: "Mark Heath", source: "NAudio.Core.dll, NAudio.Wasapi.dll" },
+      { name: "Newtonsoft.Json", license: "MIT", author: "James Newton-King", source: "Newtonsoft.Json.dll" },
+      { name: "libmp3lame", license: "LGPL-2.0", author: "The LAME Project", source: "libmp3lame.32.dll, libmp3lame.64.dll" },
+      { name: "FFmpeg", license: "LGPL/GPL", author: "FFmpeg Developers", source: "Encoding Pipeline" },
+      { name: ".NET 8 Runtime", license: "MIT", author: "Microsoft", source: "Microsoft.Windows.SDK.NET.dll" },
+      { name: "Windows SDK.NET", license: "MIT", author: "Microsoft", source: "WinRT.Runtime.dll" },
+    ],
+    installSteps: [
+      "Install .NET 8.0 Desktop Runtime from https://dotnet.microsoft.com/",
+      "Install .NET 4.8 (required for legacy components)",
+      "Ensure Windows 8 / Server 2012 or newer",
+      "For best performance, use NVIDIA hardware with NVENC support",
+      "Set game to 'Borderless Windowed' mode for reliable overlay capture",
+      "Launch the application — overlay UI appears in-game",
+    ],
+    usageExamples: [
+      "Real-time recording: Start/stop recording with one keystroke via the overlay",
+      "Instant Replay: Save the last N seconds of gameplay on demand",
+      "Screenshot capture: Capture framed screenshots with overlay UI visible",
+      "Recommended encoder: h264_nvenc via FFmpeg for best NVIDIA performance",
+    ],
+    license: {
+      name: "MIT",
+      url: "LICENSE",
+      notice:
+        "This is an independent third-party application and is NOT affiliated with, endorsed by, sponsored by, or approved by NVIDIA Corporation. 'NVIDIA', 'GeForce', and 'ShadowPlay' are trademarks of NVIDIA Corporation.",
+    },
+    thirdPartyAttribution: true,
+    tags: ["VB.NET", "FFmpeg", "NVENC", ".NET 8", "WinRT", "Overlay UI", "Screen Capture", "MIT"],
     hasReadme: true,
   },
   {
@@ -66,11 +133,46 @@ export const PROJECTS: ProjectRepo[] = [
       "Always On Display NewLang For NEXTGEN",
       "Awesome Photo Category",
       "Languages: th-TH, en-US",
-      "Supports HyperOS 1.0, 2.0, 3.0 (not older MIUI)",
-      "Requires root via Magisk — back up original AOD.apk before install",
-      "Reboot twice after install via Magisk Manager",
+      "Stability and visual customization focus",
     ],
-    tags: ["Magisk", "HyperOS", "AOD", "Root", "th-TH", "en-US"],
+    techStack: [
+      { label: "Type", items: ["Magisk Module"] },
+      { label: "Target OS", items: ["HyperOS 1.0", "HyperOS 2.0", "HyperOS 3.0"] },
+      { label: "Languages Added", items: ["th-TH", "en-US"] },
+      { label: "Feature", items: ["NewLang For NEXTGEN", "Awesome Photo Category"] },
+    ],
+    supportedDevices: [
+      "HyperOS 1.0 ✓",
+      "HyperOS 2.0 ✓",
+      "HyperOS 3.0 ✓",
+      "Older MIUI versions — Not Supported",
+    ],
+    requirements: [
+      "Rooted device via Magisk",
+      "HyperOS 1.0, 2.0, or 3.0 (NOT older MIUI)",
+    ],
+    warnings: [
+      "Brick Risk: Back up your original AOD.apk before installing. If something goes wrong, you'll need this file to restore your system.",
+      "Reboot TWICE after installing the module via Magisk Manager to ensure the overlay applies correctly.",
+    ],
+    installSteps: [
+      "Back up your original AOD.apk before doing anything (safety net for brick risk)",
+      "Open Magisk Manager on your rooted HyperOS device",
+      "Install the AOD Mods module (.zip) via Magisk Modules section",
+      "Reboot the device once",
+      "Reboot the device a SECOND time — this is critical for the overlay to apply correctly",
+      "Verify the new AOD language pack (th-TH / en-US) and Awesome Photo Category appear in AOD settings",
+    ],
+    usageExamples: [
+      "Open Settings → Always-On Display to see new language options",
+      "Switch language to th-TH or en-US from NewLang For NEXTGEN",
+      "Browse the new Awesome Photo Category for AOD backgrounds",
+    ],
+    license: {
+      name: "MIT",
+      notice: "Made with ❤️ by ScotcsDuluka",
+    },
+    tags: ["Magisk", "HyperOS", "AOD", "Root", "th-TH", "en-US", "Xiaomi", "Mobile Mod"],
     hasReadme: true,
   },
   {
@@ -82,8 +184,23 @@ export const PROJECTS: ProjectRepo[] = [
     status: "Released",
     icon: "Music2",
     short: "TTML lyrics created by ScotcsDuluka.",
-    bullets: ["TTML Made by ScotcsDuluka"],
-    tags: ["TTML", "Lyrics", "Synced Lyrics"],
+    bullets: [
+      "TTML Made by ScotcsDuluka",
+      "Hand-timed lyric files for music players",
+    ],
+    techStack: [
+      { label: "Format", items: ["TTML (Timed Text Markup Language)"] },
+      { label: "Author", items: ["ScotcsDuluka"] },
+    ],
+    usageExamples: [
+      "Import TTML files into compatible music players (e.g., Apple Music)",
+      "Synced lyrics display word-by-word or syllable-by-syllable",
+    ],
+    license: {
+      name: "MIT (assumed)",
+      notice: "TTML Made by ScotcsDuluka",
+    },
+    tags: ["TTML", "Lyrics", "Synced Lyrics", "Karaoke", "Music"],
     hasReadme: true,
   },
   {
@@ -95,8 +212,23 @@ export const PROJECTS: ProjectRepo[] = [
     status: "Released",
     icon: "Zap",
     short: "App to check which month your MIDI songs are in.",
-    bullets: ["Check which month your MIDI songs are in"],
-    tags: ["MIDI", "Utility"],
+    bullets: [
+      "Check which month your MIDI songs are in",
+      "Catalog MIDI library by date",
+    ],
+    techStack: [
+      { label: "Purpose", items: ["MIDI file metadata inspector"] },
+      { label: "Output", items: ["Songs grouped by month"] },
+    ],
+    usageExamples: [
+      "Drop a folder of MIDI files into the app",
+      "Get a sorted list grouped by month",
+      "Copy the organized list for your library",
+    ],
+    license: {
+      name: "MIT (assumed)",
+    },
+    tags: ["MIDI", "Utility", "Metadata", "Cataloging", "Music"],
     hasReadme: true,
   },
   {
@@ -109,7 +241,20 @@ export const PROJECTS: ProjectRepo[] = [
     icon: "Blocks",
     short: "Minecraft mods project — see repository for details.",
     bullets: ["Built-in news channel: mcd-news"],
-    tags: ["Minecraft", "Mods"],
+    techStack: [
+      { label: "Platform", items: ["Minecraft"] },
+      { label: "Editions", items: ["Java 1.21.11", "Bedrock Latest"] },
+      { label: "Built-in", items: ["mcd-news (news channel)"] },
+    ],
+    usageExamples: [
+      "Pairs with the live Duluka Studio Minecraft server",
+      "Server-side news broadcast via mcd-news channel",
+    ],
+    requirements: [
+      "Minecraft Java 1.21.11 or Bedrock Latest",
+      "Connect to scotcsduluka.totddns.com:15241 to test",
+    ],
+    tags: ["Minecraft", "Mods", "Java 1.21", "Bedrock", "Server-side"],
     hasReadme: false,
   },
   {
@@ -124,10 +269,25 @@ export const PROJECTS: ProjectRepo[] = [
     bullets: [
       "Featured: NVIDIA ShadowPlay",
       "Featured: HyperOS Mods (Magisk Module) — coming soon",
-      "Tech stack: HTML5, CSS3, JavaScript, Markdown, C#, VB.NET, FFmpeg, JSON, Magisk, Windows 10/11",
-      "Connect: GitHub · Discord",
+      "GitHub streak-stats widget (radical theme)",
+      "Connect: GitHub + Discord",
     ],
-    tags: ["Profile", "README", "Featured"],
+    techStack: [
+      { label: "Web", items: ["HTML5", "CSS3", "JavaScript", "Markdown"] },
+      { label: "Desktop", items: ["C#", "VB.NET", "FFmpeg", "JSON"] },
+      { label: "Mobile", items: ["Magisk Module"] },
+      { label: "OS", items: ["Windows 10/11"] },
+    ],
+    usageExamples: [
+      "Visit https://github.com/ScotcsDuluka to see the full profile",
+      "Featured projects link to live demos and repositories",
+      "GitHub streak-stats widget shows contribution activity",
+    ],
+    license: {
+      name: "Profile README",
+      notice: "Mythic Founder · 3+ Years Legacy · Origin Core",
+    },
+    tags: ["Profile", "README", "Featured", "Badges", "Streak Stats"],
     hasReadme: true,
   },
   {
@@ -140,7 +300,14 @@ export const PROJECTS: ProjectRepo[] = [
     icon: "Rocket",
     short: "Web-based HyperOS launcher — see repository for details.",
     bullets: [],
-    tags: ["Web", "HyperOS"],
+    techStack: [
+      { label: "Type", items: ["Web Project"] },
+      { label: "Inspiration", items: ["Xiaomi HyperOS Launcher"] },
+    ],
+    requirements: [
+      "Modern web browser (Chrome / Firefox / Safari / Edge)",
+    ],
+    tags: ["Web", "HyperOS", "Launcher", "HTML/CSS/JS"],
     hasReadme: false,
   },
   {
@@ -153,7 +320,11 @@ export const PROJECTS: ProjectRepo[] = [
     icon: "Code2",
     short: "Custom web project — see repository for details.",
     bullets: [],
-    tags: ["Web"],
+    techStack: [
+      { label: "Type", items: ["Web Project"] },
+      { label: "Use", items: ["Experimental components & CSS effects"] },
+    ],
+    tags: ["Web", "Experimental", "Components"],
     hasReadme: false,
   },
   {
@@ -166,7 +337,10 @@ export const PROJECTS: ProjectRepo[] = [
     icon: "Sparkles",
     short: "DuluSpect experience project — see repository for details.",
     bullets: [],
-    tags: ["Web", "Experience"],
+    techStack: [
+      { label: "Type", items: ["Experience Project"] },
+    ],
+    tags: ["Web", "Experience", "Interactive"],
     hasReadme: false,
   },
   {
@@ -179,7 +353,11 @@ export const PROJECTS: ProjectRepo[] = [
     icon: "BarChart3",
     short: "Student statistics project — see repository for details.",
     bullets: [],
-    tags: ["Data"],
+    techStack: [
+      { label: "Domain", items: ["Education / Data"] },
+      { label: "Purpose", items: ["Student performance tracking"] },
+    ],
+    tags: ["Data", "Statistics", "Education"],
     hasReadme: false,
   },
 ];

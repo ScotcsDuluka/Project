@@ -63,7 +63,7 @@ export default function Projects() {
 
   return (
     <section id="projects" className="relative overflow-hidden bg-[#faf6f0] py-20 lg:py-28">
-      <div className="pointer-events-none absolute right-0 top-1/4 h-72 w-72 rounded-full bg-pink-200/30 blur-[120px]" />
+      <div className="pointer-events-none absolute right-0 top-1/4 h-72 w-72 rounded-full bg-pink-200/30 blur-[60px]" />
 
       <div className="relative mx-auto max-w-6xl px-6 lg:px-12">
         {/* Header */}
@@ -318,7 +318,7 @@ export default function Projects() {
               exit={{ y: 40, scale: 0.97, opacity: 0 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-h-[92svh] w-full max-w-2xl overflow-y-auto rounded-t-3xl border-2 border-pink-200 bg-[#faf6f0]/98 backdrop-blur-2xl sm:rounded-3xl"
+              className="relative max-h-[92svh] w-full max-w-3xl overflow-y-auto rounded-t-3xl border-2 border-pink-200 bg-[#faf6f0]/98 backdrop-blur-2xl sm:rounded-3xl"
             >
               {/* Top stripe */}
               <div className="h-1.5 w-full bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-400" />
@@ -356,12 +356,12 @@ export default function Projects() {
                   {selected.short}
                 </p>
 
-                {/* Bullets */}
+                {/* Bullets (Features Main) */}
                 {selected.hasReadme && selected.bullets.length > 0 && (
                   <div className="mt-6">
                     <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-pink-500/70">
                       <span className="h-px w-8 bg-pink-300" />
-                      From README
+                      Features Main
                     </div>
                     <ul className="space-y-2">
                       {selected.bullets.map((b, i) => (
@@ -379,6 +379,235 @@ export default function Projects() {
                         </motion.li>
                       ))}
                     </ul>
+                  </div>
+                )}
+
+                {/* Tech Stack */}
+                {selected.techStack && selected.techStack.length > 0 && (
+                  <div className="mt-6">
+                    <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-pink-500/70">
+                      <span className="h-px w-8 bg-pink-300" />
+                      Tech Stack
+                    </div>
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                      {selected.techStack.map((group) => (
+                        <div
+                          key={group.label}
+                          className="rounded-xl border border-purple-100 bg-purple-50/40 p-3"
+                        >
+                          <div className="text-[10px] uppercase tracking-[0.16em] text-purple-600/70 mb-1">
+                            {group.label}
+                          </div>
+                          <div className="flex flex-wrap gap-1">
+                            {group.items.map((item) => (
+                              <span
+                                key={item}
+                                className="rounded-md border border-purple-200/60 bg-white/70 px-1.5 py-0.5 text-[11px] font-medium text-[#4a3b47]"
+                              >
+                                {item}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Encoder status (NVIDIA-specific) */}
+                {selected.encoderStatus && selected.encoderStatus.length > 0 && (
+                  <div className="mt-6">
+                    <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-pink-500/70">
+                      <span className="h-px w-8 bg-pink-300" />
+                      Encoder Status
+                    </div>
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+                      {selected.encoderStatus.map((enc) => (
+                        <div
+                          key={enc.name}
+                          className={`flex items-center justify-between rounded-xl border p-3 ${
+                            enc.ready
+                              ? "border-emerald-200 bg-emerald-50/70"
+                              : "border-pink-200 bg-pink-50/40"
+                          }`}
+                        >
+                          <span className="font-mono text-xs font-bold text-[#4a3b47]">
+                            {enc.name}
+                          </span>
+                          <span
+                            className={`text-xs font-bold ${
+                              enc.ready ? "text-emerald-600" : "text-[#6b5d68]/50"
+                            }`}
+                          >
+                            {enc.ready ? "✓ Ready" : "Pending"}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Supported devices (HyperOS-specific) */}
+                {selected.supportedDevices && selected.supportedDevices.length > 0 && (
+                  <div className="mt-6">
+                    <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-pink-500/70">
+                      <span className="h-px w-8 bg-pink-300" />
+                      Supported Devices / Versions
+                    </div>
+                    <ul className="space-y-1.5">
+                      {selected.supportedDevices.map((d, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-sm text-[#6b5d68]"
+                        >
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                          {d}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Requirements */}
+                {selected.requirements && selected.requirements.length > 0 && (
+                  <div className="mt-6">
+                    <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-amber-600/70">
+                      <span className="h-px w-8 bg-amber-300" />
+                      Requirements
+                    </div>
+                    <ul className="space-y-1.5">
+                      {selected.requirements.map((r, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-sm text-[#6b5d68]"
+                        >
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400" />
+                          {r}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Install steps */}
+                {selected.installSteps && selected.installSteps.length > 0 && (
+                  <div className="mt-6">
+                    <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-pink-500/70">
+                      <span className="h-px w-8 bg-pink-300" />
+                      Installation
+                    </div>
+                    <ol className="space-y-2">
+                      {selected.installSteps.map((step, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-3 rounded-xl border border-pink-100 bg-white/70 p-3"
+                        >
+                          <span className="editorial-number text-sm shrink-0">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span className="text-sm leading-relaxed text-[#6b5d68]">{step}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                )}
+
+                {/* Usage examples */}
+                {selected.usageExamples && selected.usageExamples.length > 0 && (
+                  <div className="mt-6">
+                    <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-pink-500/70">
+                      <span className="h-px w-8 bg-pink-300" />
+                      Usage
+                    </div>
+                    <ul className="space-y-1.5">
+                      {selected.usageExamples.map((u, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-sm text-[#6b5d68]"
+                        >
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-pink-400" />
+                          {u}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Warnings */}
+                {selected.warnings && selected.warnings.length > 0 && (
+                  <div className="mt-6">
+                    <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-rose-600/70">
+                      <span className="h-px w-8 bg-rose-300" />
+                      ⚠️ Warnings
+                    </div>
+                    <ul className="space-y-2">
+                      {selected.warnings.map((w, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 rounded-xl border border-rose-200 bg-rose-50/50 p-3 text-sm text-[#6b5d68]"
+                        >
+                          <span className="mt-0.5 shrink-0 text-rose-500">⚠️</span>
+                          <span className="leading-relaxed">{w}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Third-party dependencies table */}
+                {selected.dependencies && selected.dependencies.length > 0 && (
+                  <div className="mt-6">
+                    <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-pink-500/70">
+                      <span className="h-px w-8 bg-pink-300" />
+                      Third-Party Components
+                    </div>
+                    <div className="overflow-hidden rounded-xl border border-pink-100">
+                      <table className="w-full text-xs">
+                        <thead className="bg-pink-50/70 text-[10px] uppercase tracking-[0.16em] text-[#6b5d68]/70">
+                          <tr>
+                            <th className="px-3 py-2 text-left font-bold">Component</th>
+                            <th className="px-3 py-2 text-left font-bold">License</th>
+                            <th className="hidden sm:table-cell px-3 py-2 text-left font-bold">Author</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-pink-50">
+                          {selected.dependencies.map((dep) => (
+                            <tr key={dep.name} className="bg-white/40">
+                              <td className="px-3 py-2">
+                                <div className="font-mono font-bold text-[#4a3b47]">{dep.name}</div>
+                                <div className="text-[10px] text-[#6b5d68]/60">{dep.source}</div>
+                              </td>
+                              <td className="px-3 py-2">
+                                <span className="rounded-md border border-pink-200 bg-pink-50 px-1.5 py-0.5 font-mono text-[10px] text-pink-700">
+                                  {dep.license}
+                                </span>
+                              </td>
+                              <td className="hidden sm:table-cell px-3 py-2 text-[#6b5d68]">
+                                {dep.author}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+
+                {/* License */}
+                {selected.license && (
+                  <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+                    <div className="mb-1 flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-emerald-700/70">
+                      <span className="h-px w-8 bg-emerald-300" />
+                      License
+                    </div>
+                    <div className="font-serif-display text-lg font-bold text-[#4a3b47]">
+                      {selected.license.name}
+                    </div>
+                    {selected.license.notice && (
+                      <p className="mt-2 text-xs leading-relaxed text-[#6b5d68]">
+                        {selected.license.notice}
+                      </p>
+                    )}
                   </div>
                 )}
 
