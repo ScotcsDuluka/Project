@@ -361,6 +361,60 @@ export default function Projects() {
                   {selected.short}
                 </p>
 
+                {/* Live GitHub Stats — auto-fetched */}
+                {(selected.stars !== undefined ||
+                  selected.forks !== undefined ||
+                  selected.language ||
+                  selected.pushedAt ||
+                  selected.openIssues !== undefined) && (
+                  <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    {selected.stars !== undefined && (
+                      <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-2.5 text-center">
+                        <div className="font-serif-display text-lg font-black text-[#4a3b47]">
+                          {selected.stars}
+                        </div>
+                        <div className="text-[10px] uppercase tracking-[0.14em] text-amber-700/70">
+                          ⭐ Stars
+                        </div>
+                      </div>
+                    )}
+                    {selected.forks !== undefined && (
+                      <div className="rounded-xl border border-purple-200 bg-purple-50/50 p-2.5 text-center">
+                        <div className="font-serif-display text-lg font-black text-[#4a3b47]">
+                          {selected.forks}
+                        </div>
+                        <div className="text-[10px] uppercase tracking-[0.14em] text-purple-700/70">
+                          🍴 Forks
+                        </div>
+                      </div>
+                    )}
+                    {selected.language && (
+                      <div className="rounded-xl border border-pink-200 bg-pink-50/50 p-2.5 text-center">
+                        <div className="font-serif-display text-sm font-bold text-[#4a3b47] truncate">
+                          {selected.language}
+                        </div>
+                        <div className="text-[10px] uppercase tracking-[0.14em] text-pink-700/70">
+                          💻 Lang
+                        </div>
+                      </div>
+                    )}
+                    {selected.pushedAt && (
+                      <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-2.5 text-center">
+                        <div className="font-serif-display text-sm font-bold text-[#4a3b47]">
+                          {new Date(selected.pushedAt).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </div>
+                        <div className="text-[10px] uppercase tracking-[0.14em] text-emerald-700/70">
+                          📅 Updated
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {/* Bullets (Features Main) */}
                 {selected.hasReadme && selected.bullets.length > 0 && (
                   <div className="mt-6">
