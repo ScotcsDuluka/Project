@@ -45,7 +45,7 @@ export default function Hero() {
                 <Sparkles className="h-3 w-3 text-pink-500" />
                 สตูดิโอส่วนตัว
               </span>
-              <span className="font-hand text-lg text-pink-500/70">by ScotcsDuluka</span>
+              <span className="font-hand text-lg text-pink-500/70">โปรเจกต์เปิดซอร์ส</span>
             </motion.div>
 
             {/* Big serif headline */}
