@@ -69,11 +69,11 @@ export default function Connect() {
               <MessageCircle className="h-7 w-7" />
             </div>
             <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-pink-500/70">
-              💬 ชุมชน
+              Community
             </div>
             <h3 className="mt-1 font-serif-display text-2xl font-black text-[#4a3b47]">Discord</h3>
             <p className="mt-2 text-sm leading-relaxed text-[#6b5d68]">
-              ชุมชน — กฎเซิร์ฟเวอร์, แชทเสียง, อัปเดตโปรเจกต์. ติดต่อแอดมิน @ScotcsDuluka
+              กฎเซิร์ฟเวอร์, แชทเสียง, อัปเดตโปรเจกต์. ติดต่อแอดมิน @ScotcsDuluka
             </p>
             <div className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-pink-600">
               Join
@@ -98,7 +98,7 @@ export default function Connect() {
               <Github className="h-7 w-7" />
             </div>
             <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-500/70">
-              📂 ซอร์สโค้ด
+              Source
             </div>
             <h3 className="mt-1 font-serif-display text-2xl font-black text-[#4a3b47]">GitHub</h3>
             <p className="mt-2 text-sm leading-relaxed text-[#6b5d68]">
@@ -123,7 +123,7 @@ export default function Connect() {
               <Server className="h-7 w-7" />
             </div>
             <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-600/70">
-              🎮 เซิร์ฟเวอร์
+              Server
             </div>
             <h3 className="mt-1 font-serif-display text-2xl font-black text-[#4a3b47]">Minecraft</h3>
             <p className="mt-2 text-sm leading-relaxed text-[#6b5d68]">

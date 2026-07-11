@@ -185,7 +185,7 @@ export default function ServerInfo() {
                   platform === "java"
                     ? "Add Server แล้ววาง address ด้านบน"
                     : "Add Server โดยใส่ IP กับ Port แยกกัน",
-                  "Join — เสร็จแล้ว! ขอให้สนุก 🎉",
+                  "กด Join เข้าเล่นได้เลย",
                 ].map((step, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <span className="editorial-number text-base shrink-0">{i + 1}</span>
@@ -207,8 +207,8 @@ export default function ServerInfo() {
         >
           {[
             { icon: Server, label: "Editions", value: "Java + Bedrock", emoji: "🌐" },
-            { icon: Sparkles, label: "Mods", value: "MCDMods Plus", emoji: "✨" },
-            { icon: Wifi, label: "Status", value: "Community-run", emoji: "💛" },
+            { icon: Sparkles, label: "Mods", value: "MCDMods Plus", emoji: "📦" },
+            { icon: Wifi, label: "Status", value: "Community-run", emoji: "🟢" },
           ].map((s) => (
             <div
               key={s.label}

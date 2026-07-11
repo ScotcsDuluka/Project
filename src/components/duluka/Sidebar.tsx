@@ -17,11 +17,11 @@ import {
 import { GITHUB_PROFILE, DISCORD_INVITE } from "@/data/projects";
 
 const NAV_ITEMS = [
-  { id: "top", label: "Home", labelTh: "หน้าแรก", icon: Home, emoji: "🏡" },
-  { id: "about", label: "About", labelTh: "เกี่ยวกับ", icon: Sparkles, emoji: "✨" },
-  { id: "projects", label: "Projects", labelTh: "โปรเจกต์", icon: FolderGit2, emoji: "📂" },
-  { id: "server", label: "Server", labelTh: "เซิร์ฟเวอร์", icon: Server, emoji: "🎮" },
-  { id: "rules", label: "Rules", labelTh: "กฎ", icon: ScrollText, emoji: "📜" },
+  { id: "top", label: "Home", labelTh: "หน้าแรก", icon: Home },
+  { id: "about", label: "About", labelTh: "เกี่ยวกับ", icon: Sparkles },
+  { id: "projects", label: "Projects", labelTh: "โปรเจกต์", icon: FolderGit2 },
+  { id: "server", label: "Server", labelTh: "เซิร์ฟเวอร์", icon: Server },
+  { id: "rules", label: "Rules", labelTh: "กฎ", icon: ScrollText },
 ];
 
 export default function Sidebar() {
@@ -94,7 +94,7 @@ export default function Sidebar() {
                       : "text-[#6b5d68] hover:bg-pink-100/50"
                   }`}
                 >
-                  <span className="text-lg">{item.emoji}</span>
+                  <item.icon className="h-4 w-4" />
                   <span className="font-serif-display">{item.label}</span>
                   <span className="ml-auto text-xs text-[#6b5d68]/60">{item.labelTh}</span>
                 </button>
@@ -151,13 +151,11 @@ export default function Sidebar() {
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
                     )}
-                    <span
-                      className={`text-lg transition-transform duration-200 ${
+                    <item.icon
+                      className={`h-4 w-4 transition-transform duration-200 ${
                         isActive ? "scale-110" : "group-hover:scale-110"
                       }`}
-                    >
-                      {item.emoji}
-                    </span>
+                    />
                     <span className="font-serif-display">{item.label}</span>
                     <span className="ml-auto font-hand text-xs text-[#6b5d68]/50">
                       {item.labelTh}

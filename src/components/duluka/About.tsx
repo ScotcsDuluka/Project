@@ -5,10 +5,10 @@ import { Code2, Boxes, Languages, User, Sparkles, Quote, Github, MessageCircle }
 import { GITHUB_PROFILE, DISCORD_INVITE } from "@/data/projects";
 
 const FACTS = [
-  { icon: User, label: "Owner", value: "ScotcsDuluka", emoji: "🙋" },
-  { icon: Code2, label: "Languages", value: "VB.NET · C# · HTML · CSS · JS · TS", emoji: "💻" },
-  { icon: Boxes, label: "Focus", value: "Screen capture · Magisk · Minecraft · TTML", emoji: "🎯" },
-  { icon: Languages, label: "Community", value: "ไทย / English — bilingual", emoji: "🌍" },
+  { icon: User, label: "Owner", value: "ScotcsDuluka" },
+  { icon: Code2, label: "Languages", value: "VB.NET · C# · HTML · CSS · JS · TS" },
+  { icon: Boxes, label: "Focus", value: "Screen capture · Magisk · Minecraft · TTML" },
+  { icon: Languages, label: "Community", value: "ไทย / English" },
 ];
 
 export default function About() {
@@ -103,7 +103,7 @@ export default function About() {
               className="group relative overflow-hidden rounded-2xl border border-pink-200/60 bg-white/70 p-5 backdrop-blur-sm transition-shadow hover:duluka-shadow-card"
             >
               <div className="mb-3 flex items-center justify-between">
-                <span className="text-2xl">{f.emoji}</span>
+                <f.icon className="h-5 w-5 text-pink-500" />
                 <span className="editorial-number text-sm">{String(i + 1).padStart(2, "0")}</span>
               </div>
               <div className="text-[10px] uppercase tracking-[0.18em] text-[#6b5d68]/50">

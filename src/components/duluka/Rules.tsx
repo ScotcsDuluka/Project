@@ -47,7 +47,7 @@ export default function Rules() {
               <span className="duluka-text-gradient italic">Server Rules</span>
             </h2>
             <p className="mt-5 max-w-2xl text-base text-[#6b5d68] sm:text-lg">
-              มาอยู่กันแบบสร้างสรรค์ &amp; สนุกไปด้วยกัน — เลือกภาษาด้านล่าง
+              มาอยู่กันแบบสร้างสรรค์ &amp; สนุกไปด้วยกัน
             </p>
 
             {/* Language toggle */}

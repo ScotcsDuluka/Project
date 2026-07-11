@@ -98,13 +98,12 @@ export default function Hero() {
               className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm"
             >
               {[
-                { num: "10", label: "GitHub repos", emoji: "📂" },
-                { num: "1.21", label: "Minecraft Java", emoji: "🎮" },
-                { num: "TH/EN", label: "Bilingual", emoji: "🌍" },
+                { num: "10", label: "GitHub repos" },
+                { num: "1.21", label: "Minecraft Java" },
+                { num: "TH/EN", label: "Bilingual" },
               ].map((s, i) => (
                 <div key={s.label} className="flex items-center gap-2">
                   {i > 0 && <span className="text-pink-300">•</span>}
-                  <span className="text-lg">{s.emoji}</span>
                   <span className="font-serif-display text-xl font-bold text-[#4a3b47]">
                     {s.num}
                   </span>
@@ -124,14 +123,12 @@ export default function Hero() {
                 href="#projects"
                 className="duluka-shine group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-400 px-6 py-3 text-sm font-bold text-white shadow-lg transition-transform hover:scale-105"
               >
-                <span className="text-base">🚀</span>
                 View projects
               </a>
               <a
                 href="#server"
                 className="group inline-flex items-center gap-2 rounded-full border-2 border-pink-300 bg-white/70 px-6 py-3 text-sm font-bold text-[#4a3b47] backdrop-blur-sm transition-all hover:border-pink-400 hover:bg-white"
               >
-                <span className="text-base">🎮</span>
                 Minecraft Server
               </a>
             </motion.div>
