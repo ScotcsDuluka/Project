@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { Code2, Boxes, Languages, User, Sparkles, Quote } from "lucide-react";
+import { Code2, Boxes, Languages, User, Sparkles, Quote, Github, MessageCircle } from "lucide-react";
 import { GITHUB_PROFILE, DISCORD_INVITE } from "@/data/projects";
 
 const FACTS = [
@@ -36,9 +36,9 @@ export default function About() {
           </div>
           <div className="lg:col-span-9">
             <h2 className="font-serif-display text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] text-[#4a3b47]">
-              สวัสดี! <span className="duluka-text-gradient">ยินดีต้อนรับ</span>
+              <span className="duluka-text-gradient">About</span>
               <br />
-              สู่ Duluka Studio <span className="duluka-wiggle inline-block">👋</span>
+              Duluka Studio
             </h2>
           </div>
         </motion.div>
@@ -55,13 +55,12 @@ export default function About() {
           <div className="lg:col-span-9">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <p className="drop-cap text-base leading-relaxed text-[#6b5d68] md:text-lg">
-                สตูดิโอส่วนตัวของ ScotcsDuluka — ทำโปรเจกต์หลากหลายตั้งแต่ screen capture,
-                Magisk mods สำหรับ HyperOS, เว็บทดลอง, Minecraft server, ไปจนถึง TTML lyrics.
-                ทุกอย่างเปิดซอร์สบน GitHub หมด เพราะเชื่อว่าแบ่งปันดีกว่าเก็บ.
+                ผมทำโปรเจกต์หลายอย่าง — screen capture, Magisk mods สำหรับ HyperOS,
+                Minecraft server, TTML lyrics และอื่นๆ. ทุกอย่างเปิดซอร์สหมด อยู่บน GitHub.
               </p>
               <p className="text-base leading-relaxed text-[#6b5d68] md:text-lg">
-                เน้นทำของที่อยากทำจริงๆ — บางตัวใหญ่ บางตัวเล็ก บางตัวก็แปลกๆ
-                แต่ทุกอย่างมีเรื่องเล่าของมัน. อยากรู้จักมากขึ้น? แวะ Discord ได้เลย คุยกันสนุกๆ 💬
+                บางอันใช้งานจริง บางอันทดลอง บางอันก็เล็กๆ น้อยๆ.
+                มีคำถามหรืออยากคุย แวะ Discord ได้เลย.
               </p>
             </div>
 
@@ -131,9 +130,8 @@ export default function About() {
             rel="noreferrer"
             className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-400 to-fuchsia-400 px-5 py-2.5 text-sm font-bold text-white shadow-md transition-transform hover:scale-105"
           >
-            <span>📂</span>
-            ดู GitHub
-            <Sparkles className="h-3.5 w-3.5 transition-transform group-hover:rotate-12" />
+            <Github className="h-4 w-4" />
+            GitHub
           </a>
           <a
             href={DISCORD_INVITE}
@@ -141,8 +139,8 @@ export default function About() {
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full border-2 border-purple-300 bg-white/70 px-5 py-2.5 text-sm font-bold text-[#4a3b47] transition-all hover:border-purple-400 hover:bg-white"
           >
-            <span>💬</span>
-            แวะ Discord
+            <MessageCircle className="h-4 w-4" />
+            Discord
           </a>
         </motion.div>
       </div>

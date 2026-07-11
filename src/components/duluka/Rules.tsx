@@ -44,10 +44,7 @@ export default function Rules() {
           </div>
           <div className="lg:col-span-9">
             <h2 className="font-serif-display text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] text-[#4a3b47]">
-              กฎของเซิร์ฟเวอร์
-              <br />
-              <span className="duluka-text-gradient italic">พื้นฐานดี มีชัยไปกว่าครึ่ง</span>{" "}
-              <span className="duluka-wiggle inline-block">📜</span>
+              <span className="duluka-text-gradient italic">Server Rules</span>
             </h2>
             <p className="mt-5 max-w-2xl text-base text-[#6b5d68] sm:text-lg">
               มาอยู่กันแบบสร้างสรรค์ &amp; สนุกไปด้วยกัน — เลือกภาษาด้านล่าง
@@ -221,7 +218,7 @@ export default function Rules() {
               className="duluka-shine group inline-flex shrink-0 items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-pink-400 to-fuchsia-400 px-5 py-3 text-sm font-bold text-white shadow-md transition-transform hover:scale-105"
             >
               <MessageCircle className="h-4 w-4" />
-              {lang === "th" ? "เข้าร่วม Discord" : "Join Discord"}
+              {lang === "th" ? "Discord" : "Join Discord"}
             </a>
           </motion.div>
         </div>

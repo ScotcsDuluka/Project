@@ -43,13 +43,10 @@ export default function Connect() {
           </div>
           <div className="lg:col-span-9">
             <h2 className="font-serif-display text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] text-[#4a3b47]">
-              มาอยู่
-              <br />
-              <span className="duluka-text-gradient italic">ด้วยกัน</span>{" "}
-              <span className="duluka-wiggle inline-block">💖</span>
+              <span className="duluka-text-gradient italic">Connect</span>
             </h2>
             <p className="mt-5 max-w-2xl text-base text-[#6b5d68] sm:text-lg">
-              Discord สำหรับชุมชน · GitHub สำหรับซอร์สโค้ด · Minecraft สำหรับเล่น — เลือกเอาเลย!
+              Discord · GitHub · Minecraft server
             </p>
           </div>
         </motion.div>
@@ -76,10 +73,10 @@ export default function Connect() {
             </div>
             <h3 className="mt-1 font-serif-display text-2xl font-black text-[#4a3b47]">Discord</h3>
             <p className="mt-2 text-sm leading-relaxed text-[#6b5d68]">
-              กฎเซิร์ฟเวอร์, แชทเสียง, อัปเดตโปรเจกต์ แจ้งแอดมินได้ที่ @ScotcsDuluka
+              ชุมชน — กฎเซิร์ฟเวอร์, แชทเสียง, อัปเดตโปรเจกต์. ติดต่อแอดมิน @ScotcsDuluka
             </p>
             <div className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-pink-600">
-              เข้าร่วม
+              Join
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </div>
             <div className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-pink-300/30 blur-3xl" />
@@ -105,10 +102,10 @@ export default function Connect() {
             </div>
             <h3 className="mt-1 font-serif-display text-2xl font-black text-[#4a3b47]">GitHub</h3>
             <p className="mt-2 text-sm leading-relaxed text-[#6b5d68]">
-              ทุก repository ภายใต้ ScotcsDuluka — เปิดซอร์ส, เปิด pull request
+              ทุก repo ภายใต้ ScotcsDuluka — เปิดซอร์ส, pull request ได้
             </p>
             <div className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-purple-600">
-              ดูทั้งหมด
+              View
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </div>
           </motion.a>
@@ -139,7 +136,7 @@ export default function Connect() {
               href="#server"
               className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-amber-700"
             >
-              คัดลอก IP
+              Copy IP
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </a>
             <div className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-amber-300/30 blur-3xl" />

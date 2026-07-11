@@ -43,9 +43,9 @@ export default function Hero() {
             >
               <span className="sticker">
                 <Sparkles className="h-3 w-3 text-pink-500" />
-                สตูดิโอส่วนตัว
+                by ScotcsDuluka
               </span>
-              <span className="font-hand text-lg text-pink-500/70">โปรเจกต์เปิดซอร์ส</span>
+              <span className="font-hand text-lg text-pink-500/70">since 2023</span>
             </motion.div>
 
             {/* Big serif headline */}
@@ -83,11 +83,11 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.9, ease: "easeOut" }}
               className="mt-6 max-w-xl text-lg leading-relaxed text-[#6b5d68] sm:text-xl"
             >
-              โปรเจกต์เปิดซอร์สหลากหลาย —{" "}
+              โปรเจกต์เปิดซอร์สของ ScotcsDuluka —{" "}
               <span className="font-serif-display italic text-[#4a3b47]">
-                screen capture, Magisk mods, เว็บทดลอง, Minecraft server และ TTML lyrics
-              </span>
-              . ทั้งหมดอยู่บน GitHub ของ ScotcsDuluka.
+                screen capture, Magisk mods, Minecraft server, TTML lyrics
+              </span>{" "}
+              และอื่นๆ อยู่บน GitHub หมด
             </motion.p>
 
             {/* Quick stats inline */}
@@ -125,7 +125,7 @@ export default function Hero() {
                 className="duluka-shine group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-400 px-6 py-3 text-sm font-bold text-white shadow-lg transition-transform hover:scale-105"
               >
                 <span className="text-base">🚀</span>
-                ดูโปรเจกต์ทั้งหมด
+                View projects
               </a>
               <a
                 href="#server"

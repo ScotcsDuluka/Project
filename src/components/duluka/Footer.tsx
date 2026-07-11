@@ -40,8 +40,8 @@ export default function Footer() {
               Duluka Studio
             </h3>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-[#6b5d68]">
-              สตูดิโอส่วนตัวของ ScotcsDuluka — โปรเจกต์เปิดซอร์สหลากหลาย
-              ทั้ง screen capture, Magisk mods, เว็บทดลอง, Minecraft server และ TTML lyrics.
+              โปรเจกต์เปิดซอร์สของ ScotcsDuluka — screen capture, Magisk mods,
+              Minecraft server, TTML lyrics และอื่นๆ.
             </p>
             <div className="mt-5 flex items-center gap-3">
               <a
@@ -72,11 +72,11 @@ export default function Footer() {
             </div>
             <ul className="space-y-2 text-sm">
               {[
-                { href: "#top", label: "🏡 Home" },
-                { href: "#about", label: "✨ About" },
-                { href: "#projects", label: "📂 Projects" },
-                { href: "#server", label: "🎮 Server" },
-                { href: "#rules", label: "📜 Rules" },
+                { href: "#top", label: "Home" },
+                { href: "#about", label: "About" },
+                { href: "#projects", label: "Projects" },
+                { href: "#server", label: "Server" },
+                { href: "#rules", label: "Rules" },
               ].map((l) => (
                 <li key={l.href}>
                   <a
@@ -119,7 +119,7 @@ export default function Footer() {
             className="inline-flex items-center gap-1.5 rounded-full border border-pink-200 bg-white/70 px-3 py-1.5 text-xs font-bold text-[#6b5d68] transition-all hover:border-pink-400 hover:text-pink-600"
           >
             <ArrowUp className="h-3.5 w-3.5" />
-            กลับขึ้นบน
+            Back to top
           </a>
         </div>
       </div>

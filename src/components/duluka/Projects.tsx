@@ -85,13 +85,10 @@ export default function Projects() {
           </div>
           <div className="lg:col-span-9">
             <h2 className="font-serif-display text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] text-[#4a3b47]">
-              ทุก repo ของ
-              <br />
-              <span className="duluka-text-gradient italic">ScotcsDuluka</span>{" "}
-              <span className="duluka-wiggle inline-block">📂</span>
+              <span className="duluka-text-gradient italic">Projects</span>
             </h2>
             <p className="mt-5 max-w-2xl text-base text-[#6b5d68] sm:text-lg">
-              {filtered.length} repositories — คลิกการ์ดเพื่อดูรายละเอียดเต็ม หรือเข้า GitHub โดยตรง
+              {filtered.length} repos — click for details
             </p>
           </div>
         </motion.div>
@@ -260,7 +257,7 @@ export default function Projects() {
                     {!p.hasReadme && (
                       <div className="mt-4 inline-flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50/70 px-3 py-1.5 text-xs text-amber-700">
                         <AlertCircle className="h-3 w-3 shrink-0" />
-                        ยังไม่มี README — ดูที่ GitHub โดยตรง
+                        No README yet — ดูที่ GitHub โดยตรง
                       </div>
                     )}
 
@@ -282,7 +279,7 @@ export default function Projects() {
                         )}
                       </div>
                       <span className="inline-flex items-center gap-1 text-sm font-bold text-pink-600 transition-colors group-hover:text-pink-700">
-                        {p.hasReadme ? "ดูรายละเอียด" : "ดู repo"}
+                        {p.hasReadme ? "View details" : "View repo"}
                         <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </span>
                     </div>
@@ -300,7 +297,7 @@ export default function Projects() {
           <div className="lg:ml-[25%] py-16 text-center">
             <div className="text-4xl mb-3">🔍</div>
             <div className="font-serif-display text-lg text-[#4a3b47]">
-              ไม่มีโปรเจกต์ในหมวดนี้
+              No projects in this category
             </div>
           </div>
         )}
@@ -675,7 +672,7 @@ export default function Projects() {
                   <div className="mt-6 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50/70 p-4">
                     <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />
                     <div className="text-sm text-[#6b5d68]">
-                      Repository นี้ยังไม่มี README — ดูรายละเอียดได้ที่ GitHub โดยตรง
+                      No README yet — see GitHub for details
                     </div>
                   </div>
                 )}

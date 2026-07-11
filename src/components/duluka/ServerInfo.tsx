@@ -21,7 +21,7 @@ export default function ServerInfo() {
       // ignore
     }
     setCopied(which);
-    toast({ title: "คัดลอกแล้ว!", description: value });
+    toast({ title: "Copied!", description: value });
     setTimeout(() => setCopied(null), 1800);
   };
 
@@ -50,13 +50,12 @@ export default function ServerInfo() {
           </div>
           <div className="lg:col-span-9">
             <h2 className="font-serif-display text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] text-[#4a3b47]">
-              มาเล่น <span className="duluka-text-gradient italic">Minecraft</span>
+              <span className="duluka-text-gradient italic">Minecraft</span>
               <br />
-              ด้วยกันไหม? <span className="duluka-wiggle inline-block">🎮</span>
+              Server
             </h2>
             <p className="mt-5 max-w-2xl text-base text-[#6b5d68] sm:text-lg">
-              Java 1.21.11 และ Bedrock Latest เชื่อมได้ที่เดียวกัน — เลือก edition
-              แล้วกด copy เพื่อเข้าร่วม. ไม่ต้องลง mod ที่เครื่อง, server ทำให้หมดแล้ว ✨
+              Java 1.21.11 และ Bedrock Latest ใช้ IP เดียวกัน — เลือก edition แล้วกด copy ได้เลย
             </p>
           </div>
         </motion.div>
@@ -133,12 +132,12 @@ export default function ServerInfo() {
               >
                 {copied === "full" ? (
                   <>
-                    <Check className="h-4 w-4" /> คัดลอกแล้ว!
+                    <Check className="h-4 w-4" /> Copied!
                   </>
                 ) : (
                   <>
                     <Copy className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
-                    คัดลอก
+                    Copy
                   </>
                 )}
               </button>
@@ -177,7 +176,7 @@ export default function ServerInfo() {
               <div className="mb-3 flex items-center gap-2">
                 <Terminal className="h-3.5 w-3.5 text-pink-500" />
                 <span className="text-[10px] uppercase tracking-[0.18em] text-pink-500/70">
-                  เข้าเล่นยังไง
+                  Quick connect
                 </span>
               </div>
               <ol className="space-y-2.5">
