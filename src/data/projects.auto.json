@@ -11,14 +11,14 @@
     "openIssues": 0,
     "language": "TypeScript",
     "topics": [],
-    "pushedAt": "2026-07-12T03:40:23Z",
+    "pushedAt": "2026-07-13T03:42:08Z",
     "createdAt": "2026-07-10T08:48:49Z",
-    "updatedAt": "2026-07-12T03:40:27Z",
+    "updatedAt": "2026-07-13T03:42:12Z",
     "archived": false,
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "Duluka Studio — เว็บไซต์",
-    "fetchedAt": "2026-07-13T03:42:07.573Z"
+    "fetchedAt": "2026-07-14T03:17:33.189Z"
   },
   {
     "slug": "nvidia-shadowplay",
@@ -45,7 +45,7 @@
     "defaultBranch": "Master",
     "hasReadme": true,
     "readmeExcerpt": "<img src=\"https://cdn2.steamgriddb.com/icon/e8855b3528cb03d1def9803220bd3cb9/32/48x48.png\" alt=\"NVIDIA ShadowPlay Logo\" width=\"22\"> NVIDIA ShadowPlay `Custom Implementation`",
-    "fetchedAt": "2026-07-13T03:42:07.573Z"
+    "fetchedAt": "2026-07-14T03:17:33.189Z"
   },
   {
     "slug": "mcdmods-project-plus",
@@ -66,7 +66,7 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "mcd-news",
-    "fetchedAt": "2026-07-13T03:42:07.573Z"
+    "fetchedAt": "2026-07-14T03:17:33.189Z"
   },
   {
     "slug": "lyrics-ttml",
@@ -87,7 +87,7 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "Lyrics-TTML",
-    "fetchedAt": "2026-07-13T03:42:07.573Z"
+    "fetchedAt": "2026-07-14T03:17:33.189Z"
   },
   {
     "slug": "web-hyperos-launcher",
@@ -107,7 +107,7 @@
     "archived": false,
     "defaultBranch": "main",
     "hasReadme": false,
-    "fetchedAt": "2026-07-13T03:42:07.573Z"
+    "fetchedAt": "2026-07-14T03:17:33.189Z"
   },
   {
     "slug": "web-custom",
@@ -127,7 +127,7 @@
     "archived": false,
     "defaultBranch": "main",
     "hasReadme": false,
-    "fetchedAt": "2026-07-13T03:42:07.573Z"
+    "fetchedAt": "2026-07-14T03:17:33.189Z"
   },
   {
     "slug": "student-statistics",
@@ -147,7 +147,7 @@
     "archived": false,
     "defaultBranch": "main",
     "hasReadme": false,
-    "fetchedAt": "2026-07-13T03:42:07.573Z"
+    "fetchedAt": "2026-07-14T03:17:33.189Z"
   },
   {
     "slug": "scotcsduluka",
@@ -168,7 +168,7 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "ScotcsDuluka",
-    "fetchedAt": "2026-07-13T03:42:07.573Z"
+    "fetchedAt": "2026-07-14T03:17:33.189Z"
   },
   {
     "slug": "always-on-display-mods",
@@ -191,7 +191,7 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "Supported Devices & Version",
-    "fetchedAt": "2026-07-13T03:42:07.573Z"
+    "fetchedAt": "2026-07-14T03:17:33.189Z"
   },
   {
     "slug": "extreme-update",
@@ -212,6 +212,6 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "Extreme-Update",
-    "fetchedAt": "2026-07-13T03:42:07.573Z"
+    "fetchedAt": "2026-07-14T03:17:33.189Z"
   }
 ]
