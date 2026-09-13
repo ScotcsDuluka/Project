@@ -11,15 +11,6 @@ const SPECS = [
   { k: "LANG", v: "TH/EN", note: "bilingual" },
 ];
 
-const SKILLS = [
-  "SCREEN CAPTURE",
-  "MAGISK MODS",
-  "WEB EXPERIMENTS",
-  "MINECRAFT",
-  "TTML LYRICS",
-  "VB.NET × FFmpeg",
-];
-
 function RotatingBadge() {
   return (
     <div className="relative h-28 w-28 lg:h-36 lg:w-36" aria-hidden>
@@ -165,17 +156,22 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* bottom skill marquee */}
-      <div className="relative z-10 mt-10 overflow-hidden border-t-2 border-wx-ink bg-wx-ink py-3">
+      {/* bottom "break the limits" marquee */}
+      <div className="relative z-10 mt-10 overflow-hidden border-t-2 border-wx-ink bg-wx-ink py-4">
         <div className="wx-marquee-track wx-marquee-slow">
           {[0, 1].map((n) => (
-            <span
-              key={n}
-              className="pr-0 font-mono text-sm font-bold uppercase tracking-[0.3em] text-wx-paper"
-            >
-              {SKILLS.map((s) => (
-                <span key={s} className="pr-10">
-                  {s} <span className="text-wx-acid">✕</span>
+            <span key={n} className="flex items-center">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <span
+                  key={i}
+                  className={`flex items-center whitespace-nowrap pr-10 font-display text-xl uppercase tracking-wide sm:text-2xl ${
+                    i % 2 === 0 ? "text-wx-paper" : "wx-stroke-paper"
+                  }`}
+                >
+                  Break the limits!{" "}
+                  <span className="pl-6 text-wx-acid" aria-hidden>
+                    ★
+                  </span>
                 </span>
               ))}
             </span>
