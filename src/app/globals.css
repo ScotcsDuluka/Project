@@ -6,7 +6,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-mi-sans-thai), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-playfair);
   --font-hand: var(--font-caveat);
@@ -372,4 +372,10 @@ body {
     animation: none !important;
   }
   html { scroll-behavior: auto; }
+}
+
+/* Smooth focus ring */
+*:focus-visible {
+  outline: 2px solid var(--wx-orange);
+  outline-offset: 2px;
 }

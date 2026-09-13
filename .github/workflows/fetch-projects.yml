@@ -1,0 +1,80 @@
+# Auto-fetch project metadata from GitHub API
+# - Runs daily at midnight UTC (cron)
+# - Also runs on every push to main (so manual changes trigger fresh data)
+# - Commits the updated projects.auto.json back to the repo
+# - The deploy.yml workflow will then build & deploy with the fresh data
+
+name: Fetch Project Data
+
+on:
+  schedule:
+    # Daily at 00:00 UTC (= 07:00 ICT Thailand time)
+    - cron: "0 0 * * *"
+  push:
+    branches: [main]
+    paths:
+      # Only run when these change (avoid loop with auto.json commits)
+      - "scripts/fetch-projects.ts"
+      - "src/data/projects.manual.ts"
+      - ".github/workflows/fetch-projects.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write # needed to commit back the updated auto.json
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Use a token that can push back
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Fetch project data
+        env:
+          # GITHUB_TOKEN is auto-provided by Actions — gives 5000 req/hr
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bun run scripts/fetch-projects.ts
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet src/data/projects.auto.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "✓ No changes to auto.json"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "✓ Changes detected in auto.json"
+            git diff --stat src/data/projects.auto.json
+          fi
+
+      - name: Commit & push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/projects.auto.json
+          git commit -m "chore: auto-update project data from GitHub API
+
+          Fetch triggered by: ${{ github.event_name }}
+          Timestamp: $(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+          git push
+
+      - name: Summary
+        run: |
+          echo "## Fetch Project Data Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.changes.outputs.changed }}" == "true" ]; then
+            echo "✅ Updated \`src/data/projects.auto.json\` and committed to main" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "The deploy workflow will run automatically to publish the changes." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ No changes detected — data is already up to date" >> $GITHUB_STEP_SUMMARY
+          fi

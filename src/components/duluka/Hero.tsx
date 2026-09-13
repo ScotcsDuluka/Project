@@ -2,9 +2,10 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
+import { PROJECTS } from "@/data/projects";
 
 const SPECS = [
-  { k: "REPOS", v: "10", note: "all open source" },
+  { k: "REPOS", v: String(PROJECTS.length), note: "all open source" },
   { k: "VIBES", v: "137%", note: "calibrated" },
   { k: "MINECRAFT", v: "1.21", note: "java + bedrock" },
   { k: "LANG", v: "TH/EN", note: "bilingual" },

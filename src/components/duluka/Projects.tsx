@@ -316,6 +316,47 @@ export default function Projects() {
                   )}
                 </div>
 
+                {/* Live GitHub stats — merged from projects.auto.json */}
+                {(selected.stars !== undefined ||
+                  selected.forks !== undefined ||
+                  selected.language ||
+                  selected.updatedAt) && (
+                  <div className="mt-6 grid grid-cols-2 border-2 border-wx-ink sm:grid-cols-4">
+                    {selected.stars !== undefined && (
+                      <div className="border-r-2 border-b-2 border-wx-ink px-3 py-2 sm:border-b-0">
+                        <div className="font-mono text-[8px] uppercase tracking-[0.25em] text-wx-ink/50">
+                          Stars
+                        </div>
+                        <div className="font-display text-sm">{selected.stars}</div>
+                      </div>
+                    )}
+                    {selected.forks !== undefined && (
+                      <div className="border-b-2 border-wx-ink px-3 py-2 sm:border-r-2 sm:border-b-0">
+                        <div className="font-mono text-[8px] uppercase tracking-[0.25em] text-wx-ink/50">
+                          Forks
+                        </div>
+                        <div className="font-display text-sm">{selected.forks}</div>
+                      </div>
+                    )}
+                    {selected.language && (
+                      <div className="border-r-2 border-wx-ink px-3 py-2">
+                        <div className="font-mono text-[8px] uppercase tracking-[0.25em] text-wx-ink/50">
+                          Lang
+                        </div>
+                        <div className="truncate font-display text-sm">{selected.language}</div>
+                      </div>
+                    )}
+                    {selected.updatedAt && (
+                      <div className="px-3 py-2">
+                        <div className="font-mono text-[8px] uppercase tracking-[0.25em] text-wx-ink/50">
+                          Updated
+                        </div>
+                        <div className="font-display text-sm">{selected.updatedAt.slice(0, 10)}</div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 <div className="mt-6 flex items-center gap-4 border-t-2 border-wx-ink pt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-wx-ink/50">
                   <span className="inline-flex items-center gap-1">
                     <Star className="h-3 w-3" /> Open Source

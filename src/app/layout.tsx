@@ -1,8 +1,20 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { Geist, Geist_Mono, Playfair_Display, Caveat, Archivo_Black } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
+// MiSans Thai — primary font for Thai text (uploaded by user, Xiaomi MiSans Thai)
+// Note: MiSans Thai is a Thai-script-only subset (46KB). For Latin characters,
+// Geist Sans is used as fallback. The browser auto-selects per character.
+const miSansThai = localFont({
+  src: "./fonts/MiSansThai.ttf",
+  variable: "--font-mi-sans-thai",
+  display: "swap",
+  weight: "400",
+});
+
+// Geist Sans — fallback for Latin/English text (MiSans Thai has no Latin glyphs)
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -69,7 +81,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${caveat.variable} ${archivoBlack.variable} antialiased`}
+        className={`${miSansThai.variable} ${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${caveat.variable} ${archivoBlack.variable} antialiased`}
       >
         {children}
         <Toaster />

@@ -3,6 +3,7 @@
 import Intro from "@/components/duluka/Intro";
 import TopBar from "@/components/duluka/TopBar";
 import Cursor from "@/components/duluka/Cursor";
+import ScrollProgress from "@/components/duluka/ScrollProgress";
 import Hero from "@/components/duluka/Hero";
 import About from "@/components/duluka/About";
 import ServerInfo from "@/components/duluka/ServerInfo";
@@ -16,6 +17,7 @@ export default function Home() {
     <div className="relative flex min-h-screen flex-col bg-wx-paper text-wx-ink">
       <Intro />
       <Cursor />
+      <ScrollProgress />
       <TopBar />
       {/* spacer for fixed header (ticker ~29px + bar 56px) */}
       <div className="h-[87px] shrink-0" aria-hidden />
