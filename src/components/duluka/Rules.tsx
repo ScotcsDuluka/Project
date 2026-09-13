@@ -86,7 +86,9 @@ export default function Rules() {
             >
               {/* group header */}
               <div className="flex items-center gap-3 border-b-2 border-wx-ink bg-wx-ink px-4 py-3 sm:px-6">
-                <span className="text-lg">{group.emoji}</span>
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center border-2 border-wx-acid/60 text-wx-acid">
+                  <LucideIcon name={group.icon} className="h-4 w-4" />
+                </span>
                 <h3 className="font-display text-sm uppercase tracking-wide text-wx-acid sm:text-base">
                   {lang === "th" ? group.titleTh : group.titleEn}
                 </h3>
@@ -145,7 +147,7 @@ export default function Rules() {
           <div className="mb-4 flex items-center gap-3">
             <div className="wx-hazard-orange h-6 w-16" aria-hidden />
             <h3 className="font-display text-xl uppercase sm:text-2xl">
-              ⚠️ {lang === "th" ? "บทลงโทษ" : "Penalties"}
+              {lang === "th" ? "บทลงโทษ" : "Penalties"}
             </h3>
             <span className="h-0.5 flex-1 bg-wx-ink" />
           </div>
@@ -164,7 +166,16 @@ export default function Rules() {
                 <div className="wx-hazard h-2 w-full" aria-hidden />
                 <div className="p-5">
                   <div className="flex items-center justify-between">
-                    <span className="text-3xl">{p.emoji}</span>
+                    <span
+                      className={`h-7 w-7 border-2 border-wx-ink ${
+                        p.level === "warn"
+                          ? "bg-wx-acid"
+                          : p.level === "mute"
+                            ? "bg-wx-orange"
+                            : "bg-[#e11d48]"
+                      }`}
+                      aria-hidden
+                    />
                     <span className="font-display text-xs text-wx-orange">
                       LVL {i + 1}
                     </span>
@@ -209,13 +220,13 @@ export default function Rules() {
           <div className="text-center sm:text-left">
             <div className="font-display text-lg uppercase sm:text-xl">
               {lang === "th"
-                ? "✨ มาอยู่กันแบบสร้างสรรค์ & สนุกไปด้วยกัน! 💖"
-                : "✨ Let's create and have fun together! 💖"}
+                ? "มาอยู่กันแบบสร้างสรรค์ & สนุกไปด้วยกัน!"
+                : "Let's create and have fun together!"}
             </div>
             <div className="mt-1 font-mono text-xs uppercase tracking-[0.12em] text-wx-ink/70">
               {lang === "th"
-                ? "💬 มีปัญหาแจ้งแอดมินได้ที่ @ScotcsDuluka"
-                : "💬 Contact admin at @ScotcsDuluka"}
+                ? "มีปัญหาแจ้งแอดมินได้ที่ @ScotcsDuluka"
+                : "Contact admin at @ScotcsDuluka"}
             </div>
           </div>
           <a

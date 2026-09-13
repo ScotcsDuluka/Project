@@ -189,7 +189,7 @@ export default function Projects() {
           {filtered.length === 0 && (
             <div className="border-t-2 border-wx-ink py-16 text-center">
               <div className="font-display text-2xl uppercase">NOTHING HERE</div>
-              <div className="mt-2 font-hand text-xl text-wx-ink/50">ไม่มีโปรเจกต์ในหมวดนี้ 🤷</div>
+              <div className="mt-2 font-hand text-xl text-wx-ink/50">ไม่มีโปรเจกต์ในหมวดนี้</div>
             </div>
           )}
         </div>
