@@ -42,11 +42,30 @@ export default function Footer() {
       </div>
 
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-10 lg:py-16">
-        {/* Giant wordmark */}
-        <div className="select-none overflow-hidden" aria-hidden>
-          <div className="wx-stroke-paper whitespace-nowrap text-center font-display text-[18.5vw] font-black uppercase leading-[0.85]">
-            Duluka
-          </div>
+        {/* Giant wordmark — SVG so it always fits edge-to-edge at any width */}
+        <div className="select-none" aria-hidden>
+          <svg
+            viewBox="0 0 700 132"
+            className="block h-auto w-full"
+            role="presentation"
+            focusable="false"
+          >
+            <text
+              x="350"
+              y="114"
+              textAnchor="middle"
+              textLength="692"
+              lengthAdjust="spacingAndGlyphs"
+              fill="none"
+              stroke="#ece7da"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+              className="font-display"
+              style={{ fontSize: 130, fontWeight: 900 }}
+            >
+              Duluka
+            </text>
+          </svg>
         </div>
 
         {/* meta grid */}
