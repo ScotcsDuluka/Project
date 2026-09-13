@@ -1,18 +1,17 @@
 'use client';
 
 import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import {
   Github,
   ExternalLink,
-  ChevronRight,
-  Filter,
-  AlertCircle,
+  ArrowUpRight,
   X,
   Star,
   GitFork,
-  ArrowUpRight,
+  AlertTriangle,
+  Filter,
 } from "lucide-react";
 import { PROJECTS, type ProjectRepo, type ProjectCategory } from "@/data/projects";
 
@@ -27,24 +26,6 @@ const CATEGORIES: ("All" | ProjectCategory)[] = [
   "Profile",
 ];
 
-const STATUS_STYLE: Record<ProjectRepo["status"], { label: string; bg: string; text: string }> = {
-  Released: {
-    label: "Released",
-    bg: "bg-emerald-100",
-    text: "text-emerald-700",
-  },
-  "Active Dev": {
-    label: "Active Dev",
-    bg: "bg-pink-100",
-    text: "text-pink-700",
-  },
-  "No README": {
-    label: "No README",
-    bg: "bg-purple-100",
-    text: "text-purple-700",
-  },
-};
-
 function LucideIcon({ name, className }: { name: string; className?: string }) {
   const C =
     (Icons as Record<string, React.ComponentType<{ className?: string }>>)[name] ??
@@ -55,6 +36,16 @@ function LucideIcon({ name, className }: { name: string; className?: string }) {
 export default function Projects() {
   const [filter, setFilter] = useState<"All" | ProjectCategory>("All");
   const [selected, setSelected] = useState<ProjectRepo | null>(null);
+  const [closing, setClosing] = useState(false);
+
+  const closeModal = () => {
+    // CSS fade + guaranteed unmount — no exit-animation machinery to hang
+    setClosing(true);
+    setTimeout(() => {
+      setSelected(null);
+      setClosing(false);
+    }, 260);
+  };
 
   const filtered = useMemo(() => {
     if (filter === "All") return PROJECTS;
@@ -62,48 +53,49 @@ export default function Projects() {
   }, [filter]);
 
   return (
-    <section id="projects" className="relative overflow-hidden bg-[#faf6f0] py-20 lg:py-28">
-      <div className="pointer-events-none absolute right-0 top-1/4 h-72 w-72 rounded-full bg-pink-200/30 blur-[120px]" />
-
-      <div className="relative mx-auto max-w-6xl px-6 lg:px-12">
+    <section id="projects" className="relative overflow-hidden border-b-2 border-wx-ink py-20 lg:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10"
-        >
-          <div className="lg:col-span-3">
-            <div className="sticky top-24">
-              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-pink-500/70">
-                §04
-              </div>
-              <div className="font-hand text-2xl text-pink-500 mt-1">โปรเจกต์</div>
-            </div>
-          </div>
-          <div className="lg:col-span-9">
-            <h2 className="font-serif-display text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] text-[#4a3b47]">
-              ทุก repo ของ
-              <br />
-              <span className="duluka-text-gradient italic">ScotcsDuluka</span>{" "}
-              <span className="duluka-wiggle inline-block">📂</span>
-            </h2>
-            <p className="mt-5 max-w-2xl text-base text-[#6b5d68] sm:text-lg">
-              {filtered.length} repositories — คลิกการ์ดเพื่อดูรายละเอียดเต็ม หรือเข้า GitHub โดยตรง
-            </p>
-          </div>
-        </motion.div>
-
-        {/* Filter pills */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="lg:ml-[25%] mb-10 flex flex-wrap items-center gap-2"
+          transition={{ duration: 0.5 }}
+          className="mb-10 flex flex-wrap items-end justify-between gap-6"
         >
-          <span className="mr-1 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.16em] text-[#6b5d68]/50">
+          <div>
+            <div className="mb-10 flex items-center gap-4">
+              <span className="border-2 border-wx-ink bg-wx-ink px-3 py-1.5 font-mono text-[11px] font-bold tracking-[0.2em] text-wx-acid">
+                §03
+              </span>
+              <span className="font-mono text-[11px] font-bold uppercase tracking-[0.3em]">
+                PROJECT INDEX
+              </span>
+              <span className="h-0.5 w-24 bg-wx-ink lg:w-48" />
+              <span className="font-hand text-2xl">โปรเจกต์</span>
+            </div>
+            <h2 className="font-display text-5xl font-black uppercase leading-[0.9] sm:text-6xl lg:text-7xl">
+              {filtered.length} ×
+              <br />
+              <span className="wx-stroke">Repos</span>
+            </h2>
+            <p className="mt-4 max-w-xl text-sm text-wx-ink/60 sm:text-base">
+              ทุก repo ของ ScotcsDuluka — คลิกแถวเพื่อดูรายละเอียด หรือกระโดดเข้า GitHub ตรงๆ
+            </p>
+          </div>
+
+          <div className="wx-hazard-orange h-10 w-40 self-end sm:w-64" aria-hidden />
+        </motion.div>
+
+        {/* Filters */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.45 }}
+          className="mb-0 flex flex-wrap items-center gap-2 border-2 border-wx-ink bg-wx-paper2 p-3"
+        >
+          <span className="mr-2 inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-wx-ink/50">
             <Filter className="h-3 w-3" /> Filter
           </span>
           {CATEGORIES.map((c) => {
@@ -114,18 +106,14 @@ export default function Projects() {
               <button
                 key={c}
                 onClick={() => setFilter(c)}
-                className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-bold transition-all duration-300 ${
+                className={`inline-flex items-center gap-1.5 border-2 border-wx-ink px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] transition-all ${
                   active
-                    ? "border-transparent bg-gradient-to-r from-pink-400 to-fuchsia-400 text-white shadow-md"
-                    : "border-pink-200 bg-white/70 text-[#6b5d68] hover:border-pink-300 hover:text-[#4a3b47]"
+                    ? "bg-wx-ink text-wx-acid"
+                    : "bg-wx-paper text-wx-ink hover:bg-wx-acid"
                 }`}
               >
                 {c}
-                <span
-                  className={`rounded-full px-1.5 text-[10px] ${
-                    active ? "bg-white/25" : "bg-pink-100"
-                  }`}
-                >
+                <span className={`px-1 ${active ? "text-wx-paper/60" : "text-wx-ink/40"}`}>
                   {count}
                 </span>
               </button>
@@ -133,261 +121,161 @@ export default function Projects() {
           })}
         </motion.div>
 
-        {/* Big horizontal project cards */}
-        <motion.div layout className="lg:ml-[25%] space-y-6">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((p, i) => {
-              const status = STATUS_STYLE[p.status];
-              const reverse = i % 2 === 1; // alternate layout
-              return (
-                <motion.article
-                  key={p.slug}
-                  layout
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.97 }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
-                  whileHover={{ y: -4 }}
-                  onClick={() => setSelected(p)}
-                  className="group relative grid grid-cols-1 overflow-hidden rounded-3xl border-2 border-pink-200/60 bg-white/80 backdrop-blur-sm transition-all duration-300 hover:border-pink-300 hover:duluka-shadow-hover md:grid-cols-12"
-                >
-                  {/* LEFT: Visual block (large icon + status) */}
-                  <div
-                    className={`relative flex flex-col justify-between p-6 sm:p-8 md:col-span-4 ${
-                      reverse ? "md:order-2" : "md:order-1"
-                    } bg-gradient-to-br from-pink-100/80 via-fuchsia-50/60 to-purple-100/60`}
-                  >
-                    {/* decorative dots */}
-                    <div className="pointer-events-none absolute inset-0 duluka-dots-bg opacity-30" />
+        {/* Index rows */}
+        <div className="border-x-2 border-b-2 border-wx-ink">
+          {filtered.map((p, i) => {
+            const reverse = i % 2 === 1;
+            return (
+              <motion.button
+                key={p.slug}
+                type="button"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: i * 0.04 }}
+                onClick={() => setSelected(p)}
+                data-cursor="OPEN"
+                className={`group block w-full border-t-2 border-wx-ink text-left transition-colors duration-150 ${
+                  reverse ? "bg-wx-paper" : "bg-wx-paper"
+                } hover:bg-wx-ink hover:text-wx-acid`}
+              >
+                  <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-5 sm:gap-6 sm:px-6 lg:grid-cols-[70px_1fr_1fr_auto_auto] lg:py-7">
+                    {/* index */}
+                    <span className="font-mono text-xs font-bold text-wx-ink/40 transition-colors group-hover:text-wx-acid/60">
+                      /{String(i + 1).padStart(2, "0")}
+                    </span>
 
-                    {/* Top: status + index */}
-                    <div className="relative flex items-start justify-between">
+                    {/* name */}
+                    <span className="min-w-0">
+                      <span className="block truncate font-display text-xl uppercase leading-tight sm:text-3xl lg:text-4xl">
+                        {p.name}
+                      </span>
+                      <span className="block font-mono text-[10px] tracking-[0.08em] opacity-50">
+                        {p.repo}
+                      </span>
+                    </span>
+
+                    {/* category + status (desktop) */}
+                    <span className="hidden lg:block">
+                      <span className="inline-block border-2 border-current px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.15em]">
+                        {p.category}
+                      </span>
                       <span
-                        className={`inline-flex items-center gap-1 rounded-full ${status.bg} ${status.text} px-2.5 py-1 text-[10px] font-bold`}
+                        className={`ml-2 inline-block px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.15em] ${
+                          p.status === "Released"
+                            ? "bg-current text-[var(--wx-paper)]"
+                            : p.status === "Active Dev"
+                              ? "bg-wx-orange text-wx-ink"
+                              : "bg-wx-ink/15 text-current"
+                        } ${p.status === "Released" ? "group-hover:bg-wx-acid group-hover:text-wx-ink" : ""}`}
                       >
-                        {status.label}
+                        {p.status}
                       </span>
-                      <span className="editorial-number text-2xl opacity-50">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </div>
+                    </span>
 
-                    {/* Center: big icon */}
-                    <div className="relative my-6 flex items-center justify-center">
-                      <motion.div
-                        whileHover={{ rotate: 5, scale: 1.05 }}
-                        className="inline-flex h-24 w-24 items-center justify-center rounded-3xl bg-white/80 text-pink-600 shadow-md ring-2 ring-pink-200 sm:h-28 sm:w-28"
-                      >
-                        <LucideIcon name={p.icon} className="h-12 w-12 sm:h-14 sm:w-14" />
-                      </motion.div>
-                    </div>
+                    {/* icon */}
+                    <span className="hidden h-11 w-11 items-center justify-center border-2 border-current sm:flex">
+                      <LucideIcon name={p.icon} className="h-5 w-5" />
+                    </span>
 
-                    {/* Bottom: category + homepage link */}
-                    <div className="relative flex items-end justify-between">
-                      <div>
-                        <div className="text-[10px] uppercase tracking-[0.18em] text-[#6b5d68]/60">
-                          Category
-                        </div>
-                        <div className="font-serif-display text-sm font-bold text-[#4a3b47]">
-                          {p.category}
-                        </div>
-                      </div>
-                      {p.homepage && (
-                        <a
-                          href={p.homepage}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          aria-label="Open live page"
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-pink-200 bg-white/80 text-pink-600 transition-all hover:scale-110 hover:border-pink-400"
-                        >
-                          <ExternalLink className="h-4 w-4" />
-                        </a>
-                      )}
-                    </div>
+                    {/* arrow */}
+                    <span className="flex h-10 w-10 items-center justify-center border-2 border-current transition-transform duration-200 group-hover:rotate-45">
+                      <ArrowUpRight className="h-5 w-5" />
+                    </span>
                   </div>
-
-                  {/* RIGHT: Content block */}
-                  <div
-                    className={`relative flex flex-col p-6 sm:p-8 md:col-span-8 ${
-                      reverse ? "md:order-1" : "md:order-2"
-                    }`}
-                  >
-                    {/* Repo name + GitHub button */}
-                    <div className="mb-2 flex items-start justify-between gap-3">
-                      <div className="min-w-0 flex-1">
-                        <div className="font-mono text-xs text-[#6b5d68]/60">{p.repo}</div>
-                        <h3 className="mt-1 font-serif-display text-2xl font-black leading-tight text-[#4a3b47] sm:text-3xl">
-                          {p.name}
-                        </h3>
-                      </div>
-                      <a
-                        href={p.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        aria-label="Open GitHub repo"
-                        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-pink-200 bg-white/70 text-[#6b5d68] transition-all hover:scale-110 hover:border-pink-400 hover:text-pink-600"
-                      >
-                        <Github className="h-4 w-4" />
-                      </a>
-                    </div>
-
-                    {/* Description */}
-                    <p className="mt-2 text-sm leading-relaxed text-[#6b5d68] sm:text-base line-clamp-2">
-                      {p.short}
-                    </p>
-
-                    {/* Feature preview (only if has readme) */}
-                    {p.hasReadme && p.bullets.length > 0 && (
-                      <ul className="mt-4 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
-                        {p.bullets.slice(0, 4).map((b, bi) => (
-                          <li
-                            key={bi}
-                            className="flex items-start gap-2 text-xs text-[#6b5d68]"
-                          >
-                            <span className="mt-1 h-1 w-1 shrink-0 rounded-full bg-pink-400" />
-                            <span className="line-clamp-1">{b}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-                    {/* No README notice inline */}
-                    {!p.hasReadme && (
-                      <div className="mt-4 inline-flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50/70 px-3 py-1.5 text-xs text-amber-700">
-                        <AlertCircle className="h-3 w-3 shrink-0" />
-                        ยังไม่มี README — ดูที่ GitHub โดยตรง
-                      </div>
-                    )}
-
-                    {/* Tags + CTA */}
-                    <div className="mt-auto pt-5 flex flex-wrap items-end justify-between gap-3">
-                      <div className="flex flex-wrap gap-1.5">
-                        {p.tags.slice(0, 4).map((t) => (
-                          <span
-                            key={t}
-                            className="rounded-md border border-pink-200/70 bg-pink-50/70 px-2 py-0.5 text-[10px] font-medium text-[#6b5d68]"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                        {p.tags.length > 4 && (
-                          <span className="rounded-md border border-pink-200/70 bg-pink-50/70 px-2 py-0.5 text-[10px] font-medium text-pink-500">
-                            +{p.tags.length - 4}
-                          </span>
-                        )}
-                      </div>
-                      <span className="inline-flex items-center gap-1 text-sm font-bold text-pink-600 transition-colors group-hover:text-pink-700">
-                        {p.hasReadme ? "ดูรายละเอียด" : "ดู repo"}
-                        <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </span>
-                    </div>
-                  </div>
-                </motion.article>
+                </motion.button>
               );
             })}
-          </AnimatePresence>
-        </motion.div>
 
-        {/* Empty state */}
-        {filtered.length === 0 && (
-          <div className="lg:ml-[25%] py-16 text-center">
-            <div className="text-4xl mb-3">🔍</div>
-            <div className="font-serif-display text-lg text-[#4a3b47]">
-              ไม่มีโปรเจกต์ในหมวดนี้
+          {filtered.length === 0 && (
+            <div className="border-t-2 border-wx-ink py-16 text-center">
+              <div className="font-display text-2xl uppercase">NOTHING HERE</div>
+              <div className="mt-2 font-hand text-xl text-wx-ink/50">ไม่มีโปรเจกต์ในหมวดนี้ 🤷</div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Detail modal */}
-      <AnimatePresence>
-        {selected && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            onClick={() => setSelected(null)}
-            className="fixed inset-0 z-[100] flex items-end justify-center bg-[#4a3b47]/40 p-0 backdrop-blur-md sm:items-center sm:p-4"
-          >
+      {selected && (
+        <div
+          onClick={closeModal}
+          data-cursor="CLOSE"
+          className="fixed inset-0 z-[120] flex items-end justify-center bg-wx-ink/70 backdrop-blur-sm sm:items-center sm:p-6"
+          style={{
+            opacity: closing ? 0 : 1,
+            transition: closing ? "opacity 0.25s ease" : "none",
+          }}
+        >
             <motion.div
-              initial={{ y: 60, scale: 0.97, opacity: 0 }}
-              animate={{ y: 0, scale: 1, opacity: 1 }}
-              exit={{ y: 40, scale: 0.97, opacity: 0 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ y: 60, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-h-[92svh] w-full max-w-2xl overflow-y-auto rounded-t-3xl border-2 border-pink-200 bg-[#faf6f0]/98 backdrop-blur-2xl sm:rounded-3xl"
+              data-cursor="READ"
+              className="relative max-h-[92svh] w-full max-w-2xl overflow-y-auto border-2 border-wx-ink bg-wx-paper sm:wx-shadow-lg"
             >
-              {/* Top stripe */}
-              <div className="h-1.5 w-full bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-400" />
+              <div className="wx-hazard h-2.5 w-full" />
 
               <div className="p-6 sm:p-8">
-                {/* Close */}
                 <button
                   aria-label="Close"
-                  onClick={() => setSelected(null)}
-                  className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-xl border border-pink-200 bg-white/80 text-[#6b5d68] transition-all hover:scale-110 hover:border-pink-400 hover:text-pink-600"
+                  onClick={closeModal}
+                  className="absolute right-4 top-5 flex h-9 w-9 items-center justify-center border-2 border-wx-ink bg-wx-paper transition-colors hover:bg-wx-orange"
                 >
                   <X className="h-4 w-4" />
                 </button>
 
                 {/* Header */}
-                <div className="flex items-start gap-4 pr-10">
-                  <div className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-100 to-purple-100 text-pink-600 ring-1 ring-pink-200">
+                <div className="flex items-start gap-4 pr-12">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center border-2 border-wx-ink bg-wx-acid">
                     <LucideIcon name={selected.icon} className="h-7 w-7" />
                   </div>
                   <div>
-                    <div className="flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-[#6b5d68]/50">
-                      <span className="text-pink-600">{selected.category}</span>
-                      <span className="text-[#6b5d68]/30">·</span>
-                      <span>{STATUS_STYLE[selected.status].label}</span>
+                    <div className="flex flex-wrap items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-wx-ink/50">
+                      <span className="bg-wx-ink px-1.5 py-0.5 text-wx-acid">
+                        {selected.category}
+                      </span>
+                      <span>{selected.status}</span>
                     </div>
-                    <h3 className="mt-1 font-serif-display text-2xl font-black leading-tight text-[#4a3b47] sm:text-3xl">
+                    <h3 className="mt-1.5 font-display text-2xl uppercase leading-tight sm:text-3xl">
                       {selected.name}
                     </h3>
-                    <div className="mt-1 font-mono text-xs text-[#6b5d68]/70">{selected.repo}</div>
+                    <div className="mt-0.5 font-mono text-xs text-wx-ink/50">{selected.repo}</div>
                   </div>
                 </div>
 
-                {/* Short description */}
-                <p className="mt-6 text-base leading-relaxed text-[#6b5d68] sm:text-lg">
+                <p className="mt-6 border-l-4 border-wx-acid pl-4 text-base leading-relaxed sm:text-lg">
                   {selected.short}
                 </p>
 
                 {/* Bullets */}
                 {selected.hasReadme && selected.bullets.length > 0 && (
                   <div className="mt-6">
-                    <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-pink-500/70">
-                      <span className="h-px w-8 bg-pink-300" />
-                      From README
+                    <div className="mb-3 font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-wx-ink/50">
+                      // FROM README
                     </div>
-                    <ul className="space-y-2">
+                    <ul className="space-y-0">
                       {selected.bullets.map((b, i) => (
-                        <motion.li
+                        <li
                           key={i}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.3, delay: 0.05 * i }}
-                          className="flex items-start gap-3 rounded-xl border border-pink-100 bg-white/70 p-3"
+                          className="flex items-start gap-3 border-2 border-wx-ink bg-wx-paper p-3 leading-relaxed [&:not(:first-child)]:border-t-0"
                         >
-                          <span className="editorial-number text-sm shrink-0">
+                          <span className="font-mono text-xs font-bold text-wx-orange">
                             {String(i + 1).padStart(2, "0")}
                           </span>
-                          <span className="text-sm leading-relaxed text-[#6b5d68]">{b}</span>
-                        </motion.li>
+                          <span className="text-sm">{b}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>
                 )}
 
-                {/* No README notice */}
                 {!selected.hasReadme && (
-                  <div className="mt-6 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50/70 p-4">
-                    <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />
-                    <div className="text-sm text-[#6b5d68]">
-                      Repository นี้ยังไม่มี README — ดูรายละเอียดได้ที่ GitHub โดยตรง
+                  <div className="mt-6 flex items-start gap-3 border-2 border-wx-ink bg-wx-paper2 p-4">
+                    <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-wx-orange" />
+                    <div className="text-sm">
+                      Repo นี้ยังไม่มี README — ข้อมูลเพิ่มเติมอยู่ที่ GitHub โดยตรงเท่านั้น
+                      (เราไม่เดาเนื้อหาแทน)
                     </div>
                   </div>
                 )}
@@ -398,7 +286,7 @@ export default function Projects() {
                     {selected.tags.map((t) => (
                       <span
                         key={t}
-                        className="rounded-lg border border-pink-200 bg-pink-50 px-2.5 py-1 text-xs font-medium text-pink-700"
+                        className="border-2 border-wx-ink bg-wx-paper2 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.1em]"
                       >
                         {t}
                       </span>
@@ -412,26 +300,23 @@ export default function Projects() {
                     href={selected.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="duluka-shine group inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-pink-400 to-fuchsia-400 px-5 py-3 text-sm font-bold text-white shadow-md transition-transform hover:scale-105"
+                    className="wx-btn inline-flex items-center gap-2 bg-wx-ink px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.15em] text-wx-acid"
                   >
-                    <Github className="h-4 w-4" />
-                    View on GitHub
+                    <Github className="h-4 w-4" /> View on GitHub
                   </a>
                   {selected.homepage && (
                     <a
                       href={selected.homepage}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border-2 border-purple-300 bg-white/70 px-5 py-3 text-sm font-bold text-[#4a3b47] transition-all hover:border-purple-400 hover:bg-white"
+                      className="wx-btn inline-flex items-center gap-2 border-wx-ink bg-wx-acid px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.15em]"
                     >
-                      <ExternalLink className="h-4 w-4" />
-                      Live Page
+                      <ExternalLink className="h-4 w-4" /> Live Page
                     </a>
                   )}
                 </div>
 
-                {/* Footer mini-stats */}
-                <div className="mt-6 pt-5 border-t border-pink-100 flex items-center gap-4 text-xs text-[#6b5d68]/60">
+                <div className="mt-6 flex items-center gap-4 border-t-2 border-wx-ink pt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-wx-ink/50">
                   <span className="inline-flex items-center gap-1">
                     <Star className="h-3 w-3" /> Open Source
                   </span>
@@ -441,9 +326,8 @@ export default function Projects() {
                 </div>
               </div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
     </section>
   );
 }

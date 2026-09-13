@@ -44,54 +44,56 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* Duluka Pastel Editorial palette */
-  --color-duluka-cream: #faf6f0;
-  --color-duluka-cream-2: #f5ede4;
-  --color-duluka-blush: #fde2e4;
-  --color-duluka-pink: #ff8fab;
-  --color-duluka-pink-deep: #e96e8e;
-  --color-duluka-lavender: #e6e0f8;
-  --color-duluka-purple: #b8a4d4;
-  --color-duluka-purple-deep: #8b6db5;
-  --color-duluka-peach: #ffd6a5;
-  --color-duluka-mint: #c5e8d5;
-  --color-duluka-ink: #4a3b47;
-  --color-duluka-ink-soft: #6b5d68;
+  /* ===== DULUKA WEIRD SYSTEMS™ palette ===== */
+  --color-wx-paper: var(--wx-paper);
+  --color-wx-paper2: var(--wx-paper2);
+  --color-wx-ink: var(--wx-ink);
+  --color-wx-acid: var(--wx-acid);
+  --color-wx-orange: var(--wx-orange);
+  --color-wx-blue: var(--wx-blue);
 }
 
 :root {
-  --radius: 0.75rem;
-  --background: oklch(0.985 0.008 25);
-  --foreground: oklch(0.32 0.02 320);
+  --radius: 0rem;
+  --background: oklch(0.94 0.01 90);
+  --foreground: oklch(0.2 0.01 90);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.32 0.02 320);
+  --card-foreground: oklch(0.2 0.01 90);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.32 0.02 320);
-  --primary: oklch(0.65 0.18 350);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.94 0.02 350);
-  --secondary-foreground: oklch(0.32 0.02 320);
-  --muted: oklch(0.95 0.01 350);
-  --muted-foreground: oklch(0.55 0.02 320);
-  --accent: oklch(0.78 0.12 350);
-  --accent-foreground: oklch(0.32 0.02 320);
-  --destructive: oklch(0.62 0.22 18);
-  --border: oklch(0.9 0.015 350);
-  --input: oklch(0.92 0.015 350);
-  --ring: oklch(0.7 0.15 350);
-  --chart-1: oklch(0.7 0.18 350);
-  --chart-2: oklch(0.72 0.14 300);
-  --chart-3: oklch(0.78 0.12 60);
-  --chart-4: oklch(0.7 0.1 160);
-  --chart-5: oklch(0.65 0.2 20);
-  --sidebar: oklch(0.97 0.012 350);
-  --sidebar-foreground: oklch(0.32 0.02 320);
-  --sidebar-primary: oklch(0.65 0.18 350);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.93 0.02 350);
-  --sidebar-accent-foreground: oklch(0.32 0.02 320);
-  --sidebar-border: oklch(0.88 0.015 350);
-  --sidebar-ring: oklch(0.7 0.15 350);
+  --popover-foreground: oklch(0.2 0.01 90);
+  --primary: oklch(0.2 0.01 90);
+  --primary-foreground: oklch(0.94 0.01 90);
+  --secondary: oklch(0.88 0.02 90);
+  --secondary-foreground: oklch(0.2 0.01 90);
+  --muted: oklch(0.9 0.01 90);
+  --muted-foreground: oklch(0.45 0.01 90);
+  --accent: oklch(0.92 0.19 118);
+  --accent-foreground: oklch(0.2 0.01 90);
+  --destructive: oklch(0.62 0.24 30);
+  --border: oklch(0.2 0.01 90);
+  --input: oklch(0.85 0.01 90);
+  --ring: oklch(0.2 0.01 90);
+  --chart-1: oklch(0.2 0.01 90);
+  --chart-2: oklch(0.92 0.19 118);
+  --chart-3: oklch(0.65 0.24 35);
+  --chart-4: oklch(0.5 0.22 265);
+  --chart-5: oklch(0.75 0.15 85);
+  --sidebar: oklch(0.94 0.01 90);
+  --sidebar-foreground: oklch(0.2 0.01 90);
+  --sidebar-primary: oklch(0.2 0.01 90);
+  --sidebar-primary-foreground: oklch(0.94 0.01 90);
+  --sidebar-accent: oklch(0.92 0.19 118);
+  --sidebar-accent-foreground: oklch(0.2 0.01 90);
+  --sidebar-border: oklch(0.2 0.01 90);
+  --sidebar-ring: oklch(0.2 0.01 90);
+
+  /* Weird Systems tokens */
+  --wx-paper: #ece7da;
+  --wx-paper2: #e0dac9;
+  --wx-ink: #16140f;
+  --wx-acid: #c8f73a;
+  --wx-orange: #ff4b1f;
+  --wx-blue: #2b45ff;
 }
 
 .dark {
@@ -137,261 +139,236 @@
   }
 }
 
-/* ===== Duluka Pastel Editorial ===== */
+/* ============================================================
+   DULUKA WEIRD SYSTEMS™ — neo-brutalist design system
+   paper / ink / acid. No rounded corners. Hard shadows only.
+   ============================================================ */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background: var(--color-duluka-cream);
-  color: var(--color-duluka-ink);
+  background: var(--wx-paper);
+  color: var(--wx-ink);
   overflow-x: hidden;
   font-feature-settings: "ss01", "ss02", "cv01", "cv11";
 }
 
-/* Custom scrollbar */
+/* Blocky scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-duluka-cream-2);
+  background: var(--wx-paper);
+  border-left: 2px solid var(--wx-ink);
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #ff8fab, #b8a4d4);
-  border-radius: 999px;
-  border: 2px solid var(--color-duluka-cream-2);
+  background: var(--wx-ink);
+  border: 2px solid var(--wx-paper);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #e96e8e, #8b6db5);
+  background: var(--wx-orange);
 }
 
 ::selection {
-  background: rgba(255, 143, 171, 0.35);
-  color: #4a3b47;
+  background: var(--wx-acid);
+  color: var(--wx-ink);
 }
 
-/* Typography helpers */
+/* ===== Typography ===== */
+.font-display {
+  font-family: var(--font-archivo), var(--font-geist-sans), Arial Black, sans-serif;
+  letter-spacing: -0.02em;
+}
 .font-serif-display {
   font-family: var(--font-serif), Georgia, "Times New Roman", serif;
-  font-feature-settings: "ss01", "liga", "dlig";
 }
 .font-hand {
   font-family: var(--font-hand), "Comic Sans MS", cursive;
 }
 
-/* Editorial drop cap */
-.drop-cap::first-letter {
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: 4.5rem;
-  font-weight: 900;
-  line-height: 0.85;
-  float: left;
-  margin: 0.1rem 0.6rem 0 0;
-  color: var(--color-duluka-pink-deep);
-  background: linear-gradient(135deg, #ff8fab, #b8a4d4);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Text gradients */
-.duluka-text-gradient {
-  background: linear-gradient(135deg, #ff8fab 0%, #b8a4d4 50%, #ffd6a5 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Outlined display text */
+.wx-stroke {
   color: transparent;
+  -webkit-text-stroke: 2.5px var(--wx-ink);
+  paint-order: stroke fill;
 }
-
-.duluka-text-pink {
-  background: linear-gradient(135deg, #ff8fab 0%, #e96e8e 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.wx-stroke-thin {
   color: transparent;
+  -webkit-text-stroke: 1.5px var(--wx-ink);
+  paint-order: stroke fill;
+}
+.wx-stroke-paper {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--wx-paper);
+  paint-order: stroke fill;
+}
+.wx-stroke-acid {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--wx-acid);
+  paint-order: stroke fill;
 }
 
-/* Soft shadows */
-.duluka-shadow-soft {
-  box-shadow: 0 4px 24px -8px rgba(255, 143, 171, 0.25), 0 2px 8px -2px rgba(184, 164, 212, 0.15);
-}
-.duluka-shadow-card {
-  box-shadow: 0 8px 32px -12px rgba(74, 59, 71, 0.12), 0 2px 8px -2px rgba(255, 143, 171, 0.1);
-}
-.duluka-shadow-hover {
-  box-shadow: 0 16px 48px -16px rgba(255, 143, 171, 0.4), 0 4px 16px -4px rgba(184, 164, 212, 0.2);
+/* Acid marker highlight (behind words) */
+.wx-marker {
+  background-image: linear-gradient(100deg, transparent 0%, var(--wx-acid) 4%, var(--wx-acid) 96%, transparent 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 55%;
+  background-position: 0 78%;
 }
 
-/* Soft glow */
-.duluka-glow-pink {
-  box-shadow: 0 0 32px rgba(255, 143, 171, 0.4), 0 0 64px rgba(255, 143, 171, 0.2);
+/* ===== Hard brutal shadows ===== */
+.wx-shadow {
+  box-shadow: 6px 6px 0 0 var(--wx-ink);
+}
+.wx-shadow-sm {
+  box-shadow: 4px 4px 0 0 var(--wx-ink);
+}
+.wx-shadow-lg {
+  box-shadow: 10px 10px 0 0 var(--wx-ink);
+}
+.wx-shadow-acid {
+  box-shadow: 6px 6px 0 0 var(--wx-acid);
 }
 
-/* Animated gradient border (soft pastel) */
-.duluka-aurora-border {
+/* Pressable brutal button */
+.wx-btn {
   position: relative;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 143, 171, 0.2);
+  border: 2px solid var(--wx-ink);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  user-select: none;
 }
-.duluka-aurora-border::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: linear-gradient(135deg, #ff8fab, #b8a4d4, #ffd6a5, #ff8fab);
-  background-size: 300% 300%;
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: duluka-aurora-shift 8s linear infinite;
+.wx-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--wx-ink);
+}
+.wx-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 0 var(--wx-ink);
+}
+
+/* Row / card hover invert */
+.wx-invert {
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* ===== Hazard stripes ===== */
+.wx-hazard {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--wx-ink) 0px,
+    var(--wx-ink) 14px,
+    var(--wx-acid) 14px,
+    var(--wx-acid) 28px
+  );
+}
+.wx-hazard-orange {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--wx-ink) 0px,
+    var(--wx-ink) 14px,
+    var(--wx-orange) 14px,
+    var(--wx-orange) 28px
+  );
+}
+
+/* ===== Noise / grain overlay ===== */
+.wx-noise {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
   pointer-events: none;
-  opacity: 0.6;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
 }
 
-@keyframes duluka-aurora-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Floating animation */
-@keyframes duluka-float-y {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-18px); }
-}
-.duluka-float {
-  animation: duluka-float-y 6s ease-in-out infinite;
-}
-.duluka-float-slow {
-  animation: duluka-float-y 9s ease-in-out infinite;
-}
-
-/* Wiggle for playful emoji */
-@keyframes duluka-wiggle {
-  0%, 100% { transform: rotate(-4deg); }
-  50% { transform: rotate(4deg); }
-}
-.duluka-wiggle {
-  animation: duluka-wiggle 2.5s ease-in-out infinite;
-}
-.duluka-wiggle-hover:hover {
-  animation: duluka-wiggle 0.6s ease-in-out;
-}
-
-/* Bounce */
-@keyframes duluka-bounce-soft {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-.duluka-bounce-soft {
-  animation: duluka-bounce-soft 2s ease-in-out infinite;
-}
-
-/* Slow pulse */
-@keyframes duluka-pulse {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 0.9; transform: scale(1.05); }
-}
-.duluka-pulse {
-  animation: duluka-pulse 4s ease-in-out infinite;
-}
-
-/* Shine sweep */
-.duluka-shine {
-  position: relative;
-  overflow: hidden;
-}
-.duluka-shine::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -150%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
-  transition: left 0.7s ease;
-  pointer-events: none;
-}
-.duluka-shine:hover::after {
-  left: 150%;
-}
-
-/* Section divider */
-.duluka-divider {
-  height: 1px;
-  width: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 143, 171, 0.4), rgba(184, 164, 212, 0.4), transparent);
-}
-
-/* Dotted background pattern */
-.duluka-dots-bg {
-  background-image: radial-gradient(rgba(255, 143, 171, 0.15) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-/* Grid background pattern */
-.duluka-grid-bg {
+/* ===== Grid background (blueprint) ===== */
+.wx-grid-bg {
   background-image:
-    linear-gradient(rgba(184, 164, 212, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 143, 171, 0.08) 1px, transparent 1px);
-  background-size: 60px 60px;
+    linear-gradient(var(--wx-ink) 1px, transparent 1px),
+    linear-gradient(90deg, var(--wx-ink) 1px, transparent 1px);
+  background-size: 56px 56px;
+  opacity: 1;
+}
+.wx-grid-lines {
+  background-image:
+    linear-gradient(rgba(22, 20, 15, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 20, 15, 0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
 
-/* Marquee */
-@keyframes duluka-marquee {
+/* ===== Marquee ===== */
+@keyframes wx-marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-.duluka-marquee-track {
-  display: inline-flex;
-  animation: duluka-marquee 30s linear infinite;
-  white-space: nowrap;
-}
-
-/* Editorial pull-quote */
-.pull-quote {
-  font-family: var(--font-serif), Georgia, serif;
-  font-style: italic;
-  font-weight: 500;
-  position: relative;
-  padding-left: 1.5rem;
-  border-left: 3px solid var(--color-duluka-pink);
-}
-
-/* Numbered editorial list */
-.editorial-number {
-  font-family: var(--font-serif), Georgia, serif;
-  font-weight: 900;
-  font-size: 2.5rem;
-  line-height: 1;
-  background: linear-gradient(135deg, #ff8fab, #b8a4d4);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Sticker badge */
-.sticker {
+.wx-marquee-track {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  background: linear-gradient(135deg, #fde2e4, #e6e0f8);
-  color: #6b5d68;
-  border: 1px solid rgba(255, 143, 171, 0.25);
+  white-space: nowrap;
+  animation: wx-marquee 26s linear infinite;
+  will-change: transform;
+}
+.wx-marquee-slow {
+  animation-duration: 44s;
 }
 
-/* Reduced motion */
+/* ===== Rotating badge ===== */
+@keyframes wx-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.wx-spin-slow {
+  animation: wx-rotate 16s linear infinite;
+}
+
+/* Float / wiggle for stickers */
+@keyframes wx-float-y {
+  0%, 100% { transform: translateY(0) rotate(var(--wx-rot, 0deg)); }
+  50% { transform: translateY(-10px) rotate(var(--wx-rot, 0deg)); }
+}
+.wx-float {
+  animation: wx-float-y 5s ease-in-out infinite;
+}
+
+@keyframes wx-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.wx-blink {
+  animation: wx-blink 1s steps(1) infinite;
+}
+
+/* Barcode (pure CSS, decorative) */
+.wx-barcode {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--wx-ink) 0 2px,
+    transparent 2px 5px,
+    var(--wx-ink) 5px 9px,
+    transparent 9px 11px,
+    var(--wx-ink) 11px 12px,
+    transparent 12px 16px,
+    var(--wx-ink) 16px 19px,
+    transparent 19px 21px
+  );
+}
+
+/* Dashed receipt edge */
+.wx-receipt-edge {
+  background-image: linear-gradient(45deg, transparent 50%, var(--wx-paper) 50%),
+    linear-gradient(-45deg, transparent 50%, var(--wx-paper) 50%);
+  background-size: 14px 14px;
+  background-repeat: repeat-x;
+}
+
+/* Reduced motion — kill everything that moves */
 @media (prefers-reduced-motion: reduce) {
-  .duluka-float, .duluka-float-slow, .duluka-pulse, .duluka-aurora-border::before,
-  .duluka-marquee-track, .duluka-wiggle, .duluka-bounce-soft {
+  .wx-marquee-track,
+  .wx-spin-slow,
+  .wx-float,
+  .wx-blink {
     animation: none !important;
   }
   html { scroll-behavior: auto; }

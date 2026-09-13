@@ -1,11 +1,17 @@
 'use client';
 
 import { useEffect, useState, useCallback } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
-import StarField from "./StarField";
+import { motion, useReducedMotion } from "framer-motion";
 
-const STORAGE_KEY = "duluka-intro-seen-v1";
+const STORAGE_KEY = "duluka-intro-weird-v2";
+
+const BOOT_LINES = [
+  "> BOOTING DULUKA WEIRD SYSTEMS™ v2.0 ...",
+  "> MOUNTING /dev/vibes ................ OK",
+  "> LOADING OPEN SOURCE PROJECTS ....... 10/10",
+  "> CALIBRATING WEIRDNESS .............. 137%",
+  "> ALL SYSTEMS STRANGE. READY.",
+];
 
 // SSR-safe: returns false on server, checks localStorage on client first render
 function useInitialShow() {
@@ -14,7 +20,6 @@ function useInitialShow() {
   useEffect(() => {
     try {
       const seen = localStorage.getItem(STORAGE_KEY);
-      // schedule state update outside the synchronous effect body
       Promise.resolve().then(() => {
         if (!seen) setShow(true);
         setReady(true);
@@ -29,6 +34,8 @@ function useInitialShow() {
 export default function Intro() {
   const { show, setShow, ready } = useInitialShow();
   const reduce = useReducedMotion();
+  const [lineCount, setLineCount] = useState(0);
+  const [closing, setClosing] = useState(false);
 
   const dismiss = useCallback(() => {
     try {
@@ -36,175 +43,116 @@ export default function Intro() {
     } catch {
       // ignore
     }
-    setShow(false);
-  }, [setShow]);
+    // CSS fade + guaranteed unmount via timeout — no exit-animation machinery
+    // that can hang when the tab is throttled (rAF suspended).
+    setClosing(true);
+    setTimeout(() => setShow(false), reduce ? 0 : 480);
+  }, [setShow, reduce]);
 
   // Lock body scroll while intro is visible
   useEffect(() => {
-    if (show) {
+    if (show && !closing) {
       const prev = document.body.style.overflow;
       document.body.style.overflow = "hidden";
       return () => {
         document.body.style.overflow = prev;
       };
     }
-  }, [show]);
+  }, [show, closing]);
 
-  // Auto-dismiss after 5.5s (only if user hasn't dismissed)
+  // Type boot log lines
+  useEffect(() => {
+    if (!show || closing) return;
+    if (lineCount >= BOOT_LINES.length) return;
+    const t = setTimeout(() => setLineCount((c) => c + 1), reduce ? 60 : 380);
+    return () => clearTimeout(t);
+  }, [show, closing, lineCount, reduce]);
+
+  // Auto-dismiss
   useEffect(() => {
     if (!show) return;
-    const t = setTimeout(() => dismiss(), 5500);
+    const t = setTimeout(() => dismiss(), 6200);
     return () => clearTimeout(t);
   }, [show, dismiss]);
 
-  // Don't render anything until we've checked localStorage
-  if (!ready) return null;
+  if (!ready || !show) return null;
 
-  const titleWords = ["Duluka", "Studio"];
+  const booted = lineCount >= BOOT_LINES.length;
 
   return (
-    <AnimatePresence>
-      {show && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.6, ease: "easeInOut" } }}
-          onClick={dismiss}
-          className="fixed inset-0 z-[200] flex cursor-pointer items-center justify-center overflow-hidden bg-gradient-to-br from-[#faf6f0] via-[#fde2e4]/40 to-[#e6e0f8]/50"
-        >
-          {/* Background */}
-          <div className="absolute inset-0 duluka-dots-bg opacity-50" aria-hidden />
-          <StarField density={80} />
+    <div
+      onClick={dismiss}
+      data-cursor="SKIP"
+      className="fixed inset-0 z-[200] flex cursor-pointer flex-col overflow-hidden bg-wx-ink"
+      style={{
+        opacity: closing ? 0 : 1,
+        transition: closing ? "opacity 0.45s ease" : "none",
+        pointerEvents: closing ? "none" : "auto",
+      }}
+    >
+      {/* faint grid */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.08]">
+        <div className="wx-grid-bg h-full w-full" style={{ backgroundSize: "72px 72px" }} />
+      </div>
 
-          {/* Floating soft blobs */}
-          <motion.div
-            aria-hidden
-            className="pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-pink-300/30 blur-[110px]"
-            animate={reduce ? undefined : { x: [0, 40, 0], y: [0, 30, 0], scale: [1, 1.1, 1] }}
-            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            aria-hidden
-            className="pointer-events-none absolute -bottom-32 -right-32 h-[28rem] w-[28rem] rounded-full bg-purple-300/25 blur-[120px]"
-            animate={reduce ? undefined : { x: [0, -40, 0], y: [0, -20, 0], scale: [1, 1.15, 1] }}
-            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            aria-hidden
-            className="pointer-events-none absolute top-1/3 right-1/4 h-48 w-48 rounded-full bg-amber-200/30 blur-[80px]"
-            animate={reduce ? undefined : { scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          />
+      {/* top mono strip */}
+      <div className="relative z-10 flex items-center justify-between border-b-2 border-wx-acid/30 px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] text-wx-acid/60 sm:px-8">
+        <span>DULUKA WEIRD SYSTEMS™</span>
+        <span className="hidden sm:block">EST. FOREVER</span>
+        <span className="wx-blink text-wx-acid">● REC</span>
+      </div>
 
-          {/* Center content */}
-          <div className="relative z-10 px-6 text-center">
-            {/* Eyebrow */}
+      {/* boot log */}
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6">
+        <div className="w-full max-w-xl font-mono text-xs leading-7 text-wx-acid sm:text-sm">
+          {BOOT_LINES.slice(0, lineCount).map((l, i) => (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-6 inline-flex items-center gap-2"
+              key={i}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.18 }}
+              className={i === BOOT_LINES.length - 1 ? "mt-3 font-bold" : ""}
             >
-              <span className="sticker">
-                <Sparkles className="h-3 w-3 text-pink-500" />
-                Present
-              </span>
+              {l}
             </motion.div>
+          ))}
+          {!booted && <span className="wx-blink inline-block h-4 w-2.5 bg-wx-acid" />}
+        </div>
 
-            {/* Big serif title */}
-            <h1 className="font-serif-display text-6xl font-black leading-[0.95] tracking-tight text-[#4a3b47] sm:text-7xl md:text-8xl lg:text-9xl">
-              {titleWords.map((w, i) => (
-                <motion.span
-                  key={w}
-                  initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  transition={{
-                    duration: 0.9,
-                    delay: 0.4 + i * 0.25,
-                    ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-                  }}
-                  className={`inline-block ${i === 0 ? "duluka-text-gradient" : "text-[#4a3b47] italic"}`}
-                >
-                  {w}
-                  {i === 0 && <span className="inline-block">&nbsp;</span>}
-                </motion.span>
-              ))}
-            </h1>
-
-            {/* Decorative line */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
-              className="mx-auto mt-6 h-0.5 w-32 origin-center bg-gradient-to-r from-transparent via-pink-400 to-transparent"
-            />
-
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 1.4 }}
-              className="mx-auto mt-6 max-w-md text-base text-[#6b5d68] sm:text-lg"
-            >
-              สตูดิโอส่วนตัวของ{" "}
-              <span className="font-hand text-xl text-pink-500">ScotcsDuluka</span>
+        {/* Giant title reveal */}
+        {booted && (
+          <motion.div
+            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.92, y: 24 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-10 text-center"
+          >
+            <h1 className="font-display text-[16vw] font-black uppercase leading-[0.82] text-wx-acid sm:text-8xl lg:text-9xl">
+              Duluka
               <br />
-              โปรเจกต์เปิดซอร์สหลากหลาย — screen capture, Magisk mods, Minecraft & more
-            </motion.p>
-
-            {/* Progress bar */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 1.8 }}
-              className="mx-auto mt-10 h-1 w-48 overflow-hidden rounded-full bg-pink-100"
-            >
-              <motion.div
-                initial={{ x: "-100%" }}
-                animate={{ x: "0%" }}
-                transition={{ duration: 4, ease: "linear", delay: 1.8 }}
-                className="h-full w-full bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-400"
-              />
-            </motion.div>
-
-            {/* Click to enter */}
-            <motion.button
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 2.2 }}
+              <span className="wx-stroke-acid">Studio™</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-md font-mono text-[10px] uppercase tracking-[0.3em] text-wx-paper/60 sm:text-xs">
+              สตูดิโอแปลกๆ ของ ScotcsDuluka — weird by design
+            </p>
+            <button
               onClick={(e) => {
                 e.stopPropagation();
                 dismiss();
               }}
-              className="group mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-400 to-fuchsia-400 px-6 py-3 text-sm font-bold text-white shadow-lg transition-transform hover:scale-105"
+              className="wx-btn mt-8 inline-flex items-center gap-2 border-wx-acid bg-wx-acid px-6 py-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-wx-ink"
             >
-              เข้าสู่เว็บ
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </motion.button>
-
-            {/* Skip hint */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 2.6 }}
-              className="mt-4 text-[10px] uppercase tracking-[0.2em] text-[#6b5d68]/50"
-            >
-              คลิกที่ใดก็ได้เพื่อข้าม · จะแสดงแค่ครั้งแรก
-            </motion.div>
-          </div>
-
-          {/* Bottom corner branding */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 2.8 }}
-            className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center"
-          >
-            <div className="font-hand text-sm text-pink-500/60">
-              made with 💖 by ScotcsDuluka
-            </div>
+              Enter the weird →
+            </button>
           </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        )}
+      </div>
+
+      {/* bottom strip */}
+      <div className="relative z-10 flex items-center justify-between border-t-2 border-wx-acid/30 px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] text-wx-paper/40 sm:px-8">
+        <span>คลิกที่ใดก็ได้เพื่อข้าม</span>
+        <span>เห็นแค่ครั้งแรกเท่านั้น</span>
+      </div>
+    </div>
   );
 }

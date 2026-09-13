@@ -1,7 +1,8 @@
 'use client';
 
 import Intro from "@/components/duluka/Intro";
-import Sidebar from "@/components/duluka/Sidebar";
+import TopBar from "@/components/duluka/TopBar";
+import Cursor from "@/components/duluka/Cursor";
 import Hero from "@/components/duluka/Hero";
 import About from "@/components/duluka/About";
 import ServerInfo from "@/components/duluka/ServerInfo";
@@ -12,11 +13,13 @@ import Footer from "@/components/duluka/Footer";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#faf6f0] text-[#4a3b47]">
+    <div className="relative flex min-h-screen flex-col bg-wx-paper text-wx-ink">
       <Intro />
-      <Sidebar />
-      {/* Main content with left padding on desktop to make room for sidebar */}
-      <main className="flex-1 lg:pl-64">
+      <Cursor />
+      <TopBar />
+      {/* spacer for fixed header (ticker ~29px + bar 56px) */}
+      <div className="h-[87px] shrink-0" aria-hidden />
+      <main className="flex-1">
         <Hero />
         <About />
         <Projects />
@@ -24,9 +27,9 @@ export default function Home() {
         <Rules />
         <Connect />
       </main>
-      <div className="lg:pl-64">
-        <Footer />
-      </div>
+      <Footer />
+      {/* film grain over everything */}
+      <div className="wx-noise" aria-hidden />
     </div>
   );
 }
