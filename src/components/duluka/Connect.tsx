@@ -59,7 +59,7 @@ export default function Connect() {
           transition={{ duration: 0.5 }}
           className="mb-10 max-w-4xl text-3xl font-black leading-[1.1] sm:text-4xl lg:text-6xl"
         >
-          อยากคุย อยากเล่น อยากทำอะไรแปลกๆ{" "}
+          อยากคุย อยากเล่น หรืออยากทำอะไร{" "}
           <span className="wx-marker">ด้วยกัน?</span>
         </motion.h2>
 

@@ -32,7 +32,7 @@ export default function Rules() {
               §05
             </span>
             <span className="font-mono text-[11px] font-bold uppercase tracking-[0.3em]">
-              TERMS OF WEIRDNESS
+              SERVER RULES
             </span>
             <span className="h-0.5 flex-1 bg-wx-ink" />
             <span className="font-hand text-2xl">กฎ</span>

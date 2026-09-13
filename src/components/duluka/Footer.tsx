@@ -12,7 +12,7 @@ const MARQUEE = [
   "Minecraft",
   "Java + Bedrock",
   "TTML Lyrics",
-  "Weird By Design",
+  "Made in Thailand",
 ];
 
 export default function Footer() {
@@ -61,13 +61,13 @@ export default function Footer() {
                   Duluka Studio<sup className="text-[8px]">™</sup>
                 </div>
                 <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-wx-paper/40">
-                  Weird Systems Division
+                  by ScotcsDuluka
                 </div>
               </div>
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-wx-paper/60">
-              สตูดิโอส่วนตัวของ ScotcsDuluka — ทำของแปลกๆ ที่อยากทำ เปิดซอร์สทุกตัว
-              ไม่มีแผนธุรกิจ มีแต่ความสนุก
+              สตูดิโอส่วนตัวของ ScotcsDuluka — ทำโปรเจกต์ที่อยากทำ เปิดซอร์สทุกตัว
+              แบ่งปันความรู้และความสนุกให้ทุกคน
             </p>
             <div className="mt-5 flex gap-2">
               <a
@@ -142,10 +142,10 @@ export default function Footer() {
         {/* bottom line */}
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t-2 border-wx-paper/20 pt-6 sm:flex-row">
           <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-wx-paper/40">
-            © {year} Duluka Studio — สร้างด้วยความแปลก ในประเทศไทย
+            © {year} Duluka Studio — สร้างด้วยใจ ในประเทศไทย
           </div>
           <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-wx-paper/40">
-            NO BORING WEBSITES WERE HARMED*
+            OPEN SOURCE FOREVER
           </div>
           <a
             href="#top"
@@ -154,9 +154,6 @@ export default function Footer() {
           >
             <ArrowUp className="h-3.5 w-3.5" /> BACK TO TOP
           </a>
-        </div>
-        <div className="mt-3 text-center font-mono text-[8px] uppercase tracking-[0.15em] text-wx-paper/20">
-          *none were harmed. one was mildly confused.
         </div>
       </div>
     </footer>

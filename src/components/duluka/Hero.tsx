@@ -6,7 +6,7 @@ import { PROJECTS } from "@/data/projects";
 
 const SPECS = [
   { k: "REPOS", v: String(PROJECTS.length), note: "all open source" },
-  { k: "VIBES", v: "137%", note: "calibrated" },
+  { k: "LICENSE", v: "MIT", note: "every repo" },
   { k: "MINECRAFT", v: "1.21", note: "java + bedrock" },
   { k: "LANG", v: "TH/EN", note: "bilingual" },
 ];
@@ -20,7 +20,7 @@ function RotatingBadge() {
         </defs>
         <text className="fill-wx-ink font-mono text-[8.5px] font-bold uppercase tracking-[0.18em]">
           <textPath href="#wx-circle">
-            weird by design ★ duluka studio ★ est. forever ★
+            duluka studio ★ open source ★ est. forever ★
           </textPath>
         </text>
       </svg>
@@ -48,7 +48,7 @@ export default function Hero() {
         aria-hidden
         className="pointer-events-none absolute -right-6 top-6 select-none font-display text-[26vw] font-black uppercase leading-none text-wx-ink/[0.05] lg:text-[18vw]"
       >
-        WEIRD
+        STUDIO
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10">
@@ -60,7 +60,7 @@ export default function Hero() {
           className="mb-6 flex flex-wrap items-center gap-3"
         >
           <span className="inline-flex rotate-[-2deg] items-center gap-2 border-2 border-wx-ink bg-wx-acid px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em]">
-            ● สตูดิโอส่วนตัว — เปิดชั่วคราว
+            ● สตูดิโอส่วนตัว — ยินดีต้อนรับ
           </span>
           <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-wx-ink/50">
             by ScotcsDuluka
@@ -88,7 +88,7 @@ export default function Hero() {
           </motion.span>
         </h1>
 
-        {/* weird subtitle */}
+        {/* subtitle */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,10 +96,9 @@ export default function Hero() {
           className="mt-8 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
         >
           <p className="max-w-xl text-lg leading-relaxed sm:text-xl">
-            <span className="wx-marker font-bold">แปลก คือฟีเจอร์</span> ไม่ใช่บั๊ก —
-            เราทำโปรเจกต์เปิดซอร์สที่หน้าตาและหน้าที่มัน{" "}
-            <em className="font-serif-display italic">ไม่เหมือนใคร</em>: screen capture,
-            Magisk mods, เว็บทดลอง, Minecraft server และ TTML lyrics ทั้งหมดบน GitHub.
+            <span className="wx-marker font-bold">โปรเจกต์เปิดซอร์สหลากหลาย</span> —
+            screen capture, Magisk mods, เว็บทดลอง, Minecraft server และ TTML lyrics
+            ทั้งหมดอยู่บน <em className="font-serif-display italic">GitHub</em> ของ ScotcsDuluka.
           </p>
           <div className="hidden lg:block">
             <RotatingBadge />
@@ -127,7 +126,6 @@ export default function Hero() {
           >
             Minecraft Server ▸
           </a>
-          <span className="font-hand text-xl text-wx-ink/50">(ฟรี ไม่มีเงื่อนไข… เกือบ)</span>
         </motion.div>
 
         {/* spec strip */}

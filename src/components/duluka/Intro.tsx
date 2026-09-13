@@ -2,15 +2,16 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { PROJECTS } from "@/data/projects";
 
 const STORAGE_KEY = "duluka-intro-weird-v2";
 
 const BOOT_LINES = [
-  "> BOOTING DULUKA WEIRD SYSTEMS™ v2.0 ...",
-  "> MOUNTING /dev/vibes ................ OK",
-  "> LOADING OPEN SOURCE PROJECTS ....... 10/10",
-  "> CALIBRATING WEIRDNESS .............. 137%",
-  "> ALL SYSTEMS STRANGE. READY.",
+  "> BOOTING DULUKA STUDIO™ v2.0 ...",
+  "> CONNECTING TO GITHUB ............. OK",
+  `> LOADING OPEN SOURCE PROJECTS ....... ${PROJECTS.length}/${PROJECTS.length}`,
+  "> PREPARING WORKSPACE ............. OK",
+  "> ALL SYSTEMS GO. READY.",
 ];
 
 // SSR-safe: returns false on server, checks localStorage on client first render
@@ -97,7 +98,7 @@ export default function Intro() {
 
       {/* top mono strip */}
       <div className="relative z-10 flex items-center justify-between border-b-2 border-wx-acid/30 px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] text-wx-acid/60 sm:px-8">
-        <span>DULUKA WEIRD SYSTEMS™</span>
+        <span>DULUKA STUDIO™</span>
         <span className="hidden sm:block">EST. FOREVER</span>
         <span className="wx-blink text-wx-acid">● REC</span>
       </div>
@@ -133,7 +134,7 @@ export default function Intro() {
               <span className="wx-stroke-acid">Studio™</span>
             </h1>
             <p className="mx-auto mt-6 max-w-md font-mono text-[10px] uppercase tracking-[0.3em] text-wx-paper/60 sm:text-xs">
-              สตูดิโอแปลกๆ ของ ScotcsDuluka — weird by design
+              สตูดิโอส่วนตัวของ ScotcsDuluka — เปิดซอร์สทุกโปรเจกต์
             </p>
             <button
               onClick={(e) => {
@@ -142,7 +143,7 @@ export default function Intro() {
               }}
               className="wx-btn mt-8 inline-flex items-center gap-2 border-wx-acid bg-wx-acid px-6 py-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-wx-ink"
             >
-              Enter the weird →
+              Enter site →
             </button>
           </motion.div>
         )}

@@ -45,9 +45,9 @@ const archivoBlack = Archivo_Black({
 });
 
 export const metadata: Metadata = {
-  title: "Duluka Studio™ — Weird Systems Division",
+  title: "Duluka Studio™ — by ScotcsDuluka",
   description:
-    "Duluka Studio™ — สตูดิโอแปลกๆ ส่วนตัวของ ScotcsDuluka. โปรเจกต์ screen capture, Magisk mods, เว็บทดลอง, Minecraft server และ TTML lyrics. เปิดซอร์สทั้งหมดบน GitHub.",
+    "Duluka Studio — สตูดิโอส่วนตัวของ ScotcsDuluka. โปรเจกต์ screen capture, Magisk mods, เว็บทดลอง, Minecraft server และ TTML lyrics. เปิดซอร์สทั้งหมดบน GitHub.",
   keywords: [
     "Duluka Studio",
     "ScotcsDuluka",
@@ -61,8 +61,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "ScotcsDuluka" }],
   openGraph: {
-    title: "Duluka Studio™ — Weird Systems Division",
-    description: "สตูดิโอแปลกๆ ของ ScotcsDuluka — โปรเจกต์เปิดซอร์สหลากหลาย",
+    title: "Duluka Studio™ — by ScotcsDuluka",
+    description: "สตูดิโอส่วนตัวของ ScotcsDuluka — โปรเจกต์เปิดซอร์สหลากหลาย",
     siteName: "Duluka Studio",
     type: "website",
   },

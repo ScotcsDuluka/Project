@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Weird Systems™ cursor follower — a small acid square that chases the
+ * Cursor follower — a small acid square that chases the
  * pointer and grows into a labelled chip over [data-cursor] targets.
  * Rendered only for fine pointers (mouse) with motion allowed.
  */

@@ -15,7 +15,7 @@ const NAV_ITEMS = [
 ];
 
 const TICKER =
-  "OPEN SOURCE ★ สตูดิโอแปลกๆ ★ NO BORING WEBSITES ★ EST. FOREVER ★ MADE IN THAILAND ★ 100% WEIRD ★ ";
+  "OPEN SOURCE ★ DULUKA STUDIO ★ EST. FOREVER ★ MADE IN THAILAND ★ GITHUB ★ DISCORD ★ MINECRAFT ★ TH/EN ★ ";
 
 function useClock() {
   const [time, setTime] = useState("");
@@ -95,7 +95,7 @@ export default function TopBar() {
                 Duluka Studio<sup className="text-[8px]">™</sup>
               </span>
               <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-wx-ink/50">
-                Weird Systems Division
+                by ScotcsDuluka
               </span>
             </span>
           </button>

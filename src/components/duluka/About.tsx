@@ -5,7 +5,7 @@ import { GITHUB_PROFILE, DISCORD_INVITE } from "@/data/projects";
 
 const FACTS = [
   { num: "01", label: "OWNER", value: "ScotcsDuluka", note: "1 คน ทำทุกอย่างเอง" },
-  { num: "02", label: "LANGUAGES", value: "VB.NET · C# · HTML · CSS · JS · TS", note: "แปลกแต่จริง" },
+  { num: "02", label: "LANGUAGES", value: "VB.NET · C# · HTML · CSS · JS · TS", note: "ใช้ทำทุกโปรเจกต์" },
   { num: "03", label: "FOCUS", value: "Capture · Magisk · MC · TTML", note: "หลากหลายจนน่ากลัว" },
   { num: "04", label: "COMMUNITY", value: "ไทย / English", note: "bilingual เต็มตัว" },
 ];
@@ -48,8 +48,7 @@ export default function About() {
             <h2 className="text-3xl font-black leading-[1.15] sm:text-4xl lg:text-5xl">
               สตูดิโอนี้ทำของที่{" "}
               <span className="wx-marker">อยากทำจริงๆ</span> — บางตัวใหญ่ บางตัวเล็ก
-              บางตัวก็ <span className="wx-stroke-thin font-display uppercase">weird</span>{" "}
-              ไปหน่อย แต่ทุกชิ้นมีเรื่องเล่าของมัน และ{" "}
+              แต่ทุกชิ้นมีเรื่องเล่าของมัน และ{" "}
               <span className="border-2 border-wx-ink bg-wx-ink px-2 text-wx-acid">
                 เปิดซอร์สหมด
               </span>{" "}
