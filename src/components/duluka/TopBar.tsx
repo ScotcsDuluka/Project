@@ -132,7 +132,8 @@ export default function TopBar() {
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
-              className="hidden h-9 w-9 items-center justify-center border-2 border-wx-ink bg-wx-paper text-wx-ink transition-colors hover:bg-wx-ink hover:text-wx-acid sm:flex"
+              data-cursor="GIT"
+              className="flex h-9 w-9 items-center justify-center border-2 border-wx-ink bg-wx-paper text-wx-ink transition-colors hover:bg-wx-ink hover:text-wx-acid"
             >
               <Github className="h-4 w-4" />
             </a>
