@@ -1,53 +1,5 @@
 [
   {
-    "slug": "project",
-    "repo": "ScotcsDuluka/Project",
-    "name": "Project",
-    "description": "Duluka Studio / Community",
-    "homepage": "https://scotcsduluka.github.io/Project/",
-    "stars": 0,
-    "forks": 0,
-    "watchers": 0,
-    "openIssues": 0,
-    "language": "TypeScript",
-    "topics": [],
-    "pushedAt": "2026-10-06T06:02:00Z",
-    "createdAt": "2026-07-10T08:48:49Z",
-    "updatedAt": "2026-10-06T06:02:03Z",
-    "archived": false,
-    "defaultBranch": "main",
-    "hasReadme": true,
-    "readmeExcerpt": "Duluka Studio — เว็บไซต์",
-    "fetchedAt": "2026-10-07T05:37:23.371Z"
-  },
-  {
-    "slug": "nvidia-shadowplay",
-    "repo": "ScotcsDuluka/NVIDIA-Shadowplay",
-    "name": "NVIDIA-Shadowplay",
-    "description": "ShadowPlay WinForm | Inspired by NVIDIA Shadowplay",
-    "homepage": "http://scotcsduluka.github.io/NVIDIA-Shadowplay/",
-    "stars": 5,
-    "forks": 0,
-    "watchers": 5,
-    "openIssues": 0,
-    "language": "Visual Basic .NET",
-    "topics": [
-      "ffmpeg",
-      "gpu",
-      "nvidiashadowplay",
-      "recorder",
-      "shadowplay"
-    ],
-    "pushedAt": "2026-09-26T11:21:10Z",
-    "createdAt": "2024-10-15T13:29:15Z",
-    "updatedAt": "2026-09-26T11:21:15Z",
-    "archived": false,
-    "defaultBranch": "Stable",
-    "hasReadme": true,
-    "readmeExcerpt": "NVIDIA ShadowPlay",
-    "fetchedAt": "2026-10-07T05:37:23.371Z"
-  },
-  {
     "slug": "lyrics-ttml",
     "repo": "ScotcsDuluka/Lyrics-TTML",
     "name": "Lyrics-TTML",
@@ -59,14 +11,62 @@
     "openIssues": 0,
     "language": null,
     "topics": [],
-    "pushedAt": "2026-09-02T23:57:05Z",
+    "pushedAt": "2026-10-08T05:22:49Z",
     "createdAt": "2026-07-07T21:46:58Z",
-    "updatedAt": "2026-09-02T23:59:15Z",
+    "updatedAt": "2026-10-08T05:22:53Z",
     "archived": false,
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "Lyrics-TTML",
-    "fetchedAt": "2026-10-07T05:37:23.371Z"
+    "fetchedAt": "2026-10-08T05:45:29.258Z"
+  },
+  {
+    "slug": "nvidia-shadowplay",
+    "repo": "ScotcsDuluka/NVIDIA-Shadowplay",
+    "name": "NVIDIA-Shadowplay",
+    "description": "ShadowPlay WinForm | Inspired by NVIDIA Shadowplay",
+    "homepage": "http://scotcsduluka.github.io/NVIDIA-Shadowplay/",
+    "stars": 5,
+    "forks": 0,
+    "watchers": 5,
+    "openIssues": 0,
+    "language": "HTML",
+    "topics": [
+      "ffmpeg",
+      "gpu",
+      "nvidiashadowplay",
+      "recorder",
+      "shadowplay"
+    ],
+    "pushedAt": "2026-10-08T05:13:52Z",
+    "createdAt": "2024-10-15T13:29:15Z",
+    "updatedAt": "2026-10-08T05:13:56Z",
+    "archived": false,
+    "defaultBranch": "Stable",
+    "hasReadme": true,
+    "readmeExcerpt": "NVIDIA ShadowPlay",
+    "fetchedAt": "2026-10-08T05:45:29.683Z"
+  },
+  {
+    "slug": "project",
+    "repo": "ScotcsDuluka/Project",
+    "name": "Project",
+    "description": "Duluka Studio / Community",
+    "homepage": "https://scotcsduluka.github.io/Project/",
+    "stars": 0,
+    "forks": 0,
+    "watchers": 0,
+    "openIssues": 0,
+    "language": "TypeScript",
+    "topics": [],
+    "pushedAt": "2026-10-07T05:37:24Z",
+    "createdAt": "2026-07-10T08:48:49Z",
+    "updatedAt": "2026-10-07T05:37:27Z",
+    "archived": false,
+    "defaultBranch": "main",
+    "hasReadme": true,
+    "readmeExcerpt": "Duluka Studio — เว็บไซต์",
+    "fetchedAt": "2026-10-08T05:45:29.860Z"
   },
   {
     "slug": "windows-10-desktop-web",
@@ -87,7 +87,7 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "Windows 10 Desktop (Web Edition)",
-    "fetchedAt": "2026-10-07T05:37:23.371Z"
+    "fetchedAt": "2026-10-08T05:45:29.860Z"
   },
   {
     "slug": "mcdmods-project-plus",
@@ -108,7 +108,7 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "mcd-news",
-    "fetchedAt": "2026-10-07T05:37:23.371Z"
+    "fetchedAt": "2026-10-08T05:45:29.860Z"
   },
   {
     "slug": "web-hyperos-launcher",
@@ -128,7 +128,7 @@
     "archived": false,
     "defaultBranch": "main",
     "hasReadme": false,
-    "fetchedAt": "2026-10-07T05:37:23.371Z"
+    "fetchedAt": "2026-10-08T05:45:29.860Z"
   },
   {
     "slug": "web-custom",
@@ -148,7 +148,7 @@
     "archived": false,
     "defaultBranch": "main",
     "hasReadme": false,
-    "fetchedAt": "2026-10-07T05:37:23.371Z"
+    "fetchedAt": "2026-10-08T05:45:29.860Z"
   },
   {
     "slug": "student-statistics",
@@ -168,7 +168,7 @@
     "archived": false,
     "defaultBranch": "main",
     "hasReadme": false,
-    "fetchedAt": "2026-10-07T05:37:23.371Z"
+    "fetchedAt": "2026-10-08T05:45:29.860Z"
   },
   {
     "slug": "scotcsduluka",
@@ -189,7 +189,7 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "ScotcsDuluka",
-    "fetchedAt": "2026-10-07T05:37:23.371Z"
+    "fetchedAt": "2026-10-08T05:45:29.860Z"
   },
   {
     "slug": "always-on-display-mods",
@@ -212,7 +212,7 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "Supported Devices & Version",
-    "fetchedAt": "2026-10-07T05:37:23.371Z"
+    "fetchedAt": "2026-10-08T05:45:29.860Z"
   },
   {
     "slug": "extreme-update",
@@ -233,6 +233,6 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "Extreme-Update",
-    "fetchedAt": "2026-10-07T05:37:23.371Z"
+    "fetchedAt": "2026-10-08T05:45:29.860Z"
   }
 ]
