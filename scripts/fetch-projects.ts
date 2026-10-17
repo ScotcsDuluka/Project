@@ -11,11 +11,13 @@
 // otherwise falls back to unauthenticated (60 req/hr).
 // ============================================================
 
-import { writeFileSync, existsSync, readFileSync } from "fs";
-import { join } from "path";
+import { writeFileSync, existsSync, readFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const GITHUB_USER = "ScotcsDuluka";
-const OUTPUT_PATH = join(import.meta.dir, "..", "src", "data", "projects.auto.json");
+const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const OUTPUT_PATH = join(PROJECT_ROOT, "src", "data", "projects.auto.json");
 const OLD_PATH = OUTPUT_PATH;
 
 // Token from env (set by GitHub Actions) or empty for unauthenticated

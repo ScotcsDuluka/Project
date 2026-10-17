@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 // GitHub Pages serves user/org sites at the root (username.github.io)
 // and project sites at a subpath (username.github.io/repo-name).
 // Set NEXT_PUBLIC_BASE_PATH env var when building for a project site.
-// Example: NEXT_PUBLIC_BASE_PATH=/duluka-studio bun run build:static
+// scripts/build-static.mjs defaults this repository to the /Project path.
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const isStaticExport = process.env.BUILD_STATIC === "true";
@@ -23,8 +23,10 @@ const nextConfig: NextConfig = {
     : {
         output: "standalone",
       }),
-  typescript: {
-    ignoreBuildErrors: true,
+  experimental: {
+    // Keep production builds within predictable worker/memory limits.
+    cpus: 2,
+    webpackBuildWorker: false,
   },
   reactStrictMode: false,
 };

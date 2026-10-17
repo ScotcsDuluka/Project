@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
+import type { LucideIcon as LucideIconComponent } from "lucide-react";
 import { MessageCircle, Languages } from "lucide-react";
 import { RULE_GROUPS, PENALTIES, DISCORD_INVITE } from "@/data/projects";
 
 type Lang = "th" | "en";
 
 function LucideIcon({ name, className }: { name: string; className?: string }) {
-  const C = (Icons as Record<string, React.ComponentType<{ className?: string }>>)[name] ?? Icons.Circle;
+  const C = (Icons as unknown as Record<string, LucideIconComponent>)[name] ?? Icons.Circle;
   return <C className={className} />;
 }
 

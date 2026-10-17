@@ -102,8 +102,8 @@ export default function ServerInfo() {
             <div className="relative border-2 border-wx-paper bg-wx-paper text-wx-ink sm:rotate-1 sm:hover:rotate-0">
               {/* ticket stub top */}
               <div className="flex items-center justify-between border-b-2 border-dashed border-wx-ink/40 bg-wx-ink px-5 py-3 font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-wx-acid">
-                <span>ADMIT ONE PLAYER</span>
-                <span className="wx-blink">● LIVE</span>
+                <span>DULUKA COMMUNITY SERVER</span>
+                <span>JAVA + BEDROCK</span>
               </div>
 
               <div className="p-5 sm:p-7">
@@ -206,8 +206,8 @@ export default function ServerInfo() {
 
               {/* stub bottom */}
               <div className="flex items-center justify-between border-t-2 border-dashed border-wx-ink/40 px-5 py-3 font-mono text-[9px] uppercase tracking-[0.2em] text-wx-ink/50">
-                <span>NO REFUNDS · NO MODS NEEDED</span>
-                <span>VOID WHERE PROHIBITED</span>
+                <span>SURVIVAL · FREE TO JOIN</span>
+                <span>JAVA + BEDROCK</span>
               </div>
             </div>
           </motion.div>

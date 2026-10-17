@@ -15,7 +15,7 @@ const NAV_ITEMS = [
 ];
 
 const TICKER =
-  "OPEN SOURCE ★ DULUKA STUDIO ★ EST. FOREVER ★ MADE IN THAILAND ★ GITHUB ★ DISCORD ★ MINECRAFT ★ TH/EN ★ ";
+  "SMALL PROJECTS ★ ODD EXPERIMENTS ★ FIXING THINGS AS I GO ★ MADE IN THAILAND ★ GITHUB ★ DISCORD ★ MINECRAFT ★ TH/EN ★ ";
 
 function useClock() {
   const [time, setTime] = useState("");

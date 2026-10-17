@@ -45,9 +45,9 @@ const archivoBlack = Archivo_Black({
 });
 
 export const metadata: Metadata = {
-  title: "Duluka Studio™ — by ScotcsDuluka",
+  title: "Duluka Studio — โปรเจกต์ของ ScotcsDuluka",
   description:
-    "Duluka Studio — สตูดิโอส่วนตัวของ ScotcsDuluka. โปรเจกต์ screen capture, Magisk mods, เว็บทดลอง, Minecraft server และ TTML lyrics. เปิดซอร์สทั้งหมดบน GitHub.",
+    "เว็บรวมโปรเจกต์ของ ScotcsDuluka ทั้งเครื่องมืออัดหน้าจอ, HyperOS mods, งานทดลองบนเว็บ, Minecraft และไฟล์เนื้อเพลง TTML แต่ละ repo มีสถานะและเงื่อนไขการใช้งานต่างกัน.",
   keywords: [
     "Duluka Studio",
     "ScotcsDuluka",
@@ -62,14 +62,14 @@ export const metadata: Metadata = {
   authors: [{ name: "ScotcsDuluka" }],
   openGraph: {
     title: "Duluka Studio™ — by ScotcsDuluka",
-    description: "สตูดิโอส่วนตัวของ ScotcsDuluka — โปรเจกต์เปิดซอร์สหลากหลาย",
+    description: "โปรเจกต์และงานทดลองของ ScotcsDuluka ตั้งแต่เครื่องมือ Windows ไปจนถึง Minecraft และงานเว็บ",
     siteName: "Duluka Studio",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Duluka Studio™",
-    description: "by ScotcsDuluka — screen capture, Magisk mods, Minecraft, TTML lyrics",
+    description: "โปรเจกต์ของ ScotcsDuluka: screen capture, HyperOS mods, Minecraft และ TTML lyrics",
   },
 };
 
@@ -79,7 +79,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="th" suppressHydrationWarning>
       <body
         className={`${miSansThai.variable} ${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${caveat.variable} ${archivoBlack.variable} antialiased`}
       >

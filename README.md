@@ -1,184 +1,113 @@
-# Duluka Studio — เว็บไซต์
+# Duluka Studio
 
-เว็บไซต์ Duluka Studio สร้างด้วย **Next.js 16 + TypeScript + Tailwind CSS 4 + framer-motion**
-สไตล์ Editorial Pastel พร้อม sidebar navigation
+เว็บไซต์รวมโปรเจกต์ของ **ScotcsDuluka** ตั้งแต่เครื่องมือบน Windows, ม็อด HyperOS, งานทดลองบนเว็บ, Minecraft ไปจนถึงไฟล์เนื้อเพลง TTML
 
-## 📦 วิธีรันเอง (Local)
+ไม่ได้หมายความว่าทุกโปรเจกต์จะเสร็จสมบูรณ์หรือพร้อมใช้งานทั้งหมด บางงานยังอยู่ระหว่างพัฒนา และบาง repo ยังไม่มี README ให้ดูรายละเอียด ควรเปิดหน้า GitHub ของงานนั้นก่อนนำไปใช้
 
-### ข้อกำหนดเบื้องต้น
-1. **Node.js** 18+ → https://nodejs.org/
-2. **Bun** (แนะนำ) → https://bun.sh/ หรือใช้ `npm` / `pnpm` แทนก็ได้
+- เว็บไซต์: https://scotcsduluka.github.io/Project/
+- GitHub: https://github.com/ScotcsDuluka
+- Discord: https://discord.gg/t9yfWVFFaS
 
-### ขั้นตอน
-```bash
-# 1. แตกไฟล์ zip แล้ว cd เข้าไป
-cd duluka-studio
+## เทคโนโลยี
 
-# 2. ติดตั้ง dependencies
-bun install        # หรือ npm install
+- Next.js 16 และ React 19
+- TypeScript
+- Tailwind CSS 4
+- Framer Motion
+- Lucide React สำหรับไอคอน
+- Prisma และ SQLite มี schema อยู่ใน `prisma/`
 
-# 3. รัน dev server
-bun run dev        # หรือ npm run dev
+## รันในเครื่อง Windows
 
-# 4. เปิดเบราว์เซอร์ → http://localhost:3000
+ต้องมี **Node.js 20.9 ขึ้นไป** และ npm
+
+เปิด PowerShell แล้วรัน:
+
+```powershell
+Set-Location 'A:\Project'
+npm ci
+npm run dev
 ```
 
----
+จากนั้นเปิด http://localhost:3000
 
-## 🚀 Deploy บน GitHub Pages (แบบอัตโนมัติ — แนะนำ)
+หยุดเซิร์ฟเวอร์ด้วย `Ctrl+C` ในหน้าต่าง PowerShell ที่รันอยู่ ไม่ต้องลบ `.next` หรือโฟลเดอร์อื่นเพื่อปิดเว็บ
 
-วิธีนี้จะทำให้เว็บออนไลน์ได้ฟรีที่ `https://scotcsduluka.github.io/duluka-studio`
+## คำสั่งที่ใช้บ่อย
 
-### ขั้นตอนที่ 1: สร้าง repo บน GitHub
-1. ไปที่ https://github.com/new
-2. ตั้งชื่อ repo ว่า `duluka-studio` (ถ้าตั้งชื่ออื่น ต้องแก้ `NEXT_PUBLIC_BASE_PATH` ใน `.github/workflows/deploy.yml` ให้ตรงด้วย)
-3. เลือก **Public**
-4. กด **Create repository**
+| คำสั่ง | ใช้ทำอะไร |
+| --- | --- |
+| `npm run dev` | เปิดเว็บสำหรับพัฒนา |
+| `npm run lint` | ตรวจโค้ดด้วย ESLint |
+| `npm run build` | สร้าง Production build แบบ standalone |
+| `npm run start` | รัน build ที่สร้างไว้แล้ว |
+| `npm run build:static` | สร้างเว็บ static สำหรับ GitHub Pages ไปที่ `out/` |
 
-### ขั้นตอนที่ 2: push โค้ดขึ้น repo
-```bash
-cd duluka-studio
-git init
-git add .
-git commit -m "feat: Duluka Studio website"
-git branch -M main
-git remote add origin https://github.com/ScotcsDuluka/duluka-studio.git
-git push -u origin main
-```
+คำสั่ง `npm run start` ใช้หลัง `npm run build` เท่านั้น ส่วน `npm run build:static` จะตั้งค่า `/Project` เป็น base path ให้โดยอัตโนมัติ ถ้าจะ build สำหรับโฮสต์อื่นให้กำหนด `NEXT_PUBLIC_BASE_PATH` ก่อนรัน
 
-### ขั้นตอนที่ 3: เปิด GitHub Pages
-1. ไปที่หน้า repo → แท็บ **Settings** → **Pages**
-2. ส่วน **Build and deployment** → Source: เลือก **GitHub Actions**
-3. กลับไปที่แท็บ **Actions** → จะเห็น workflow ชื่อ "Deploy to GitHub Pages" กำลังรัน
-4. รอ 2-3 นาทีจน status เป็นเครื่องหมาย ✓ สีเขียว
-5. เว็บออนไลน์แล้วที่ **https://scotcsduluka.github.io/duluka-studio** 🎉
+## แก้เนื้อหาเว็บตรงไหน
 
-### ขั้นตอนที่ 4: แก้ไขเนื้อหา
-- แก้ไฟล์ในเครื่อง → commit → push → GitHub Actions จะ deploy ใหม่ให้อัตโนมัติ
+| อยากเปลี่ยน | ไฟล์ |
+| --- | --- |
+| ข้อมูลโปรเจกต์ คำอธิบาย ไลเซนส์ และกฎเซิร์ฟเวอร์ | `src/data/projects.manual.ts` |
+| การรวมข้อมูลที่เขียนเองกับข้อมูลจาก GitHub | `src/data/projects.ts` |
+| ข้อมูล GitHub ที่ระบบดึงอัตโนมัติ | `src/data/projects.auto.json` |
+| หน้าแรกและการเรียงแต่ละ section | `src/app/page.tsx` |
+| ข้อความและหน้าตาของแต่ละส่วน | `src/components/duluka/` |
+| สี ฟอนต์ และเอฟเฟกต์ | `src/app/globals.css` |
+| ฟอนต์และ metadata ของหน้าเว็บ | `src/app/layout.tsx` |
+| รูปและไฟล์สาธารณะ | `public/` |
 
-### ถ้าตั้งชื่อ repo อื่น
-แก้บรรทัดนี้ใน `.github/workflows/deploy.yml`:
-```yaml
-NEXT_PUBLIC_BASE_PATH: /ชื่อ-repo-ใหม่
-```
+ข้อมูลใน `projects.manual.ts` เป็นข้อมูลที่ดูแลเอง ส่วน `projects.auto.json` สร้างโดยสคริปต์จาก GitHub API และอาจถูกเขียนทับในรอบถัดไป จึงไม่ควรแก้ไฟล์ JSON นั้นเพื่อใส่คำอธิบายถาวร
 
-### ถ้าอยากได้เป็นหน้าหลัก (scotcsduluka.github.io)
-1. สร้าง repo ชื่อ `scotcsduluka.github.io` (ตรงชื่อ username)
-2. ลบ `NEXT_PUBLIC_BASE_PATH` ออกจาก `.github/workflows/deploy.yml` ให้เหลือแค่:
-```yaml
-env:
-  BUILD_STATIC: "true"
-```
-3. push ขึ้น repo → เว็บจะออนไลน์ที่ **https://scotcsduluka.github.io**
+**เรื่องไลเซนส์:** อย่าสรุปว่าทุก repo ใช้ MIT เหมือนกัน ตรวจไฟล์ LICENSE ของ repo นั้นโดยตรงก่อนนำโค้ดไปใช้หรือแจกจ่ายต่อ
 
----
+## โครงสร้างหลัก
 
-## 🔨 Build เป็น static site เอง (ถ้าไม่ใช้ GitHub Actions)
-
-```bash
-# Build สำหรับ repo ชื่อ duluka-studio
-BUILD_STATIC=true NEXT_PUBLIC_BASE_PATH=/duluka-studio bun run next build
-
-# Build สำหรับ root domain (scotcsduluka.github.io)
-BUILD_STATIC=true bun run next build
-
-# ผลลัพธ์จะอยู่ในโฟลเดอร์ out/
-# อัปโหลดโฟลเดอร์ out/ ทั้งหมดขึ้น hosting ได้เลย
-```
-
----
-
-## ☁️ Deploy ที่อื่น (Vercel / Netlify / Cloudflare)
-
-### Vercel (แนะนำ — เจ้าของ Next.js)
-1. สมัคร https://vercel.com
-2. New Project → import repo จาก GitHub
-3. Framework Preset: Next.js (auto-detect)
-4. กด Deploy — เสร็จ! (ไม่ต้องตั้งค่าอะไร รองรับ Next.js แบบ native)
-
-### Netlify
-1. สมัคร https://netlify.com
-2. ลากโฟลเดอร์ `out/` (หลัง build ด้วย `BUILD_STATIC=true bun run next build`) ไปวางในหน้า deploy
-
-### Cloudflare Pages
-1. สมัคร https://pages.cloudflare.com
-2. Connect Git repo
-3. Build command: `BUILD_STATIC=true bun run next build`
-4. Build output directory: `out`
-
----
-
-## 🎨 แก้ไขเนื้อหา
-
-| อยากแก้ | แก้ที่ไฟล์ |
-|--------|----------|
-| ข้อมูลโปรเจกต์ / กฎ / ข้อมูล server | `src/data/projects.ts` |
-| สี / ฟอนต์ / เอฟเฟกต์ | `src/app/globals.css` |
-| ฟอนต์ที่ใช้ (Playfair / Caveat) | `src/app/layout.tsx` |
-| ข้อความในแต่ละ section | `src/components/duluka/*.tsx` |
-| ลิงก์ Discord / GitHub | `src/data/projects.ts` (`DISCORD_INVITE`, `GITHUB_PROFILE`) |
-| โลโก้ / รูป | `public/` |
-
----
-
-## 📁 โครงสร้างไฟล์
-
-```
-duluka-studio/
+```text
+A:\Project
 ├── .github/workflows/
-│   └── deploy.yml             ← GitHub Actions deploy อัตโนมัติ
-├── public/
-│   └── .nojekyll              ← สำคัญ! ทำให้ GitHub Pages ไม่ข้าม _next/
+│   ├── deploy.yml              # Build และ Deploy ไป GitHub Pages
+│   └── fetch-projects.yml      # อัปเดตข้อมูลโปรเจกต์จาก GitHub
+├── examples/                  # ตัวอย่างแยกจากเว็บหลัก
+├── prisma/
+│   └── schema.prisma           # Prisma schema
+├── public/                     # ไฟล์ที่ให้หน้าเว็บเรียกใช้
+├── scripts/
+│   ├── build-static.mjs        # ตั้งค่าสำหรับ static export
+│   ├── copy-standalone-assets.mjs
+│   └── fetch-projects.ts       # ดึง metadata ของ GitHub repos
 ├── src/
-│   ├── app/
-│   │   ├── layout.tsx         ← ฟอนต์ + metadata
-│   │   ├── page.tsx           ← เรียงทุก section
-│   │   └── globals.css        ← สี pastel + ฟอนต์ editorial
-│   ├── components/duluka/     ← 9 คอมโพเนนต์ของเว็บ
-│   │   ├── Sidebar.tsx
-│   │   ├── Hero.tsx
-│   │   ├── About.tsx
-│   │   ├── Projects.tsx
-│   │   ├── ServerInfo.tsx
-│   │   ├── Rules.tsx
-│   │   ├── Connect.tsx
-│   │   ├── Footer.tsx
-│   │   └── StarField.tsx
-│   └── data/projects.ts       ← ข้อมูลทั้งหมด
-├── next.config.ts             ← config static export
+│   ├── app/                    # Next.js app, layout และ CSS
+│   ├── components/duluka/      # section ของ Duluka Studio
+│   └── data/                   # ข้อมูลโปรเจกต์และกฎเซิร์ฟเวอร์
+├── next.config.ts
 ├── package.json
 └── README.md
 ```
 
----
+โค้ดใน `examples/` เป็นตัวอย่างแยก ไม่ได้ถูกรวมเป็นหน้าเว็บ และไม่อยู่ใน TypeScript check ของแอปหลัก
 
-## 🛠️ คำสั่งที่ใช้บ่อย
+## GitHub Pages
 
-| คำสั่ง | คำอธิบาย |
-|--------|----------|
-| `bun run dev` | รัน dev server (http://localhost:3000) |
-| `bun run lint` | ตรวจสอบคุณภาพโค้ด |
-| `bun run build:static` | build เป็น static site (สำหรับ GitHub Pages) |
-| `bun run next build` | build เวอร์ชัน production (standalone server) |
+Workflow ใน `.github/workflows/deploy.yml` ตั้งให้ทำงานเมื่อมี push ไปที่ branch `main` หรือสั่งรันด้วยมือจาก GitHub Actions โดยจะ build static site แล้วส่งโฟลเดอร์ `out/` ไปยัง GitHub Pages
 
----
+URL ที่กำหนดไว้ในโปรเจกต์นี้คือ:
 
-## ❓ ปัญหาที่อาจเจอ
+https://scotcsduluka.github.io/Project/
 
-| ปัญหา | วิธีแก้ |
-|------|--------|
-| `bun: command not found` | ติดตั้ง Bun จาก https://bun.sh หรือใช้ `npm` แทน |
-| `port 3000 already in use` | รัน `bun run dev -- -p 3001` เพื่อใช้พอร์ตอื่น |
-| หน้าขาว / error | ลบโฟลเดอร์ `.next` แล้วรัน `bun install && bun run dev` ใหม่ |
-| ฟอนต์ไม่โหลด | ต้องเชื่อมต่ออินเทอร์เน็ต (โหลดจาก Google Fonts) |
-| GitHub Pages 404 | ตรวจว่าไฟล์ `.nojekyll` อยู่ใน `public/` และเปิด Source เป็น "GitHub Actions" |
-| Asset ไม่โหลดบน Pages | ตรวจ `NEXT_PUBLIC_BASE_PATH` ใน `deploy.yml` ตรงกับชื่อ repo ไหม |
+ถ้าเว็บยังไม่แสดง ให้ตรวจหน้า **Actions** ว่า workflow ล่าสุดสำเร็จหรือไม่ และตรวจ **Settings → Pages** ของ repository ว่า Source ใช้ GitHub Actions อยู่หรือยัง การมี workflow ในโค้ดอย่างเดียวไม่ได้ยืนยันว่า deploy สำเร็จแล้ว
+
+Workflow `.github/workflows/fetch-projects.yml` ดึง metadata จาก GitHub ตามตารางเวลา และเมื่อมีการแก้ไฟล์ต้นทางที่กำหนดไว้ หลังอัปเดต `projects.auto.json` ระบบจะ commit ข้อมูลที่เปลี่ยนกลับเข้า branch `main`
+
+## ก่อนแก้โปรเจกต์
+
+- แก้คำอธิบายและข้อมูลที่ต้องดูแลต่อเนื่องใน `src/data/projects.manual.ts`
+- อย่าเขียนทับข้อมูลที่ระบบสร้างอัตโนมัติโดยไม่ตรวจ workflow ที่ดูแลไฟล์นั้น
+- ตรวจไฟล์ LICENSE ของแต่ละ repository แยกกัน
+- รัน `npm run lint` และ build ที่เกี่ยวข้องก่อนส่งการเปลี่ยนแปลงขึ้น GitHub
+- ไฟล์ environment ที่ขึ้นต้นด้วย `.env` ถูก ignore อยู่แล้ว อย่า commit secret หรือ token ขึ้น repository
 
 ---
 
-## 📞 ติดต่อ
-
-- GitHub: https://github.com/ScotcsDuluka
-- Discord: https://discord.gg/t9yfWVFFaS
-
-💖 Made by ScotcsDuluka
+ทำโดย ScotcsDuluka · Thailand

@@ -19,7 +19,7 @@ export interface ProjectRepo {
   url: string;
   homepage?: string;
   category: ProjectCategory;
-  status: "Released" | "Active Dev" | "No README";
+  status: "Released" | "Active Dev" | "Recently Updated" | "No README" | "Archived";
   icon: string;
   short: string;
   bullets: string[];
@@ -50,7 +50,7 @@ export const PROJECTS: ProjectRepo[] = [
     status: "Active Dev",
     icon: "Video",
     short:
-      "Screen capture utility inspired by NVIDIA ShadowPlay with overlay UI, built in VB.NET — No Hook. Record engine powered by FFmpeg.",
+      "เครื่องมืออัดหน้าจอบน Windows ที่ได้แรงบันดาลใจจาก NVIDIA ShadowPlay ทำ UI ด้วย VB.NET และใช้ FFmpeg จัดการการบันทึก ตอนนี้ยังพัฒนาอยู่.",
     bullets: [
       "UI NVIDIA Shadowplay",
       "Real-time screen recording",
@@ -128,7 +128,7 @@ export const PROJECTS: ProjectRepo[] = [
     status: "Released",
     icon: "Smartphone",
     short:
-      "Magisk module to customize Always On Display on HyperOS — adds new language pack and an awesome photo category.",
+      "โมดูล Magisk สำหรับ HyperOS ที่เพิ่มตัวเลือกภาษาไทย/อังกฤษและหมวดรูปภาพใน Always-On Display ต้องใช้เครื่องที่ Root แล้ว.",
     bullets: [
       "Always On Display NewLang For NEXTGEN",
       "Awesome Photo Category",
@@ -183,7 +183,7 @@ export const PROJECTS: ProjectRepo[] = [
     category: "Media",
     status: "Released",
     icon: "Music2",
-    short: "TTML lyrics created by ScotcsDuluka.",
+    short: "ไฟล์เนื้อเพลง TTML ที่ทำและจับเวลาโดย ScotcsDuluka สำหรับเครื่องเล่นเพลงที่รองรับรูปแบบนี้.",
     bullets: [
       "TTML Made by ScotcsDuluka",
       "Hand-timed lyric files for music players",
@@ -211,7 +211,7 @@ export const PROJECTS: ProjectRepo[] = [
     category: "Media",
     status: "Released",
     icon: "Zap",
-    short: "App to check which month your MIDI songs are in.",
+    short: "เครื่องมืออ่าน metadata ของไฟล์ MIDI แล้วจัดกลุ่มเพลงตามเดือน.",
     bullets: [
       "Check which month your MIDI songs are in",
       "Catalog MIDI library by date",
@@ -239,7 +239,7 @@ export const PROJECTS: ProjectRepo[] = [
     category: "Minecraft",
     status: "No README",
     icon: "Blocks",
-    short: "Minecraft mods project — see repository for details.",
+    short: "โปรเจกต์สำหรับ Minecraft Java/Bedrock ที่เชื่อมกับเซิร์ฟเวอร์ Duluka; ตอนนี้มีช่องข่าว `mcd-news` ข้อมูลฟีเจอร์อื่นยังมีจำกัด เพราะ repo ยังไม่มี README.",
     bullets: ["Built-in news channel: mcd-news"],
     techStack: [
       { label: "Platform", items: ["Minecraft"] },
@@ -268,7 +268,7 @@ export const PROJECTS: ProjectRepo[] = [
     short: "The ScotcsDuluka GitHub profile README — featured projects, tech stack, and links.",
     bullets: [
       "Featured: NVIDIA ShadowPlay",
-      "Featured: HyperOS Mods (Magisk Module) — coming soon",
+      "Featured: HyperOS Mods (Magisk Module)",
       "GitHub streak-stats widget (radical theme)",
       "Connect: GitHub + Discord",
     ],
@@ -298,7 +298,7 @@ export const PROJECTS: ProjectRepo[] = [
     category: "Web",
     status: "No README",
     icon: "Rocket",
-    short: "Web-based HyperOS launcher — see repository for details.",
+    short: "ต้นแบบ launcher บนเว็บที่ได้แรงบันดาลใจจาก HyperOS ของ Xiaomi ตอนนี้ repo ยังไม่มี README อธิบายวิธีใช้งานหรือฟีเจอร์ครบถ้วน.",
     bullets: [],
     techStack: [
       { label: "Type", items: ["Web Project"] },
@@ -318,7 +318,7 @@ export const PROJECTS: ProjectRepo[] = [
     category: "Web",
     status: "No README",
     icon: "Code2",
-    short: "Custom web project — see repository for details.",
+    short: "พื้นที่ทดลองงานเว็บ คอมโพเนนต์ และเอฟเฟกต์ CSS; ยังไม่มี README ให้ยืนยันรายละเอียดการใช้งาน.",
     bullets: [],
     techStack: [
       { label: "Type", items: ["Web Project"] },
@@ -335,7 +335,7 @@ export const PROJECTS: ProjectRepo[] = [
     category: "Web",
     status: "No README",
     icon: "Sparkles",
-    short: "DuluSpect experience project — see repository for details.",
+    short: "โปรเจกต์เว็บ DuluSpect-Experience ที่ยังไม่มี README ระบุว่าทำอะไรได้บ้าง เปิด repo ดูโค้ดล่าสุดได้โดยตรง.",
     bullets: [],
     techStack: [
       { label: "Type", items: ["Experience Project"] },
@@ -351,7 +351,7 @@ export const PROJECTS: ProjectRepo[] = [
     category: "Data",
     status: "No README",
     icon: "BarChart3",
-    short: "Student statistics project — see repository for details.",
+    short: "โปรเจกต์เกี่ยวกับสถิตินักเรียน แต่ข้อมูลปัจจุบันยังไม่บอกวิธีเก็บข้อมูลหรือฟีเจอร์ที่ทำเสร็จแล้ว.",
     bullets: [],
     techStack: [
       { label: "Domain", items: ["Education / Data"] },
@@ -418,8 +418,8 @@ export const RULE_GROUPS: RuleGroup[] = [
         icon: "ShieldX",
         titleTh: "ห้าม NSFW",
         titleEn: "No NSFW content",
-        detailTh: "รูปโป๊, คลิป 18+, เนื้อหาที่ไม่เหมาะสม - ยกเว้น r34",
-        detailEn: "Pornographic images, 18+ videos, or inappropriate content — except r34",
+        detailTh: "รูปโป๊, คลิป 18+ หรือเนื้อหาทางเพศที่ไม่เหมาะสม",
+        detailEn: "No pornographic images, 18+ videos, or other sexual content",
       },
       {
         icon: "Megaphone",

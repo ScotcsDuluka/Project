@@ -7,11 +7,11 @@ import { PROJECTS } from "@/data/projects";
 const STORAGE_KEY = "duluka-intro-weird-v2";
 
 const BOOT_LINES = [
-  "> BOOTING DULUKA STUDIO™ v2.0 ...",
-  "> CONNECTING TO GITHUB ............. OK",
-  `> LOADING OPEN SOURCE PROJECTS ....... ${PROJECTS.length}/${PROJECTS.length}`,
-  "> PREPARING WORKSPACE ............. OK",
-  "> ALL SYSTEMS GO. READY.",
+  "> STARTING DULUKA STUDIO ...",
+  `> LOADING PROJECT INDEX ....... ${PROJECTS.length} ENTRIES`,
+  "> PREPARING PAGE ............. OK",
+  "> LINKS AND DETAILS ARE READY.",
+  "> THAT'S IT. HAVE A LOOK.",
 ];
 
 // SSR-safe: returns false on server, checks localStorage on client first render
@@ -99,7 +99,7 @@ export default function Intro() {
       {/* top mono strip */}
       <div className="relative z-10 flex items-center justify-between border-b-2 border-wx-acid/30 px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] text-wx-acid/60 sm:px-8">
         <span>DULUKA STUDIO™</span>
-        <span className="hidden sm:block">EST. FOREVER</span>
+        <span className="hidden sm:block">PROJECTS & EXPERIMENTS</span>
         <span className="wx-blink text-wx-acid">● REC</span>
       </div>
 
@@ -134,7 +134,7 @@ export default function Intro() {
               <span className="wx-stroke-acid">Studio™</span>
             </h1>
             <p className="mx-auto mt-6 max-w-md font-mono text-[10px] uppercase tracking-[0.3em] text-wx-paper/60 sm:text-xs">
-              สตูดิโอส่วนตัวของ ScotcsDuluka — เปิดซอร์สทุกโปรเจกต์
+              เว็บรวมโปรเจกต์และงานทดลองของ ScotcsDuluka
             </p>
             <button
               onClick={(e) => {

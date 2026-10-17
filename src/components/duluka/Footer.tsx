@@ -6,7 +6,7 @@ import { DISCORD_INVITE, GITHUB_PROFILE, SERVER } from "@/data/projects";
 const MARQUEE = [
   "Duluka Studio™",
   "ScotcsDuluka",
-  "Open Source Forever",
+  "Projects & Experiments",
   "GitHub",
   "Discord",
   "Minecraft",
@@ -85,8 +85,8 @@ export default function Footer() {
               </div>
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-wx-paper/60">
-              สตูดิโอส่วนตัวของ ScotcsDuluka — ทำโปรเจกต์ที่อยากทำ เปิดซอร์สทุกตัว
-              แบ่งปันความรู้และความสนุกให้ทุกคน
+              เว็บรวมโปรเจกต์ที่กำลังทำ ทั้งเครื่องมือ งานทดลอง และของที่ยังต้องแก้ต่อ
+              รายละเอียดของแต่ละงานอยู่ใน GitHub
             </p>
             <div className="mt-5 flex gap-2">
               <a
@@ -113,7 +113,7 @@ export default function Footer() {
           {/* Nav */}
           <div>
             <div className="mb-3 font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-wx-paper/40">
-              // NAVIGATE
+              NAVIGATION
             </div>
             <ul className="space-y-2 text-sm">
               {[
@@ -139,7 +139,7 @@ export default function Footer() {
           {/* Server box */}
           <div>
             <div className="mb-3 font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-wx-paper/40">
-              // MC SERVER
+              MINECRAFT SERVER
             </div>
             <div className="border-2 border-wx-paper/30 p-4">
               <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-wx-paper/40">
@@ -164,7 +164,7 @@ export default function Footer() {
             © {year} Duluka Studio — สร้างด้วยใจ ในประเทศไทย
           </div>
           <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-wx-paper/40">
-            OPEN SOURCE FOREVER
+            PROJECTS, EXPERIMENTS & FIXES
           </div>
           <a
             href="#top"

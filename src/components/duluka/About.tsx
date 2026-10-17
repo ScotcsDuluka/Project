@@ -5,9 +5,9 @@ import { GITHUB_PROFILE, DISCORD_INVITE } from "@/data/projects";
 
 const FACTS = [
   { num: "01", label: "OWNER", value: "ScotcsDuluka", note: "1 คน ทำทุกอย่างเอง" },
-  { num: "02", label: "LANGUAGES", value: "VB.NET · C# · HTML · CSS · JS · TS", note: "ใช้ทำทุกโปรเจกต์" },
+  { num: "02", label: "LANGUAGES", value: "VB.NET · C# · HTML · CSS · JS · TS", note: "เลือกใช้ตามงาน" },
   { num: "03", label: "FOCUS", value: "Capture · Magisk · MC · TTML", note: "หลากหลายจนน่ากลัว" },
-  { num: "04", label: "COMMUNITY", value: "ไทย / English", note: "bilingual เต็มตัว" },
+  { num: "04", label: "COMMUNITY", value: "ไทย / English", note: "ไทยเป็นหลัก" },
 ];
 
 function SectionTag({ num, th, en }: { num: string; th: string; en: string }) {
@@ -33,7 +33,7 @@ export default function About() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.5 }}
         >
-          <SectionTag num="§02" en="MANIFESTO" th="เกี่ยวกับ" />
+          <SectionTag num="§02" en="ABOUT" th="เกี่ยวกับ" />
         </motion.div>
 
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
@@ -46,13 +46,13 @@ export default function About() {
             className="lg:col-span-7"
           >
             <h2 className="text-3xl font-black leading-[1.15] sm:text-4xl lg:text-5xl">
-              สตูดิโอนี้ทำของที่{" "}
-              <span className="wx-marker">อยากทำจริงๆ</span> — บางตัวใหญ่ บางตัวเล็ก
-              แต่ทุกชิ้นมีเรื่องเล่าของมัน และ{" "}
+              ที่นี่รวมของที่{" "}
+              <span className="wx-marker">อยากลองทำ</span> — มีทั้งโปรเจกต์ที่ใช้งานได้แล้ว
+              และงานทดลองที่ยังต้องแก้ต่อ{" "}
               <span className="border-2 border-wx-ink bg-wx-ink px-2 text-wx-acid">
-                เปิดซอร์สหมด
+                ดูโค้ดได้ใน GitHub
               </span>{" "}
-              เพราะเชื่อว่าแบ่งปันดีกว่าเก็บ
+              ส่วนรายละเอียดและไลเซนส์ต้องดูแยกตามแต่ละ repo
             </h2>
 
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-wx-ink/70 sm:text-lg">

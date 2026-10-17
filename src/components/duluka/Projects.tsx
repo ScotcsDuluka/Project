@@ -3,15 +3,15 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
+import type { LucideIcon as LucideIconComponent } from "lucide-react";
 import {
   Github,
   ExternalLink,
   ArrowUpRight,
   X,
-  Star,
-  GitFork,
   AlertTriangle,
   Filter,
+  Scale,
 } from "lucide-react";
 import { PROJECTS, type ProjectRepo, type ProjectCategory } from "@/data/projects";
 
@@ -24,13 +24,20 @@ const CATEGORIES: ("All" | ProjectCategory)[] = [
   "Minecraft",
   "Data",
   "Profile",
+  "Other",
 ];
 
 function LucideIcon({ name, className }: { name: string; className?: string }) {
   const C =
-    (Icons as Record<string, React.ComponentType<{ className?: string }>>)[name] ??
-    Icons.Circle;
+    (Icons as unknown as Record<string, LucideIconComponent>)[name] ?? Icons.Circle;
   return <C className={className} />;
+}
+
+function displayLicense(name?: string): string {
+  if (!name) return "Not listed";
+  if (/assumed|unknown|unverified/i.test(name)) return "Not verified";
+  if (/^profile readme$/i.test(name)) return "Not a software license";
+  return name;
 }
 
 export default function Projects() {
@@ -80,7 +87,7 @@ export default function Projects() {
               <span className="wx-stroke">Repos</span>
             </h2>
             <p className="mt-4 max-w-xl text-sm text-wx-ink/60 sm:text-base">
-              ทุก repo ของ ScotcsDuluka — คลิกแถวเพื่อดูรายละเอียด หรือกระโดดเข้า GitHub ตรงๆ
+              รายการงานของ ScotcsDuluka กดชื่อเพื่ออ่านสรุป หรือเปิด repo ดูโค้ดจริง
             </p>
           </div>
 
@@ -163,7 +170,7 @@ export default function Projects() {
                         className={`ml-2 inline-block px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.15em] ${
                           p.status === "Released"
                             ? "bg-current text-[var(--wx-paper)]"
-                            : p.status === "Active Dev"
+                            : p.status === "Active Dev" || p.status === "Recently Updated"
                               ? "bg-wx-orange text-wx-ink"
                               : "bg-wx-ink/15 text-current"
                         } ${p.status === "Released" ? "group-hover:bg-wx-acid group-hover:text-wx-ink" : ""}`}
@@ -252,7 +259,7 @@ export default function Projects() {
                 {selected.hasReadme && selected.bullets.length > 0 && (
                   <div className="mt-6">
                     <div className="mb-3 font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-wx-ink/50">
-                      // FROM README
+                      PROJECT NOTES
                     </div>
                     <ul className="space-y-0">
                       {selected.bullets.map((b, i) => (
@@ -274,8 +281,7 @@ export default function Projects() {
                   <div className="mt-6 flex items-start gap-3 border-2 border-wx-ink bg-wx-paper2 p-4">
                     <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-wx-orange" />
                     <div className="text-sm">
-                      Repo นี้ยังไม่มี README — ข้อมูลเพิ่มเติมอยู่ที่ GitHub โดยตรงเท่านั้น
-                      (เราไม่เดาเนื้อหาแทน)
+                      repo นี้ยังไม่มี README รายละเอียดมากกว่านี้ต้องดูจากไฟล์ใน GitHub เอง
                     </div>
                   </div>
                 )}
@@ -357,12 +363,12 @@ export default function Projects() {
                   </div>
                 )}
 
-                <div className="mt-6 flex items-center gap-4 border-t-2 border-wx-ink pt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-wx-ink/50">
+                <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 border-t-2 border-wx-ink pt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-wx-ink/50">
                   <span className="inline-flex items-center gap-1">
-                    <Star className="h-3 w-3" /> Open Source
+                    <Github className="h-3 w-3" /> GitHub repository
                   </span>
                   <span className="inline-flex items-center gap-1">
-                    <GitFork className="h-3 w-3" /> MIT License
+                    <Scale className="h-3 w-3" /> License: {displayLicense(selected.license?.name)}
                   </span>
                 </div>
               </div>

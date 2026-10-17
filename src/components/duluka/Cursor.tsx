@@ -1,23 +1,44 @@
 'use client';
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 /**
  * Cursor follower — a small acid square that chases the
  * pointer and grows into a labelled chip over [data-cursor] targets.
  * Rendered only for fine pointers (mouse) with motion allowed.
  */
+function subscribeToCursorPreferences(onChange: () => void) {
+  const finePointer = window.matchMedia("(pointer: fine)");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  finePointer.addEventListener("change", onChange);
+  reducedMotion.addEventListener("change", onChange);
+
+  return () => {
+    finePointer.removeEventListener("change", onChange);
+    reducedMotion.removeEventListener("change", onChange);
+  };
+}
+
+function getCursorEnabled() {
+  return (
+    window.matchMedia("(pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
+function getServerCursorEnabled() {
+  return false;
+}
+
 export default function Cursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const [label, setLabel] = useState<string | null>(null);
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    const noMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!fine || noMotion) return;
-    setEnabled(true);
-  }, []);
+  const enabled = useSyncExternalStore(
+    subscribeToCursorPreferences,
+    getCursorEnabled,
+    getServerCursorEnabled,
+  );
 
   useEffect(() => {
     if (!enabled) return;

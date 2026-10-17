@@ -15,7 +15,7 @@ const LINKS = [
   },
   {
     label: "GITHUB",
-    th: "ดูซอร์สโค้ดทุกตัว",
+    th: "ดูโค้ดและไฟล์โปรเจกต์",
     href: GITHUB_PROFILE,
     icon: Github,
     cursor: "GIT",
@@ -59,8 +59,8 @@ export default function Connect() {
           transition={{ duration: 0.5 }}
           className="mb-10 max-w-4xl text-3xl font-black leading-[1.1] sm:text-4xl lg:text-6xl"
         >
-          อยากคุย อยากเล่น หรืออยากทำอะไร{" "}
-          <span className="wx-marker">ด้วยกัน?</span>
+          คุยกันใน Discord ดูโค้ดบน GitHub หรือมาเจอกันใน{" "}
+          <span className="wx-marker">Minecraft</span>.
         </motion.h2>
 
         {/* Giant link rows */}

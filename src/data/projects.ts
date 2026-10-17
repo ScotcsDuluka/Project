@@ -37,7 +37,7 @@ export interface ProjectRepo {
   url: string;
   homepage?: string;
   category: ProjectCategory;
-  status: "Released" | "Active Dev" | "No README" | "Archived";
+  status: "Released" | "Active Dev" | "Recently Updated" | "No README" | "Archived";
   icon: string;
   short: string;
   bullets: string[];
@@ -183,10 +183,10 @@ function inferStatus(
   hasReadme: boolean
 ): ProjectRepo["status"] {
   if (archived) return "Archived";
-  // If pushed within last 6 months → Active Dev
+  // A recent push shows recent activity, not necessarily active development.
   const sixMonthsAgo = Date.now() - 6 * 30 * 24 * 60 * 60 * 1000;
   if (new Date(pushedAt).getTime() > sixMonthsAgo) {
-    return "Active Dev";
+    return "Recently Updated";
   }
   if (!hasReadme) return "No README";
   return "Released";
@@ -213,9 +213,10 @@ const merged: ProjectRepo[] = MANUAL_PROJECTS.map((p) => {
   // Merge: auto provides fresh metadata, manual keeps detailed fields
   return {
     ...p,
-    // Auto overrides these (fresher)
+    // GitHub provides fresher metadata, but short descriptions are hand-written.
+    // Keep the curated copy instead of replacing it with vague repo descriptions.
     name: auto.name || p.name,
-    short: auto.description || p.short,
+    short: p.short,
     homepage: auto.homepage || p.homepage,
     // Auto provides these new fields
     stars: auto.stars,
@@ -229,9 +230,10 @@ const merged: ProjectRepo[] = MANUAL_PROJECTS.map((p) => {
     updatedAt: auto.updatedAt,
     archived: auto.archived,
     defaultBranch: auto.defaultBranch,
-    // Status: use auto-inferred if manual says No README but README now exists
-    status:
-      p.status === "No README" && auto.hasReadme
+    // Archive state is authoritative metadata; infer only when a README appeared.
+    status: auto.archived
+      ? "Archived"
+      : p.status === "No README" && auto.hasReadme
         ? inferStatus(auto.archived, auto.pushedAt, true)
         : p.status,
     // Tags: merge manual + auto topics (dedupe)
@@ -262,7 +264,7 @@ for (const auto of AUTO_DATA) {
     category,
     status: inferStatus(auto.archived, auto.pushedAt, auto.hasReadme),
     icon: inferIcon(category, auto.name),
-    short: auto.description || `${auto.name} — see repository for details.`,
+    short: auto.description || `${auto.name} — ยังไม่มีคำอธิบาย เปิด repository เพื่อดูไฟล์ล่าสุดได้เลย.`,
     bullets: auto.readmeExcerpt ? [auto.readmeExcerpt] : [],
     tags: auto.topics || [],
     hasReadme: auto.hasReadme,
@@ -281,6 +283,3 @@ for (const auto of AUTO_DATA) {
 }
 
 export const PROJECTS: ProjectRepo[] = merged;
-
-// Also re-export the ProjectRepo type for downstream imports
-export type { ProjectRepo };
