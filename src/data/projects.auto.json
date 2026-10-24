@@ -17,14 +17,14 @@
       "recorder",
       "shadowplay"
     ],
-    "pushedAt": "2026-10-23T03:06:44Z",
+    "pushedAt": "2026-10-24T02:14:50Z",
     "createdAt": "2024-10-15T13:29:15Z",
-    "updatedAt": "2026-10-22T23:42:14Z",
+    "updatedAt": "2026-10-24T02:14:54Z",
     "archived": false,
     "defaultBranch": "Stable",
     "hasReadme": true,
-    "readmeExcerpt": "NVIDIA ShadowPlay",
-    "fetchedAt": "2026-10-23T04:28:01.212Z"
+    "readmeExcerpt": "SHADOWPLAY NEXT",
+    "fetchedAt": "2026-10-24T04:18:17.043Z"
   },
   {
     "slug": "project",
@@ -38,14 +38,14 @@
     "openIssues": 0,
     "language": "TypeScript",
     "topics": [],
-    "pushedAt": "2026-10-22T04:23:05Z",
+    "pushedAt": "2026-10-23T04:28:02Z",
     "createdAt": "2026-07-10T08:48:49Z",
-    "updatedAt": "2026-10-22T04:23:09Z",
+    "updatedAt": "2026-10-23T04:28:06Z",
     "archived": false,
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "Duluka Studio",
-    "fetchedAt": "2026-10-23T04:28:01.437Z"
+    "fetchedAt": "2026-10-24T04:18:17.279Z"
   },
   {
     "slug": "lyrics-ttml",
@@ -66,7 +66,7 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "Lyrics-TTML",
-    "fetchedAt": "2026-10-23T04:28:01.437Z"
+    "fetchedAt": "2026-10-24T04:18:17.279Z"
   },
   {
     "slug": "windows-10-desktop-web",
@@ -87,7 +87,7 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "Windows 10 Desktop (Web Edition)",
-    "fetchedAt": "2026-10-23T04:28:01.438Z"
+    "fetchedAt": "2026-10-24T04:18:17.279Z"
   },
   {
     "slug": "mcdmods-project-plus",
@@ -108,7 +108,7 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "mcd-news",
-    "fetchedAt": "2026-10-23T04:28:01.438Z"
+    "fetchedAt": "2026-10-24T04:18:17.279Z"
   },
   {
     "slug": "web-hyperos-launcher",
@@ -128,7 +128,7 @@
     "archived": false,
     "defaultBranch": "main",
     "hasReadme": false,
-    "fetchedAt": "2026-10-23T04:28:01.438Z"
+    "fetchedAt": "2026-10-24T04:18:17.279Z"
   },
   {
     "slug": "web-custom",
@@ -148,7 +148,7 @@
     "archived": false,
     "defaultBranch": "main",
     "hasReadme": false,
-    "fetchedAt": "2026-10-23T04:28:01.438Z"
+    "fetchedAt": "2026-10-24T04:18:17.279Z"
   },
   {
     "slug": "student-statistics",
@@ -168,7 +168,7 @@
     "archived": false,
     "defaultBranch": "main",
     "hasReadme": false,
-    "fetchedAt": "2026-10-23T04:28:01.438Z"
+    "fetchedAt": "2026-10-24T04:18:17.279Z"
   },
   {
     "slug": "scotcsduluka",
@@ -189,7 +189,7 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "ScotcsDuluka",
-    "fetchedAt": "2026-10-23T04:28:01.438Z"
+    "fetchedAt": "2026-10-24T04:18:17.279Z"
   },
   {
     "slug": "always-on-display-mods",
@@ -212,7 +212,7 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "Supported Devices & Version",
-    "fetchedAt": "2026-10-23T04:28:01.438Z"
+    "fetchedAt": "2026-10-24T04:18:17.279Z"
   },
   {
     "slug": "extreme-update",
@@ -233,6 +233,6 @@
     "defaultBranch": "main",
     "hasReadme": true,
     "readmeExcerpt": "Extreme-Update",
-    "fetchedAt": "2026-10-23T04:28:01.438Z"
+    "fetchedAt": "2026-10-24T04:18:17.279Z"
   }
 ]
